@@ -64,24 +64,23 @@ h3{font-size:clamp(1.3rem,2.2vw,1.8rem);letter-spacing:-.02em;line-height:1.05}
 .header{position:fixed;inset:0 0 auto 0;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:22px var(--gutter);transition:background .4s,backdrop-filter .4s,padding .4s,box-shadow .4s}
 .header.scrolled{background:rgba(255,255,255,.86);backdrop-filter:blur(18px) saturate(180%);box-shadow:0 1px 0 rgba(0,0,0,.06);padding-block:14px}
 .brand{display:flex;align-items:center;gap:.6rem;z-index:2}
-.brand .logo-mark{height:26px;width:auto}
-.brand .logo-text{font-weight:700;font-size:1.3rem;letter-spacing:-.04em;color:#fff;transition:color .4s}
-.header.scrolled .brand .logo-text{color:var(--ink)}
-.nav{display:flex;align-items:center;gap:2rem}
-.nav a{font-size:.95rem;color:rgba(255,255,255,.9);transition:color .4s;position:relative}
-.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1px;background:currentColor;transition:right .3s cubic-bezier(.16,1,.3,1)}
-.nav a:hover::after{right:0}
+.brand .logo-img{height:42px;width:auto;display:block;transition:height .4s}
+.header.scrolled .brand .logo-img{height:34px}
+.nav{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:2rem}
+.nav a{display:inline-flex;align-items:center;gap:.34rem;font-size:.95rem;color:rgba(255,255,255,.9);transition:color .25s,opacity .25s}
+.nav a:hover{opacity:.62}
+.nav a .caret{opacity:.6;flex:none}
 .header.scrolled .nav a{color:var(--ink)}
 .header-cta{display:flex;align-items:center;gap:1rem;z-index:2}
 .header-cta .btn{padding:.7rem 1.4rem;font-size:.92rem}
 .header:not(.scrolled) .header-cta .btn-dark{background:#fff;color:var(--ink)}
-.menu-toggle{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);transition:background .25s}
+.menu-toggle{width:46px;height:46px;border-radius:50%;display:none;place-items:center;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);transition:background .25s}
 .header.scrolled .menu-toggle{background:var(--ink)}
 .menu-toggle span,.menu-toggle span::before,.menu-toggle span::after{content:"";display:block;width:18px;height:1.6px;background:#fff;border-radius:2px}
 .menu-toggle span::before{transform:translateY(-6px)}
 .menu-toggle span::after{transform:translateY(4.4px)}
-@media(max-width:980px){.nav{display:none}}
-@media(max-width:600px){.header{padding-inline:20px}.header-cta .btn{display:none}.brand .logo-text{font-size:1.15rem}}
+@media(max-width:980px){.nav{display:none}.menu-toggle{display:grid}}
+@media(max-width:600px){.header{padding-inline:20px}.header-cta .btn{display:none}.brand .logo-img{height:34px}}
 
 /* ---- Overlay Menu (Framer controls clip-path + stagger) ---- */
 .overlay-menu{position:fixed;inset:0;z-index:120;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 var(--gutter)}
@@ -101,7 +100,9 @@ h3{font-size:clamp(1.3rem,2.2vw,1.8rem);letter-spacing:-.02em;line-height:1.05}
 .hero-copy .inner{max-width:var(--maxw);margin:0 auto;width:100%;padding-inline:var(--gutter);text-align:center}
 .hero h1{color:#fff;line-height:.92;text-shadow:0 6px 70px rgba(0,0,0,.4);margin-inline:auto}
 .hero h1 em{font-style:italic;font-weight:500;letter-spacing:-.02em}
-.hero .sub{color:rgba(255,255,255,.92);font-size:clamp(1.02rem,1.4vw,1.25rem);max-width:48ch;margin:1.8rem auto 0;line-height:1.55}
+.hero .sub{color:rgba(255,255,255,.92);font-size:clamp(1.05rem,1.7vw,1.5rem);margin:1.6rem auto 0;line-height:1.5;font-weight:500}
+.hero .sub b{font-weight:600;color:#fff}
+.hero .sub .muted{color:rgba(255,255,255,.5)}
 .hero .cta-row{display:flex;gap:.8rem;margin-top:2.4rem;flex-wrap:wrap;pointer-events:auto;justify-content:center}
 .scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:.55rem;color:rgba(255,255,255,.85);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
 .scroll-hint .bar{width:1.5px;height:40px;background:linear-gradient(rgba(255,255,255,.9),rgba(255,255,255,0));transform-origin:top}
@@ -345,6 +346,15 @@ function WordReveal({ text, className, dark }) {
   )
 }
 
+/* Dropdown caret (decorative, matches reference nav) */
+function Caret() {
+  return (
+    <svg className="caret" width="10" height="6" viewBox="0 0 10 6" fill="none">
+      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 /* ============================ HEADER + OVERLAY ============================ */
 function Header({ onOpen }) {
   const [scrolled, setScrolled] = useState(false)
@@ -353,16 +363,13 @@ function Header({ onOpen }) {
   return (
     <header className={`header${scrolled ? " scrolled" : ""}`}>
       <a href="#top" className="brand">
-        <svg className="logo-mark" height="26" viewBox="0 0 943 717" fill="none">
-          <polygon fill="#2F267C" points="48.57,295.3 265.7,295.3 426.38,586.25 795.51,0 943.15,0 491.52,716.54 296.1,716.54"/>
-        </svg>
-        <span className="logo-text">Vonhoegen</span>
+        <img className="logo-img" src="Vonhoegen%20Logo.svg" alt="Vonhoegen Bauunternehmung" />
       </a>
       <nav className="nav">
         <a href="#warum">Warum Vonhoegen</a>
-        <a href="#leistungen">Leistungen</a>
-        <a href="#referenzen">Referenzen</a>
-        <a href="#ueber">Über uns</a>
+        <a href="#leistungen">Leistungen <Caret /></a>
+        <a href="#referenzen">Referenzen <Caret /></a>
+        <a href="#ueber">Über uns <Caret /></a>
         <a href="#kontakt">Kontakt</a>
       </nav>
       <div className="header-cta">
@@ -490,19 +497,17 @@ function Hero() {
               <motion.span key={i} style={{ display: "block" }}
                 variants={{ hidden: { opacity: 0, y: 46 }, show: { opacity: 1, y: 0 } }}
                 transition={{ duration: 0.9, ease: EASE }}>
-                {i === 1 ? <>was <em>Bestand</em> hat.</> : ln}
+                {ln}
               </motion.span>
             ))}
           </motion.h1>
           <motion.p className="sub" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.5 }}>
-            Industriebau, Pharma- & Reinraumbau und Brandschutz aus Würselen — terminsicher umgesetzt,
-            normgerecht ausgeführt, lückenlos dokumentiert.
+            <b>Industriebau. Pharmabau. Brandschutz.</b> <span className="muted">Bauen mit System aus Würselen.</span>
           </motion.p>
           <motion.div className="cta-row" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.65 }}>
             <Btn href="#kontakt" variant="light">Projekt anfragen</Btn>
-            <Btn href="#leistungen" variant="outline-dark" icon={false}>Leistungen ansehen</Btn>
           </motion.div>
         </div>
       </div>
@@ -834,8 +839,7 @@ function App() {
           <div className="cols">
             <div>
               <a href="#top" className="brand">
-                <svg className="logo-mark" height="24" viewBox="0 0 943 717" fill="none"><polygon fill="#2F267C" points="48.57,295.3 265.7,295.3 426.38,586.25 795.51,0 943.15,0 491.52,716.54 296.1,716.54"/></svg>
-                <span className="logo-text">Vonhoegen</span>
+                <img className="logo-img" src="Vonhoegen%20Logo.svg" alt="Vonhoegen Bauunternehmung" />
               </a>
               <p className="intro">Bauunternehmung aus Würselen. Industriebau, Pharmabau, Brandschutz und Sanierung — gebaut für Bestand.</p>
             </div>
