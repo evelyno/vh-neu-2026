@@ -85,13 +85,6 @@
       align-items: center;
       gap: .7rem;
     }
-    .eyebrow::before {
-      content: "";
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex: none;
-    }
     .eyebrow.on-dark { color: rgba(255, 255, 255, .62) }
 
     /* ---- Buttons ---- */
@@ -375,7 +368,7 @@
       padding: clamp(26px, 3.4vw, 44px) 0; border-bottom: 1px solid var(--line-dark);
       position: relative; transition: padding-left .5s var(--ease);
     }
-    .svc-row .num { position: absolute; top: clamp(20px, 2.6vw, 34px); left: 0; font-size: .8rem; color: rgba(255, 255, 255, .4); font-weight: 500; font-variant-numeric: tabular-nums; opacity: 0; transition: opacity .4s var(--ease) }
+    .svc-row .num { position: absolute; top: clamp(26px, 3.4vw, 44px); left: 0; font-size: .8rem; color: rgba(255, 255, 255, .4); font-weight: 500; font-variant-numeric: tabular-nums; opacity: 0; transition: opacity .4s var(--ease) }
     .svc-row .thumb { width: clamp(70px, 8vw, 120px); height: clamp(70px, 8vw, 120px); overflow: hidden; flex: none; filter: grayscale(1); transition: filter .5s, transform .5s var(--ease) }
     .svc-row .thumb img { width: 100%; height: 100%; object-fit: cover }
     .svc-row .ttl { font-weight: 700; letter-spacing: -.04em; line-height: .95; font-size: clamp(2.4rem, 7vw, 6rem); color: #fff; transition: opacity .4s, transform .5s var(--ease) }
