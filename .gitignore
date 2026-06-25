@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+
+# Local tooling state (browser daemon tokens, logs — never commit)
+.gstack/
+
+# Large source asset (hero frames are extracted into frames/)
+build.mp4
+
+# findrealestate.com reference / scrape artifacts (not part of the deliverable)
+findrealestate*.html
+findrealestate*.css
+findrealestate.json
+findrealestate.com_*.json
+findrealestate.com_*.md
+image-urls.txt
+branding.json
