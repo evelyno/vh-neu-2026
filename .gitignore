@@ -15,3 +15,9 @@ findrealestate.com_*.json
 findrealestate.com_*.md
 image-urls.txt
 branding.json
+
+# Animation reference material (large; used only for building v3, not shipped)
+reference_frames/
+claude_reference/
+web_animation_reference*.mp4
+web_animation_reference*.webp
