@@ -146,8 +146,9 @@
       position: relative;
       display: inline-flex; align-items: center; gap: .4rem;
       font-size: 1rem; font-weight: 500; color: rgba(255, 255, 255, .92);
-      transition: color .3s;
+      transition: color .35s var(--ease), opacity .35s var(--ease);
       letter-spacing: -.01em;
+      opacity: .92;
     }
     .nav a::after {
       content: ""; position: absolute; left: 0; bottom: -7px;
@@ -155,28 +156,57 @@
       transform: scaleX(0); transform-origin: right;
       transition: transform .4s var(--ease);
     }
+    .nav a:hover {
+      opacity: 1;
+      color: #fff;
+    }
     .nav a:hover::after { transform: scaleX(1); transform-origin: left }
-    .nav a .caret { opacity: .5; flex: none; font-size: .75em }
-    .header.scrolled .nav a { color: var(--ink) }
+    .nav a .caret { opacity: .5; flex: none; font-size: .75em; transition: transform .35s var(--ease) }
+    .nav a:hover .caret { transform: translateY(2px); opacity: .75 }
+    .header.scrolled .nav a { color: var(--ink); opacity: .75 }
+    .header.scrolled .nav a:hover { color: var(--ink); opacity: 1 }
 
     .header-cta { display: flex; align-items: center; gap: 1rem; z-index: 2 }
-    .header-cta .btn { padding: .76rem 1.5rem; font-size: .92rem; background: rgba(255, 255, 255, .14); color: #fff; border: 1px solid rgba(255, 255, 255, .34); backdrop-filter: blur(6px) }
-    .header-cta .btn:hover { background: #fff; color: var(--ink); border-color: #fff }
-    .header.scrolled .header-cta .btn { background: var(--ink); color: #fff; border-color: var(--ink); backdrop-filter: none }
-    .header.scrolled .header-cta .btn:hover { box-shadow: 0 14px 30px -14px rgba(17, 19, 18, .6) }
+    .header-cta .btn {
+      padding: .76rem 1.5rem; font-size: .92rem;
+      background: rgba(255, 255, 255, .14); color: #fff; border: 1px solid rgba(255, 255, 255, .34);
+      backdrop-filter: blur(6px); transition: all .35s var(--ease);
+    }
+    .header-cta .btn:hover {
+      background: #fff; color: var(--ink); border-color: #fff;
+      transform: translateY(-3px); box-shadow: 0 12px 32px -8px rgba(255, 255, 255, .3);
+    }
+    .header.scrolled .header-cta .btn {
+      background: var(--ink); color: #fff; border-color: var(--ink); backdrop-filter: none;
+    }
+    .header.scrolled .header-cta .btn:hover {
+      box-shadow: 0 14px 40px -12px rgba(17, 19, 18, .7);
+      transform: translateY(-4px);
+    }
 
     .menu-toggle {
       width: 46px; height: 46px; border-radius: 50%;
       display: none; place-items: center;
       background: rgba(255, 255, 255, .14); backdrop-filter: blur(6px);
-      transition: background .25s;
+      transition: all .35s var(--ease);
+      cursor: pointer;
+    }
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, .22);
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px -6px rgba(255, 255, 255, .2);
     }
     .header.scrolled .menu-toggle { background: var(--ink) }
+    .header.scrolled .menu-toggle:hover { background: var(--ink); box-shadow: 0 8px 20px -6px rgba(17, 19, 18, .3); transform: scale(1.08) }
     .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after {
       content: ""; display: block; width: 18px; height: 1.6px; background: #fff; border-radius: 2px;
+      transition: all .35s var(--ease);
     }
     .menu-toggle span::before { transform: translateY(-6px) }
     .menu-toggle span::after { transform: translateY(4.4px) }
+    .menu-toggle:hover span { background: #fff }
+    .menu-toggle:hover span::before { transform: translateY(-7px); opacity: .85 }
+    .menu-toggle:hover span::after { transform: translateY(5.4px); opacity: .85 }
 
     @media(max-width:1040px) {
       .nav { display: none }
@@ -464,10 +494,36 @@
     .footer .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.4rem; padding-bottom: clamp(48px, 6vw, 72px) }
     .footer h4 { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255, 255, 255, .4); margin-bottom: 1.5rem; font-weight: 500 }
     .footer ul { list-style: none; display: flex; flex-direction: column; gap: .9rem }
-    .footer ul a { color: #fff; font-size: 1.18rem; font-weight: 600; letter-spacing: -.02em; transition: color .2s, opacity .2s; opacity: .85 }
-    .footer ul a:hover { opacity: 1; color: #fff }
-    .footer .contact b { display: block; color: rgba(255, 255, 255, .4); font-weight: 400; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; margin-top: 1.1rem; margin-bottom: .35rem }
-    .footer .contact a { color: #fff; font-size: 1.1rem; font-weight: 500 }
+    .footer ul a {
+      color: #fff; font-size: 1.18rem; font-weight: 600; letter-spacing: -.02em;
+      transition: all .35s var(--ease); opacity: .85;
+      display: inline-block;
+      position: relative;
+    }
+    .footer ul a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px;
+      width: 100%; height: 2px; background: #fff;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s var(--ease);
+    }
+    .footer ul a:hover {
+      opacity: 1; color: #fff;
+      transform: translateX(8px);
+    }
+    .footer ul a:hover::after { transform: scaleX(1) }
+    .footer .contact b {
+      display: block; color: rgba(255, 255, 255, .4); font-weight: 400; font-size: .78rem;
+      text-transform: uppercase; letter-spacing: .1em; margin-top: 1.1rem; margin-bottom: .35rem;
+    }
+    .footer .contact a {
+      color: #fff; font-size: 1.1rem; font-weight: 500;
+      transition: all .35s var(--ease);
+      display: inline-block;
+    }
+    .footer .contact a:hover {
+      transform: translateX(4px);
+      text-shadow: 0 0 12px rgba(255, 255, 255, .2);
+    }
 
     /* giant footer wordmark */
     .footer-mark { padding-block: clamp(20px, 3vw, 36px) 0; overflow: hidden }
