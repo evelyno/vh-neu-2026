@@ -124,60 +124,66 @@
     /* ---- Header ---- */
     .header {
       position: fixed; inset: 0 0 auto 0; z-index: 90;
-      background: linear-gradient(180deg, rgba(12, 14, 20, .98) 0%, rgba(12, 14, 20, .95) 100%);
-      backdrop-filter: blur(12px);
+      background: transparent;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 20px var(--gutter);
-      transition: padding .45s var(--ease), box-shadow .45s;
-      box-shadow: 0 1px 0 rgba(255, 255, 255, .04);
+      padding: 26px var(--gutter);
+      transition: background .45s var(--ease), backdrop-filter .45s, padding .45s var(--ease), box-shadow .45s;
     }
     .header.scrolled {
-      padding-block: 14px;
+      background: rgba(255, 255, 255, .9);
+      backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+      padding-block: 13px;
     }
     .brand { display: flex; align-items: center; gap: .6rem; z-index: 2 }
-    .brand .logo-img { height: 52px; width: auto; display: block; transition: height .45s var(--ease) }
-    .header.scrolled .brand .logo-img { height: 44px }
+    /* logo: monochrome light over hero, full colour once header turns solid */
+    .brand .logo-img {
+      height: 54px; width: auto; display: block;
+      filter: grayscale(1) brightness(0) invert(.96);
+      transition: height .45s var(--ease), filter .45s var(--ease);
+    }
+    .header.scrolled .brand .logo-img { height: 44px; filter: none }
 
     .nav {
       position: absolute; left: 50%; top: 50%;
       transform: translate(-50%, -50%);
-      display: flex; align-items: center; gap: 2.8rem;
+      display: flex; align-items: center; gap: 2.6rem;
     }
     .nav a {
       position: relative;
       display: inline-flex; align-items: center; gap: .4rem;
-      font-size: 1.02rem; font-weight: 500; color: rgba(255, 255, 255, .88);
+      font-size: 1rem; font-weight: 500; color: rgba(255, 255, 255, .92);
       transition: color .3s;
       letter-spacing: -.01em;
     }
     .nav a::after {
-      content: ""; position: absolute; left: 0; bottom: -8px;
-      width: 100%; height: 2px; background: rgba(255, 255, 255, .7);
+      content: ""; position: absolute; left: 0; bottom: -7px;
+      width: 100%; height: 2px; background: currentColor;
       transform: scaleX(0); transform-origin: right;
-      transition: transform .4s var(--ease), background .3s;
+      transition: transform .4s var(--ease);
     }
-    .nav a:hover { color: #fff }
-    .nav a:hover::after { transform: scaleX(1); transform-origin: left; background: #fff }
-    .nav a .caret { opacity: .45; flex: none; font-size: .75em }
+    .nav a:hover::after { transform: scaleX(1); transform-origin: left }
+    .nav a .caret { opacity: .5; flex: none; font-size: .75em }
+    .header.scrolled .nav a { color: var(--ink) }
 
     .header-cta { display: flex; align-items: center; gap: 1rem; z-index: 2 }
-    .header-cta .btn { padding: .76rem 1.5rem; font-size: .92rem; background: rgba(255, 255, 255, .1); color: #fff; border: 1px solid rgba(255, 255, 255, .2) }
-    .header-cta .btn:hover { background: rgba(255, 255, 255, .15); border-color: rgba(255, 255, 255, .3) }
+    .header-cta .btn { padding: .76rem 1.5rem; font-size: .92rem; background: rgba(255, 255, 255, .14); color: #fff; border: 1px solid rgba(255, 255, 255, .34); backdrop-filter: blur(6px) }
+    .header-cta .btn:hover { background: #fff; color: var(--ink); border-color: #fff }
+    .header.scrolled .header-cta .btn { background: var(--ink); color: #fff; border-color: var(--ink); backdrop-filter: none }
+    .header.scrolled .header-cta .btn:hover { box-shadow: 0 14px 30px -14px rgba(17, 19, 18, .6) }
 
     .menu-toggle {
       width: 46px; height: 46px; border-radius: 50%;
       display: none; place-items: center;
-      background: rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .14); backdrop-filter: blur(6px);
       transition: background .25s;
     }
-    .menu-toggle:hover { background: rgba(255, 255, 255, .12) }
+    .header.scrolled .menu-toggle { background: var(--ink) }
     .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after {
-      content: ""; display: block; width: 18px; height: 1.6px; background: rgba(255, 255, 255, .9); border-radius: 2px;
-      transition: background .25s;
+      content: ""; display: block; width: 18px; height: 1.6px; background: #fff; border-radius: 2px;
     }
     .menu-toggle span::before { transform: translateY(-6px) }
     .menu-toggle span::after { transform: translateY(4.4px) }
-    .menu-toggle:hover span, .menu-toggle:hover span::before, .menu-toggle:hover span::after { background: #fff }
 
     @media(max-width:1040px) {
       .nav { display: none }
@@ -362,73 +368,26 @@
       .testi-media { aspect-ratio: 16/10 }
     }
 
-    /* ============================ LEISTUNGEN — sticky giant-type ============================ */
-    .svc { position: relative; background: var(--dark); color: #fff; --swl: clamp(2.5rem, 5.6vw, 5rem) }
-    .svc-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center }
-    .svc-bg { position: absolute; inset: 0; z-index: 0 }
-    .svc-bg-img {
-      position: absolute; inset: 0; background-size: cover; background-position: center;
-      filter: grayscale(1) contrast(1.05) brightness(.7);
-      transition: opacity .8s var(--ease), transform 1.2s var(--ease);
+    /* ============================ LEISTUNGEN — dark, giant type rows ============================ */
+    .svc-list { margin-top: clamp(40px, 5vw, 72px); border-top: 1px solid var(--line-dark) }
+    .svc-row {
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(20px, 4vw, 60px);
+      padding: clamp(26px, 3.4vw, 44px) 0; border-bottom: 1px solid var(--line-dark);
+      position: relative; transition: padding-left .5s var(--ease);
     }
-    .svc-bg-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15, 17, 16, .92) 0%, rgba(15, 17, 16, .72) 42%, rgba(15, 17, 16, .55) 100%) }
-    .svc-grid {
-      position: relative; z-index: 2; width: 100%;
-      display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(30px, 5vw, 80px); align-items: center;
-    }
-    .svc-left .eyebrow { margin-bottom: 1.6rem }
-    .svc-h { margin-bottom: 2.2rem }
-    .svc-desc-wrap { position: relative; min-height: 8.5em; max-width: 40ch }
-    .svc-desc { color: rgba(255, 255, 255, .72); font-size: clamp(1.02rem, 1.3vw, 1.18rem); line-height: 1.6 }
-    .svc-num { display: block; font-size: .82rem; letter-spacing: .14em; color: rgba(255, 255, 255, .42); margin-bottom: 1rem; font-variant-numeric: tabular-nums }
-    .svc-cta { margin-top: 2.4rem }
-
-    .svc-words {
-      position: relative; height: calc(var(--swl) * 3); overflow: hidden;
-      -webkit-mask: linear-gradient(180deg, transparent, #000 32%, #000 68%, transparent);
-      mask: linear-gradient(180deg, transparent, #000 32%, #000 68%, transparent);
-    }
-    .svc-words-inner { position: absolute; inset: 0; transition: transform .7s var(--ease); will-change: transform }
-    .svc-word {
-      height: var(--swl); display: flex; align-items: center; justify-content: flex-end; gap: 1.2rem;
-      font-weight: 700; letter-spacing: -.04em; line-height: 1; white-space: nowrap;
-      font-size: calc(var(--swl) * .92); color: rgba(255, 255, 255, .26);
-      transition: color .5s var(--ease);
-    }
-    .svc-word .arr {
-      opacity: 0; transform: translateX(-26px); font-size: .42em; font-weight: 400;
-      transition: opacity .5s var(--ease), transform .5s var(--ease);
-    }
-    .svc-word.is-active { color: #fff }
-    .svc-word.is-active .arr { opacity: 1; transform: translateX(0) }
-    .svc-word .txt { position: relative }
-    .svc-word.is-active .txt::after {
-      content: ""; position: absolute; left: 0; right: 0; bottom: .12em; height: .045em; background: #fff;
-      transform: scaleX(1); transform-origin: left;
-    }
-    .svc-word .txt::after { content: ""; position: absolute; left: 0; right: 0; bottom: .12em; height: .045em; background: #fff; transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease) }
-
-    /* mobile fallback list */
-    .svc-mlist { display: none }
-    @media(max-width:880px) {
-      .svc { height: auto !important; padding-block: clamp(80px, 12vw, 120px) }
-      .svc-stage { position: static; height: auto; display: block }
-      .svc-words, .svc-desc-wrap, .svc-h, .svc-left .eyebrow, .svc-cta { display: none }
-      .svc-grid { display: block }
-      .svc-mlist { display: block }
-      .svc-bg-img { filter: grayscale(1) brightness(.5) }
-      .svc-mhead { margin-bottom: 2.4rem }
-      .svc-mrow { border-top: 1px solid var(--line-dark); padding: 1.8rem 0 }
-      .svc-mrow:last-child { border-bottom: 1px solid var(--line-dark) }
-      .svc-mrow .mt { font-size: clamp(2.2rem, 11vw, 3.4rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; margin-bottom: .7rem }
-      .svc-mrow .md { color: rgba(255, 255, 255, .66); font-size: 1rem; line-height: 1.55 }
-      .svc-mrow .mn { font-size: .78rem; letter-spacing: .14em; color: rgba(255, 255, 255, .4); margin-bottom: .8rem; display: block }
-    }
-    @media(max-width:880px) and (min-width:1px) {
-      .svc-grid { display: block }
-    }
-    @media(min-width:881px) {
-      .svc-mlist { display: none }
+    .svc-row .num { position: absolute; top: clamp(20px, 2.6vw, 34px); left: 0; font-size: .8rem; color: rgba(255, 255, 255, .4); font-weight: 500; font-variant-numeric: tabular-nums }
+    .svc-row .thumb { width: clamp(70px, 8vw, 120px); height: clamp(70px, 8vw, 120px); overflow: hidden; flex: none; filter: grayscale(1); transition: filter .5s, transform .5s var(--ease) }
+    .svc-row .thumb img { width: 100%; height: 100%; object-fit: cover }
+    .svc-row .ttl { font-weight: 700; letter-spacing: -.04em; line-height: .95; font-size: clamp(2.4rem, 7vw, 6rem); color: #fff; transition: opacity .4s, transform .5s var(--ease) }
+    .svc-row .desc { max-width: 34ch; color: rgba(255, 255, 255, .55); font-size: 1rem; line-height: 1.5; justify-self: end; text-align: right; transition: color .4s }
+    .svc-row:hover { padding-left: clamp(14px, 2vw, 32px) }
+    .svc-row:hover .thumb { filter: grayscale(0); transform: scale(1.04) }
+    .svc-row:hover .ttl { transform: translateX(8px) }
+    .svc-row:hover .desc { color: rgba(255, 255, 255, .85) }
+    @media(max-width:820px) {
+      .svc-row { grid-template-columns: 1fr; gap: 1rem; align-items: start }
+      .svc-row .desc { justify-self: start; text-align: left }
+      .svc-row .thumb { width: 64px; height: 64px }
     }
 
     /* ---- Support cards ---- */
@@ -508,20 +467,13 @@
 
     /* ---- Footer ---- */
     .footer { background: var(--ink); color: #fff; padding-block: clamp(64px, 8vw, 110px) 0 }
-    .news { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; padding-bottom: clamp(48px, 6vw, 80px); border-bottom: 1px solid var(--line-dark) }
-    .news h2 { color: #fff; max-width: 16ch }
-    .news form { display: flex; gap: .6rem; align-items: center; min-width: min(420px, 100%); flex-wrap: wrap }
-    .news input { flex: 1; min-width: 200px; padding: 1rem 1.2rem; border-radius: var(--pill); background: rgba(255, 255, 255, .06); border: 1px solid var(--line-dark); color: #fff; font-family: inherit; font-size: .98rem }
-    .news input::placeholder { color: rgba(255, 255, 255, .4) }
-    .news input:focus { outline: none; border-color: rgba(255, 255, 255, .5) }
-    .footer .cols { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2.4rem; padding-block: clamp(48px, 6vw, 72px) }
-    .footer .intro { color: rgba(255, 255, 255, .6); font-size: .96rem; margin-top: 1.2rem; max-width: 34ch; line-height: 1.6 }
-    .footer h4 { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255, 255, 255, .4); margin-bottom: 1.2rem; font-weight: 500 }
-    .footer ul { list-style: none; display: flex; flex-direction: column; gap: .7rem }
-    .footer ul a { color: rgba(255, 255, 255, .78); font-size: .96rem; transition: color .2s }
-    .footer ul a:hover { color: #fff }
-    .footer .contact b { display: block; color: rgba(255, 255, 255, .4); font-weight: 400; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; margin-top: 1.1rem; margin-bottom: .3rem }
-    .footer .contact a { color: #fff; font-size: 1.02rem }
+    .footer .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.4rem; padding-bottom: clamp(48px, 6vw, 72px) }
+    .footer h4 { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255, 255, 255, .4); margin-bottom: 1.5rem; font-weight: 500 }
+    .footer ul { list-style: none; display: flex; flex-direction: column; gap: .9rem }
+    .footer ul a { color: #fff; font-size: 1.18rem; font-weight: 600; letter-spacing: -.02em; transition: color .2s, opacity .2s; opacity: .85 }
+    .footer ul a:hover { opacity: 1; color: #fff }
+    .footer .contact b { display: block; color: rgba(255, 255, 255, .4); font-weight: 400; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; margin-top: 1.1rem; margin-bottom: .35rem }
+    .footer .contact a { color: #fff; font-size: 1.1rem; font-weight: 500 }
 
     /* giant footer wordmark */
     .footer-mark { padding-block: clamp(20px, 3vw, 36px) 0; overflow: hidden }
@@ -534,8 +486,8 @@
     .footer .bottom { padding: 24px var(--gutter); border-top: 1px solid var(--line-dark); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; color: rgba(255, 255, 255, .4); font-size: .85rem; max-width: var(--maxw); margin: 0 auto }
     .footer .bottom .socials { display: flex; gap: 1.4rem }
     .footer .bottom a:hover { color: #fff }
-    @media(max-width:880px) { .footer .cols { grid-template-columns: 1fr 1fr } }
-    @media(max-width:560px) { .footer .cols { grid-template-columns: 1fr } }
+    @media(max-width:720px) { .footer .cols { grid-template-columns: 1fr 1fr; gap: 2.4rem 1.4rem } }
+    @media(max-width:480px) { .footer .cols { grid-template-columns: 1fr } }
   </style>
 
   <script type="importmap">
@@ -816,7 +768,7 @@
       )
     }
 
-    /* ============================ LEISTUNGEN — sticky giant type ============================ */
+    /* ============================ LEISTUNGEN — dark, giant type rows ============================ */
     const SERVICES = [
       { n: "01", t: "Industriebau", img: "img/industriebau.png", d: "Produktions-, Logistik- und Gewerbehallen — schlüsselfertig, statisch durchdacht und auf Ihren Betriebsablauf zugeschnitten." },
       { n: "02", t: "Pharmabau", img: "img/pharma.png", d: "Bauen unter Reinraumbedingungen — GMP- und FDA-konform, validierbar und revisionssicher dokumentiert." },
@@ -824,69 +776,26 @@
       { n: "04", t: "Sanierung", img: "img/sanierung.png", d: "Fachgerechter Rückbau nach TRGS 519 und energetische Revitalisierung — sicher für Mensch, Umwelt und Betrieb." }
     ]
     function Services() {
-      const ref = useRef(null)
-      const [active, setActive] = useState(0)
-      const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] })
-      useMotionValueEvent(scrollYProgress, "change", v => {
-        const i = Math.min(SERVICES.length - 1, Math.max(0, Math.floor(v * SERVICES.length)))
-        setActive(i)
-      })
-      const total = SERVICES.length
       return (
-        <section className="svc" id="leistungen" ref={ref} style={{ height: `${total * 100}vh` }}>
-          <div className="svc-stage">
-            <div className="svc-bg">
-              {SERVICES.map((s, i) => (
-                <div key={i} className="svc-bg-img"
-                  style={{ backgroundImage: `url(${s.img})`, opacity: i === active ? 1 : 0, transform: i === active ? "scale(1.04)" : "scale(1)" }} />
+        <section className="section dark" id="leistungen">
+          <div className="wrap">
+            <Reveal className="section-head">
+              <span className="eyebrow on-dark">Leistungen</span>
+              <h2 className="tt" style={{ marginTop: "1.4rem" }}>Was wir<br /><span className="mute">für Sie bauen.</span></h2>
+            </Reveal>
+            <div className="svc-list">
+              {SERVICES.map((s) => (
+                <Reveal as="a" href="#kontakt" className="svc-row" key={s.n}>
+                  <span className="num">{s.n}</span>
+                  <div className="thumb"><img src={s.img} alt={s.t} loading="lazy" decoding="async" /></div>
+                  <div className="ttl">{s.t}</div>
+                  <p className="desc">{s.d}</p>
+                </Reveal>
               ))}
-              <div className="svc-bg-shade" />
             </div>
-
-            <div className="wrap svc-grid">
-              <div className="svc-left">
-                <span className="eyebrow on-dark">Leistungen</span>
-                <h2 className="svc-h tt">Was wir<br /><span className="mute">für Sie bauen.</span></h2>
-                <div className="svc-desc-wrap">
-                  <AnimatePresence mode="wait">
-                    <motion.p key={active} className="svc-desc"
-                      initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
-                      transition={{ duration: 0.45, ease: EASE }}>
-                      <span className="svc-num">{SERVICES[active].n} / 0{total}</span>
-                      {SERVICES[active].d}
-                    </motion.p>
-                  </AnimatePresence>
-                </div>
-                <div className="svc-cta"><Btn href="#kontakt" variant="light">Anfrage starten</Btn></div>
-              </div>
-
-              <div className="svc-words">
-                <div className="svc-words-inner" style={{ transform: `translateY(calc((1 - ${active}) * var(--swl)))` }}>
-                  {SERVICES.map((s, i) => (
-                    <div key={i} className={`svc-word${i === active ? " is-active" : ""}`}>
-                      <span className="txt">{s.t}</span>
-                      <span className="arr">→</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* mobile fallback */}
-              <div className="svc-mlist">
-                <div className="svc-mhead">
-                  <span className="eyebrow on-dark">Leistungen</span>
-                  <h2 className="tt" style={{ marginTop: "1.2rem", color: "#fff" }}>Was wir<br /><span className="mute">für Sie bauen.</span></h2>
-                </div>
-                {SERVICES.map((s) => (
-                  <div className="svc-mrow" key={s.n}>
-                    <span className="mn">{s.n} / 0{total}</span>
-                    <div className="mt">{s.t}</div>
-                    <div className="md">{s.d}</div>
-                  </div>
-                ))}
-                <div style={{ marginTop: "2.4rem" }}><Btn href="#kontakt" variant="light">Anfrage starten</Btn></div>
-              </div>
-            </div>
+            <Reveal style={{ marginTop: "clamp(40px,5vw,64px)" }}>
+              <Btn href="#kontakt" variant="light">Anfrage starten</Btn>
+            </Reveal>
           </div>
         </section>
       )
@@ -1202,18 +1111,7 @@
           {/* FOOTER */}
           <footer className="footer">
             <div className="wrap">
-              <Reveal className="news">
-                <h2>Bleiben Sie<br />auf dem Laufenden.</h2>
-                <form onSubmit={e => { e.preventDefault(); e.currentTarget.innerHTML = '<p style="color:rgba(255,255,255,.8)">Danke! Sie sind eingetragen.</p>' }}>
-                  <input type="email" name="email" placeholder="Ihre E-Mail-Adresse" required />
-                  <Btn href="#" variant="light" onClick={e => e.preventDefault()}>Abonnieren</Btn>
-                </form>
-              </Reveal>
               <div className="cols">
-                <div>
-                  <a href="#top" className="brand"><img className="logo-img" src="vonhoegen-logo.svg" alt="Vonhoegen Bauunternehmung" /></a>
-                  <p className="intro">Bauunternehmung aus Würselen. Industriebau, Pharmabau, Brandschutz und Sanierung — gebaut für Bestand.</p>
-                </div>
                 <div><h4>Leistungen</h4><ul><li><a href="#leistungen">Industriebau</a></li><li><a href="#leistungen">Pharmabau</a></li><li><a href="#leistungen">Brandschutz</a></li><li><a href="#leistungen">Sanierung</a></li></ul></div>
                 <div><h4>Unternehmen</h4><ul><li><a href="#ueber">Über uns</a></li><li><a href="#referenzen">Referenzen</a></li><li><a href="#ablauf">Ablauf</a></li><li><a href="#kontakt">Kontakt</a></li></ul></div>
                 <div className="contact">
