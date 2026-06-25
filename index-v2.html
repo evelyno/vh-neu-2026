@@ -477,6 +477,15 @@
       color: rgba(255, 255, 255, .5)
     }
 
+    .hero .logo-hero {
+      height: clamp(80px, 14vw, 180px);
+      width: auto;
+      display: block;
+      margin: 0 auto 2.4rem;
+      filter: brightness(1.15) drop-shadow(0 4px 16px rgba(0, 0, 0, 0.4));
+      opacity: 1;
+    }
+
     .hero .cta-row {
       display: flex;
       gap: .8rem;
@@ -1504,7 +1513,7 @@
       return (
         <header className={`header${scrolled ? " scrolled" : ""}`}>
           <a href="#top" className="brand">
-            <img className="logo-img" src="Vonhoegen%20Logo.svg" alt="Vonhoegen Bauunternehmung" />
+            <img className="logo-img" src="vonhoegen-logo.svg" alt="Vonhoegen Bauunternehmung" />
           </a>
           <nav className="nav">
             <a href="#warum">Warum Vonhoegen</a>
@@ -1631,6 +1640,9 @@
           </div>
           <div className="hero-copy">
             <div className="inner">
+              <motion.img className="logo-hero" src="vonhoegen-logo.svg" alt="Vonhoegen Bauunternehmung"
+                initial={{ opacity: 0, y: -30 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: EASE, delay: 0.1 }} />
               {/* Principle 5: Follow-through / overlapping — lines stagger in */}
               <motion.h1 initial="hidden" animate="show"
                 variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}>
@@ -1980,7 +1992,7 @@
               <div className="cols">
                 <div>
                   <a href="#top" className="brand">
-                    <img className="logo-img" src="Vonhoegen%20Logo.svg" alt="Vonhoegen Bauunternehmung" />
+                    <img className="logo-img" src="vonhoegen-logo.svg" alt="Vonhoegen Bauunternehmung" />
                   </a>
                   <p className="intro">Bauunternehmung aus Würselen. Industriebau, Pharmabau, Brandschutz und Sanierung — gebaut für Bestand.</p>
                 </div>
