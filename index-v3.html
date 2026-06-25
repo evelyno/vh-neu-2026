@@ -145,11 +145,10 @@
     .nav a {
       position: relative;
       display: inline-flex; align-items: center; gap: .4rem;
-      font-size: 1.08rem; font-weight: 600; color: #fff;
-      transition: color .35s var(--ease), opacity .35s var(--ease), text-shadow .35s var(--ease);
+      font-size: 1.08rem; font-weight: 600; color: var(--ink);
+      transition: color .35s var(--ease), opacity .35s var(--ease);
       letter-spacing: -.01em;
-      opacity: .95;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+      opacity: .8;
     }
     .nav a::after {
       content: ""; position: absolute; left: 0; bottom: -7px;
@@ -159,12 +158,12 @@
     }
     .nav a:hover {
       opacity: 1;
-      color: #fff;
+      color: var(--ink);
     }
-    .nav a:hover::after { transform: scaleX(1); transform-origin: left; background: #fff }
-    .nav a .caret { opacity: .6; flex: none; font-size: .75em; transition: transform .35s var(--ease), opacity .35s var(--ease) }
-    .nav a:hover .caret { transform: translateY(2px); opacity: 1 }
-    .header.scrolled .nav a { color: var(--ink); text-shadow: none; opacity: .8 }
+    .nav a:hover::after { transform: scaleX(1); transform-origin: left }
+    .nav a .caret { opacity: .5; flex: none; font-size: .75em; transition: transform .35s var(--ease) }
+    .nav a:hover .caret { transform: translateY(2px); opacity: .75 }
+    .header.scrolled .nav a { opacity: .75 }
     .header.scrolled .nav a:hover { opacity: 1; color: var(--ink) }
 
     .header-cta { display: flex; align-items: center; gap: 1rem; z-index: 2 }
@@ -313,7 +312,7 @@
     }
     .section.dark .section-head p { color: rgba(255, 255, 255, .66) }
 
-    .media { overflow: hidden; position: relative }
+    .media { overflow: hidden; position: relative; border-radius: var(--pill) }
     .media img { width: 100%; height: 100%; object-fit: cover }
 
     .statement { font-weight: 700; letter-spacing: -.035em; line-height: 1.08; font-size: clamp(1.9rem, 4.6vw, 3.7rem) }
@@ -380,7 +379,7 @@
 
     /* ---- Testimonials ---- */
     .testi-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 6vw, 90px); align-items: center }
-    .testi-media { aspect-ratio: 4/3; overflow: hidden }
+    .testi-media { aspect-ratio: 4/3; overflow: hidden; border-radius: var(--pill) }
     .testi-media img { width: 100%; height: 100%; object-fit: cover }
     .testi-body .quote {
       font-size: clamp(1.4rem, 2.3vw, 2.05rem); line-height: 1.34; letter-spacing: -.01em;
@@ -407,7 +406,7 @@
       position: relative; transition: padding-left .5s var(--ease);
     }
     .svc-row .num { position: absolute; top: clamp(26px, 3.4vw, 44px); left: 0; font-size: .8rem; color: rgba(255, 255, 255, .4); font-weight: 500; font-variant-numeric: tabular-nums; opacity: 0; transition: opacity .4s var(--ease) }
-    .svc-row .thumb { width: clamp(70px, 8vw, 120px); height: clamp(70px, 8vw, 120px); overflow: hidden; flex: none; filter: grayscale(1); transition: filter .5s, transform .5s var(--ease) }
+    .svc-row .thumb { width: clamp(70px, 8vw, 120px); height: clamp(70px, 8vw, 120px); overflow: hidden; border-radius: var(--pill); flex: none; filter: grayscale(1); transition: filter .5s, transform .5s var(--ease) }
     .svc-row .thumb img { width: 100%; height: 100%; object-fit: cover }
     .svc-row .ttl { font-weight: 700; letter-spacing: -.04em; line-height: .95; font-size: clamp(2.4rem, 7vw, 6rem); color: #fff; transition: opacity .4s, transform .5s var(--ease) }
     .svc-row .desc { max-width: 34ch; color: rgba(255, 255, 255, .55); font-size: 1rem; line-height: 1.5; justify-self: end; text-align: right; transition: color .4s }
@@ -424,7 +423,7 @@
 
     /* ---- Support cards ---- */
     .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 1.8vw, 28px); margin-top: clamp(40px, 5vw, 68px) }
-    .scard { background: var(--bg); border: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden }
+    .scard { background: var(--bg); border: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden; border-radius: var(--pill) }
     .scard .media { aspect-ratio: 16/11 }
     .scard .body { padding: clamp(22px, 2.2vw, 32px); display: flex; flex-direction: column; gap: .8rem; flex: 1 }
     .scard p { color: var(--ink-soft); font-size: .98rem; line-height: 1.5 }
