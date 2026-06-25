@@ -210,14 +210,14 @@
     }
 
     .brand .logo-img {
-      height: 42px;
+      height: 56px;
       width: auto;
       display: block;
       transition: height .4s
     }
 
     .header.scrolled .brand .logo-img {
-      height: 34px
+      height: 44px
     }
 
     .nav {
@@ -323,7 +323,7 @@
       }
 
       .brand .logo-img {
-        height: 34px
+        height: 40px
       }
     }
 
@@ -475,15 +475,6 @@
 
     .hero .sub .muted {
       color: rgba(255, 255, 255, .5)
-    }
-
-    .hero .logo-hero {
-      height: clamp(80px, 14vw, 180px);
-      width: auto;
-      display: block;
-      margin: 0 auto 2.4rem;
-      filter: brightness(1.15) drop-shadow(0 4px 16px rgba(0, 0, 0, 0.4));
-      opacity: 1;
     }
 
     .hero .cta-row {
@@ -1640,9 +1631,6 @@
           </div>
           <div className="hero-copy">
             <div className="inner">
-              <motion.img className="logo-hero" src="vonhoegen-logo.svg" alt="Vonhoegen Bauunternehmung"
-                initial={{ opacity: 0, y: -30 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: EASE, delay: 0.1 }} />
               {/* Principle 5: Follow-through / overlapping — lines stagger in */}
               <motion.h1 initial="hidden" animate="show"
                 variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}>
