@@ -117,16 +117,18 @@
     /* ---- Header ---- */
     .header {
       position: fixed; inset: 0 0 auto 0; z-index: 90;
-      background: transparent;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .52) 0%, rgba(0, 0, 0, .28) 50%, rgba(0, 0, 0, 0) 100%);
+      backdrop-filter: blur(10px) saturate(120%);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 26px var(--gutter);
-      transition: background .45s var(--ease), backdrop-filter .45s, padding .45s var(--ease), box-shadow .45s;
+      padding: 32px var(--gutter);
+      transition: all .45s var(--ease);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .12);
     }
     .header.scrolled {
-      background: rgba(255, 255, 255, .9);
+      background: rgba(255, 255, 255, .95);
       backdrop-filter: blur(20px) saturate(180%);
-      box-shadow: 0 1px 0 rgba(0, 0, 0, .06);
-      padding-block: 13px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
+      padding-block: 14px;
     }
     .brand { display: flex; align-items: center; gap: .6rem; z-index: 2 }
     .brand .logo-img {
@@ -143,10 +145,11 @@
     .nav a {
       position: relative;
       display: inline-flex; align-items: center; gap: .4rem;
-      font-size: 1.08rem; font-weight: 600; color: var(--ink);
-      transition: color .35s var(--ease), opacity .35s var(--ease);
+      font-size: 1.08rem; font-weight: 600; color: #fff;
+      transition: color .35s var(--ease), opacity .35s var(--ease), text-shadow .35s var(--ease);
       letter-spacing: -.01em;
-      opacity: .8;
+      opacity: .95;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, .3);
     }
     .nav a::after {
       content: ""; position: absolute; left: 0; bottom: -7px;
@@ -156,30 +159,32 @@
     }
     .nav a:hover {
       opacity: 1;
-      color: var(--ink);
+      color: #fff;
     }
-    .nav a:hover::after { transform: scaleX(1); transform-origin: left }
-    .nav a .caret { opacity: .5; flex: none; font-size: .75em; transition: transform .35s var(--ease) }
-    .nav a:hover .caret { transform: translateY(2px); opacity: .75 }
-    .header.scrolled .nav a { opacity: .75 }
-    .header.scrolled .nav a:hover { opacity: 1 }
+    .nav a:hover::after { transform: scaleX(1); transform-origin: left; background: #fff }
+    .nav a .caret { opacity: .6; flex: none; font-size: .75em; transition: transform .35s var(--ease), opacity .35s var(--ease) }
+    .nav a:hover .caret { transform: translateY(2px); opacity: 1 }
+    .header.scrolled .nav a { color: var(--ink); text-shadow: none; opacity: .8 }
+    .header.scrolled .nav a:hover { opacity: 1; color: var(--ink) }
 
     .header-cta { display: flex; align-items: center; gap: 1rem; z-index: 2 }
     .header-cta .btn {
-      padding: .76rem 1.5rem; font-size: .92rem;
-      background: var(--ink); color: #fff; border: 1px solid var(--ink);
+      padding: .82rem 1.8rem; font-size: .95rem; font-weight: 600;
+      background: #fff; color: var(--ink); border: 1px solid #fff;
       backdrop-filter: none; transition: all .35s var(--ease);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
     }
     .header-cta .btn:hover {
-      box-shadow: 0 14px 40px -12px rgba(17, 19, 18, .7);
-      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
+      transform: translateY(-3px);
     }
     .header.scrolled .header-cta .btn {
       background: var(--ink); color: #fff; border-color: var(--ink);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
     }
     .header.scrolled .header-cta .btn:hover {
-      box-shadow: 0 14px 40px -12px rgba(17, 19, 18, .7);
-      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(17, 19, 18, .15);
+      transform: translateY(-3px);
     }
 
     .menu-toggle {
