@@ -202,6 +202,22 @@
       .header { padding-inline: 20px }
       .header-cta .btn { display: none }
       .brand .logo-img { height: 40px }
+      .hero h1 { font-size: clamp(1.9rem, 8.6vw, 3rem) }
+      .hero .sub { font-size: 1rem; margin-top: 1.1rem; max-width: 22rem }
+      .hero .cta-row { margin-top: 1.9rem }
+      .hero-copy .inner { padding-inline: 24px }
+      .hero-grad {
+        background:
+          radial-gradient(ellipse 130% 46% at 50% 38%,
+            rgba(0, 0, 0, .5) 0%,
+            rgba(0, 0, 0, .26) 55%,
+            rgba(0, 0, 0, 0) 100%),
+          linear-gradient(180deg,
+            rgba(0, 0, 0, .22) 0%,
+            rgba(0, 0, 0, 0) 30%,
+            rgba(0, 0, 0, 0) 68%,
+            rgba(0, 0, 0, .32) 100%);
+      }
     }
 
     /* ---- Overlay menu ---- */
@@ -747,6 +763,7 @@
         }
         const isMobile = innerWidth < 768
         const step = isMobile ? 3 : 1
+        const dir = isMobile ? "frames-mobile" : "frames"
         const eff = isMobile ? Math.ceil(FRAME_COUNT / step) : FRAME_COUNT
         let loaded = 0
         const frames = []
@@ -758,7 +775,7 @@
             if (i === 1) { st.current.first = true; draw(0) }
             setProgress(Math.round(loaded / eff * 100))
           }
-          img.src = `frames/build_${String(i).padStart(4, "0")}.webp`
+          img.src = `${dir}/build_${String(i).padStart(4, "0")}.webp`
           frames.push(img)
         }
         st.current.frames = frames
