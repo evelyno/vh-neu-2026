@@ -237,12 +237,17 @@
     #buildCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block }
     .hero-grad {
       position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(180deg,
-        rgba(255, 255, 255, .08) 0%,
-        rgba(255, 255, 255, .04) 15%,
-        rgba(255, 255, 255, 0) 40%,
-        rgba(0, 0, 0, .12) 75%,
-        rgba(0, 0, 0, .3) 100%);
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 45%,
+          rgba(0, 0, 0, .45) 0%,
+          rgba(0, 0, 0, .28) 45%,
+          rgba(0, 0, 0, .08) 75%,
+          rgba(0, 0, 0, 0) 100%),
+        linear-gradient(180deg,
+          rgba(0, 0, 0, .15) 0%,
+          rgba(0, 0, 0, 0) 35%,
+          rgba(0, 0, 0, 0) 70%,
+          rgba(0, 0, 0, .25) 100%);
     }
     .hero-dim { position: absolute; inset: 0; background: transparent; pointer-events: none; z-index: 4 }
 
@@ -251,13 +256,14 @@
       pointer-events: none; display: flex; flex-direction: column; justify-content: center;
     }
     .hero-copy .inner { max-width: var(--maxw); margin: 0 auto; width: 100%; padding-inline: var(--gutter); text-align: center }
-    .hero h1 { color: #fff; line-height: .92; text-shadow: 0 6px 70px rgba(0, 0, 0, .4); margin-inline: auto }
+    .hero h1 { color: #fff; line-height: .92; text-shadow: 0 2px 24px rgba(0, 0, 0, .5); margin-inline: auto }
     .hero .sub {
-      color: rgba(255, 255, 255, .92); font-size: clamp(1.05rem, 1.7vw, 1.45rem);
+      color: #fff; font-size: clamp(1.05rem, 1.7vw, 1.45rem);
       margin: 1.7rem auto 0; line-height: 1.5; font-weight: 500;
+      text-shadow: 0 2px 24px rgba(0, 0, 0, .5);
     }
     .hero .sub b { font-weight: 600; color: #fff }
-    .hero .sub .muted { color: rgba(255, 255, 255, .5) }
+    .hero .sub .muted { color: rgba(255, 255, 255, .82) }
     .hero .cta-row { display: flex; gap: .8rem; margin-top: 2.4rem; flex-wrap: wrap; pointer-events: auto; justify-content: center }
 
     /* giant image-masked wordmark finale */
