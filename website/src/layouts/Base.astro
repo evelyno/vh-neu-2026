@@ -129,46 +129,6 @@ const schemas = [localBusiness, ...jsonLd];
     <Footer />
     <div class="grain" aria-hidden="true"></div>
 
-    <!-- Cursor-folgendes Bild für Hover-Reveals (z. B. Leistungsumfang) -->
-    <div class="cursor-img" aria-hidden="true"><div class="cursor-img-inner"><img alt="" decoding="async" /></div></div>
-
-    <script>
-      // Cursor-folgendes Bild beim Hover über [data-hover-img]
-      (() => {
-        const ci = document.querySelector('.cursor-img');
-        if (!ci) return;
-        const img = ci.querySelector('img');
-        const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-        if (!canHover) return;
-        let tx = 0, ty = 0, cx = 0, cy = 0, init = false, active = false, raf = null;
-        window.addEventListener('pointermove', (e) => {
-          tx = e.clientX; ty = e.clientY;
-          if (!init) { cx = tx; cy = ty; init = true; }
-        }, { passive: true });
-        const loop = () => {
-          cx += (tx - cx) * 0.18;
-          cy += (ty - cy) * 0.18;
-          ci.style.transform = `translate(${cx}px, ${cy}px)`;
-          if (active) raf = requestAnimationFrame(loop);
-        };
-        document.querySelectorAll('[data-hover-img]').forEach((el) => {
-          el.addEventListener('pointerenter', () => {
-            const src = el.getAttribute('data-hover-img');
-            if (!src) return;
-            img.src = src;
-            ci.classList.add('show');
-            active = true;
-            cancelAnimationFrame(raf);
-            loop();
-          });
-          el.addEventListener('pointerleave', () => {
-            ci.classList.remove('show');
-            active = false;
-          });
-        });
-      })();
-    </script>
-
     <script>
       // Scroll-Reveals (Fade-up) + gestaffelte Gruppen — ohne Framework
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

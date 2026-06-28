@@ -1881,21 +1881,6 @@
       .steps-4 { grid-template-columns: 1fr }
     }
 
-    /* Cursor-folgendes Hover-Bild (Leistungsumfang u. a.) */
-    .cursor-img { position: fixed; top: 0; left: 0; z-index: 80; pointer-events: none; will-change: transform }
-    .cursor-img-inner {
-      width: clamp(150px, 15vw, 210px); aspect-ratio: 1; overflow: hidden;
-      transform: translate(-50%, -50%) scale(.82) rotate(-6deg);
-      opacity: 0; transition: opacity .35s var(--ease), transform .45s var(--ease);
-      box-shadow: 0 30px 60px -22px rgba(0, 0, 0, .45);
-    }
-    .cursor-img.show .cursor-img-inner { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-6deg) }
-    .cursor-img img { width: 100%; height: 100%; object-fit: cover; display: block }
-    /* dezenter Hinweis, dass eine Karte ein Bild zeigt */
-    [data-hover-img] { cursor: pointer }
-    .feature-card[data-hover-img] h3 { transition: transform .35s var(--ease) }
-    .feature-card[data-hover-img]:hover h3 { transform: translateX(6px) }
-
     /* Kennzahlen-Band */
     .stats { padding-block: clamp(64px, 8vw, 110px) }
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(28px, 4vw, 64px) }
