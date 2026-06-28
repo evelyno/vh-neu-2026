@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import Showcase from '../../components/Showcase.astro';
+import Reviews from '../../components/Reviews.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 const path = '/leistungen/industriebau';
@@ -63,6 +65,12 @@ const faqs = [
   },
 ];
 
+const reviews = [
+  { quote: 'Vonhoegen hat unsere Produktionshalle termingenau und ohne eine einzige böse Überraschung übergeben. Ein fester Ansprechpartner, der wirklich zuhört.', name: 'M. Brandt', role: 'Geschäftsführer, Logistik · Eschweiler' },
+  { quote: 'Ehrlicher Festpreis, verbindlicher Terminplan, eigene Fachkräfte. Was zugesagt wurde, wurde gehalten — wir würden jederzeit wieder beauftragen.', name: 'T. Möller', role: 'Bauherr, Gewerbebau · Aachen' },
+  { quote: 'Die Hallenerweiterung lief im laufenden Betrieb reibungslos. Saubere Planung, klare Kommunikation, top Ergebnis.', name: 'R. Schäfer', role: 'Werkleitung, Produktion · Düren' },
+];
+
 const jsonLd = [
   breadcrumbSchema(breadcrumbs),
   serviceSchema({
@@ -84,16 +92,17 @@ const jsonLd = [
     breadcrumbs={breadcrumbs}
   />
 
-  <!-- Intro / GEO-Kurzantwort -->
+  <!-- Intro / GEO-Kurzantwort mit Wort-Reveal -->
   <section class="section">
     <div class="wrap narrow">
-      <span class="eyebrow">Industriebau vom Generalunternehmer</span>
-      <p class="lead-text">
-        Die <strong>Vonhoegen Bauunternehmung</strong> realisiert <strong>Industriebau in Würselen, Aachen und dem Rheinland</strong> —
-        von der Produktionshalle über Logistik- und Lagergebäude bis zur schlüsselfertigen Gewerbeimmobilie.
+      <span class="eyebrow" data-reveal>Industriebau vom Generalunternehmer</span>
+      <p class="statement" style="margin-top:1.6rem" data-wordreveal>
+        Wir realisieren Industriebau in Würselen, Aachen und dem Rheinland — von der Produktionshalle bis zur schlüsselfertigen Gewerbeimmobilie.
+      </p>
+      <p class="lead-text" data-reveal>
         Als Generalunternehmer verantworten wir Planung, Rohbau, Ausbau und Haustechnik aus einer Hand:
-        mit Festpreis, verbindlichem Terminplan und einem festen Ansprechpartner. So entsteht ein Gebäude,
-        das zu Ihren Prozessen passt — und auch in zwanzig Jahren noch trägt, was wir heute versprechen.
+        mit <strong>Festpreis</strong>, <strong>verbindlichem Terminplan</strong> und einem <strong>festen Ansprechpartner</strong>.
+        So entsteht ein Gebäude, das zu Ihren Prozessen passt — und auch in zwanzig Jahren noch trägt, was wir heute versprechen.
       </p>
     </div>
   </section>
@@ -101,11 +110,11 @@ const jsonLd = [
   <!-- Leistungsumfang -->
   <section class="section grey">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">Leistungsumfang</span>
         <h2 class="tt">Was wir im Industriebau <span class="mute">für Sie umsetzen.</span></h2>
       </div>
-      <div class="feature-grid">
+      <div class="feature-grid" data-reveal-group>
         {scope.map((s) => (
           <article class="feature-card">
             <h3>{s.t}</h3>
@@ -116,15 +125,28 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- Showcase: fertige, moderne Gebäude -->
+  <Showcase
+    eyebrow="Einblicke"
+    title="So sieht Industriebau"
+    tail="von Vonhoegen aus."
+    intro="Von der Stahlkonstruktion bis zur schlüsselfertigen Übergabe — ein Eindruck moderner Produktions-, Logistik- und Gewerbebauten."
+    images={[
+      { src: '/img/industriebau-gebaeude.webp', alt: 'Fertiggestelltes modernes Gewerbe- und Industriegebäude mit Glas- und Metallfassade in der Dämmerung', caption: 'Schlüsselfertiges Gewerbegebäude mit Büro- und Produktionstrakt' },
+      { src: '/img/industriebau-halle.webp', alt: 'Moderne, helle Produktionshalle mit poliertem Betonboden und hoher Stahlkonstruktion', caption: 'Produktionshalle — hell, hoch und prozessgerecht' },
+      { src: '/img/industriebau-luftbild.webp', alt: 'Luftaufnahme eines modernen Logistik- und Lagerkomplexes mit Ladezonen und Photovoltaik', caption: 'Logistikkomplex mit Ladezonen und Photovoltaik' },
+    ]}
+  />
+
   <!-- Detail-Bild + Vorteile -->
   <section class="section">
     <div class="wrap">
-      <div class="split">
+      <div class="split" data-reveal>
         <div class="media"><img src="/img/industriebau-detail.webp" alt="Tragwerk einer modernen Industriehalle im Bau — Stahlkonstruktion mit Oberlichtern" loading="lazy" decoding="async" /></div>
         <div>
           <span class="eyebrow">Ihr Vorteil</span>
           <h2 class="tt" style="margin-top:1.2rem">Warum Bauherren im Industriebau <span class="mute">auf Vonhoegen setzen.</span></h2>
-          <div class="benefit-list">
+          <div class="benefit-list" data-reveal-group>
             {benefits.map(([h, p]) => (
               <div class="benefit">
                 <span class="ck">✓</span>
@@ -140,11 +162,11 @@ const jsonLd = [
   <!-- Ablauf -->
   <section class="section grey">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">Ablauf</span>
         <h2 class="tt">Von der Idee zur Halle — <span class="mute">in vier Schritten.</span></h2>
       </div>
-      <div class="steps steps-4">
+      <div class="steps steps-4" data-reveal-group>
         {steps.map(([n, h, p]) => (
           <div class="step"><div class="no">{n}</div><div><h3>{h}</h3><p>{p}</p></div></div>
         ))}
@@ -156,7 +178,7 @@ const jsonLd = [
   <section class="section">
     <div class="wrap">
       <div class="area-layout">
-        <div class="area-intro">
+        <div class="area-intro" data-reveal>
           <span class="eyebrow">Einsatzgebiet</span>
           <h2 class="tt" style="margin-top:1.2rem">Ihr Industriebau-Partner in <span class="mute">Aachen, NRW & dem Rheinland.</span></h2>
           <p class="lead-text" style="margin-top:1.4rem">
@@ -164,7 +186,7 @@ const jsonLd = [
             und realisieren Industrie- und Hallenbauprojekte ebenso im weiteren Rheinland, von Düsseldorf bis Köln.
           </p>
         </div>
-        <ul class="area-tags">
+        <ul class="area-tags" data-reveal>
           <li>Würselen</li><li>Aachen</li><li>Städteregion Aachen</li><li>Eschweiler</li>
           <li>Stolberg</li><li>Herzogenrath</li><li>Alsdorf</li><li>Baesweiler</li>
           <li>Düren</li><li>Jülich</li><li>Düsseldorf</li><li>Köln</li>
@@ -173,6 +195,14 @@ const jsonLd = [
       </div>
     </div>
   </section>
+
+  <Reviews
+    items={reviews}
+    eyebrow="Referenzen & Stimmen"
+    title="Industriebau, der"
+    tail="überzeugt."
+    variant="grey"
+  />
 
   <Faq items={faqs} title="Industriebau —" tail="häufige Fragen." />
 

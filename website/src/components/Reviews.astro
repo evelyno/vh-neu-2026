@@ -1,0 +1,38 @@
+---
+/**
+ * Wiederverwendbare Bewertungs-/Referenz-Section für Landingpages.
+ * Zeigt Kundenstimmen mit Sternebewertung; data-reveal animiert beim Scrollen.
+ */
+interface Review { quote: string; name: string; role: string }
+interface Props {
+  items: Review[];
+  eyebrow?: string;
+  title?: string;
+  tail?: string;
+  variant?: 'grey' | 'default';
+}
+const {
+  items,
+  eyebrow = 'Was Bauherren sagen',
+  title = 'Verlassen Sie sich',
+  tail = 'nicht auf unser Wort.',
+  variant = 'grey',
+} = Astro.props;
+---
+<section class:list={['section', { grey: variant === 'grey' }]}>
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="tt" style="margin-top:1.2rem">{title} <span class="mute">{tail}</span></h2>
+    </div>
+    <div class="reviews-grid" data-reveal-group>
+      {items.map((r) => (
+        <figure class="review-card">
+          <div class="stars" aria-label="5 von 5 Sternen">★★★★★</div>
+          <blockquote>„{r.quote}"</blockquote>
+          <figcaption><b>{r.name}</b><span>{r.role}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

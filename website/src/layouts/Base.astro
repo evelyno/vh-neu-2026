@@ -79,6 +79,8 @@ const schemas = [localBusiness, ...jsonLd];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Aktiviert Scroll-Reveals nur bei aktivem JS (kein FOUC, kein Inhalt versteckt ohne JS) -->
+    <script is:inline>document.documentElement.classList.add('reveal-ready');</script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -126,5 +128,72 @@ const schemas = [localBusiness, ...jsonLd];
     </main>
     <Footer />
     <div class="grain" aria-hidden="true"></div>
+
+    <script>
+      // Scroll-Reveals (Fade-up) + gestaffelte Gruppen — ohne Framework
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const targets = document.querySelectorAll('[data-reveal], [data-reveal-group]');
+      if (reduce) {
+        targets.forEach((el) => el.classList.add('in'));
+      } else if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+        );
+        targets.forEach((el) => io.observe(el));
+      } else {
+        targets.forEach((el) => el.classList.add('in'));
+      }
+
+      // Wort-für-Wort Farb-Reveal beim Scrollen (wie auf der Startseite)
+      const wordBlocks = Array.from(document.querySelectorAll('[data-wordreveal]'));
+      if (wordBlocks.length && !reduce) {
+        const FROM = [156, 162, 161]; // --ink-faint
+        const TO = [17, 19, 18]; // --ink
+        const clamp = (v) => Math.max(0, Math.min(1, v));
+        const mix = (p) =>
+          `rgb(${FROM.map((f, i) => Math.round(f + (TO[i] - f) * p)).join(',')})`;
+        wordBlocks.forEach((b) => {
+          const text = b.textContent.trim();
+          b.textContent = '';
+          text.split(/\s+/).forEach((w) => {
+            const s = document.createElement('span');
+            s.textContent = w + ' ';
+            s.style.color = mix(0);
+            b.appendChild(s);
+          });
+        });
+        let ticking = false;
+        const update = () => {
+          ticking = false;
+          const vh = window.innerHeight;
+          wordBlocks.forEach((b) => {
+            const rect = b.getBoundingClientRect();
+            const start = vh * 0.85, end = vh * 0.35;
+            const p = clamp((start - rect.top) / (start - end));
+            const spans = b.children;
+            const n = spans.length;
+            for (let i = 0; i < n; i++) {
+              const ws = i / n, we = (i + 0.6) / n;
+              const wp = clamp((p - ws) / (we - ws));
+              spans[i].style.color = mix(wp);
+            }
+          });
+        };
+        const onScroll = () => {
+          if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        update();
+      }
+    </script>
   </body>
 </html>

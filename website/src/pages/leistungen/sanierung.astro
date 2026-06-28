@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import Reviews from '../../components/Reviews.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 const path = '/leistungen/sanierung';
@@ -50,28 +51,42 @@ const jsonLd = [
 
   <section class="section">
     <div class="wrap narrow">
-      <span class="eyebrow">Sanierung vom Fachbetrieb</span>
-      <p class="lead-text">
-        Die <strong>Vonhoegen Bauunternehmung</strong> übernimmt <strong>Sanierung und Schadstoffsanierung in Aachen, Würselen und dem Rheinland</strong> —
-        vom Asbestrückbau nach TRGS 519 über die Entkernung bis zur energetischen Revitalisierung. Sicher geplant,
-        sauber ausgeführt und mit lückenlosem Nachweis bis zur Freigabe.
+      <span class="eyebrow" data-reveal>Sanierung vom Fachbetrieb</span>
+      <p class="statement" style="margin-top:1.6rem" data-wordreveal>
+        Wir sanieren in Aachen, Würselen und dem Rheinland — vom Asbestrückbau nach TRGS 519 bis zur energetischen Revitalisierung.
+      </p>
+      <p class="lead-text" data-reveal>
+        Vom kontrollierten Rückbau über die Entkernung bis zur energetischen Sanierung: <strong>sicher geplant</strong>,
+        sauber ausgeführt und mit <strong>lückenlosem Nachweis bis zur Freigabe</strong>.
       </p>
     </div>
   </section>
 
   <section class="section grey">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">Leistungsumfang</span>
         <h2 class="tt">Sanieren — <span class="mute">sicher & nachweisbar.</span></h2>
       </div>
-      <div class="feature-grid">
+      <div class="feature-grid" data-reveal-group>
         {scope.map((s) => (
           <article class="feature-card"><h3>{s.t}</h3><p>{s.d}</p></article>
         ))}
       </div>
     </div>
   </section>
+
+  <Reviews
+    items={[
+      { quote: 'Die Schadstoffsanierung nach TRGS 519 lief absolut sicher und reibungslos — für unsere Mitarbeiter und den weiteren Betrieb.', name: 'A. Wegener', role: 'Facility Management · Stolberg' },
+      { quote: 'Kontrollierter Rückbau, lückenlose Nachweise, saubere Freigabe. Genau so muss eine Sanierung laufen.', name: 'P. Krämer', role: 'Eigentümer · Aachen' },
+      { quote: 'Energetische Revitalisierung im laufenden Betrieb — durchdacht geplant und termintreu umgesetzt.', name: 'J. Bauer', role: 'Verwaltung · Köln' },
+    ]}
+    eyebrow="Referenzen & Stimmen"
+    title="Sanierung, die"
+    tail="sicher freigegeben wird."
+    variant="grey"
+  />
 
   <Faq items={faqs} title="Sanierung —" tail="häufige Fragen." />
   <CtaSection

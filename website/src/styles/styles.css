@@ -42,6 +42,30 @@
       overflow-x: hidden;
     }
 
+    /* ---- Scroll-Reveals (nur mit JS aktiv) ---- */
+    .reveal-ready [data-reveal] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .85s var(--ease), transform .85s var(--ease);
+      will-change: opacity, transform;
+    }
+    .reveal-ready [data-reveal].in { opacity: 1; transform: none }
+    .reveal-ready [data-reveal-group] > * {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .85s var(--ease), transform .85s var(--ease);
+    }
+    .reveal-ready [data-reveal-group].in > * { opacity: 1; transform: none }
+    .reveal-ready [data-reveal-group].in > *:nth-child(2) { transition-delay: .08s }
+    .reveal-ready [data-reveal-group].in > *:nth-child(3) { transition-delay: .16s }
+    .reveal-ready [data-reveal-group].in > *:nth-child(4) { transition-delay: .24s }
+    .reveal-ready [data-reveal-group].in > *:nth-child(5) { transition-delay: .32s }
+    .reveal-ready [data-reveal-group].in > *:nth-child(6) { transition-delay: .40s }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-ready [data-reveal],
+      .reveal-ready [data-reveal-group] > * { opacity: 1; transform: none; transition: none }
+    }
+
     img {
       display: block;
       max-width: 100%;
@@ -1855,6 +1879,34 @@
     }
     @media(max-width:560px) {
       .steps-4 { grid-template-columns: 1fr }
+    }
+
+    /* Reviews / Bewertungen (Landingpages) */
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.6rem); margin-top: clamp(40px, 5vw, 64px) }
+    .review-card { background: var(--bg); border: 1px solid var(--line); padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; gap: 1rem; margin: 0 }
+    .section.grey .review-card { background: #fff }
+    .review-card .stars { color: var(--ink); letter-spacing: 2px; font-size: .95rem }
+    .review-card blockquote { font-size: 1.08rem; line-height: 1.6; color: var(--ink); letter-spacing: -.01em }
+    .review-card figcaption { margin-top: auto; display: flex; flex-direction: column; gap: .15rem }
+    .review-card figcaption b { font-weight: 600 }
+    .review-card figcaption span { color: var(--ink-soft); font-size: .9rem }
+
+    /* Showcase (Bildergalerie fertiger Gebäude) */
+    .showcase-lead { margin: clamp(40px, 5vw, 64px) 0 0 }
+    .showcase-lead .media { aspect-ratio: 21/9 }
+    .showcase-row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.6rem); margin-top: clamp(1rem, 2vw, 1.6rem) }
+    .showcase-row .media { aspect-ratio: 16/10 }
+    .showcase-lead figcaption, .showcase-row figcaption { margin-top: .8rem; font-size: .9rem; color: var(--ink-soft) }
+    .showcase-lead .media img, .showcase-row .media img, .split .media img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .7s var(--ease);
+    }
+    .showcase-lead:hover .media img, .showcase-row figure:hover .media img, .split:hover .media img { transform: scale(1.04) }
+
+    @media(max-width:680px) {
+      .reviews-grid { grid-template-columns: 1fr }
+      .showcase-row { grid-template-columns: 1fr }
+      .showcase-lead .media { aspect-ratio: 16/10 }
     }
 
     /* Kontakt-Detailblock */

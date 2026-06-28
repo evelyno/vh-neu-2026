@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import Reviews from '../../components/Reviews.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 const path = '/leistungen/pharmabau';
@@ -50,29 +51,43 @@ const jsonLd = [
 
   <section class="section">
     <div class="wrap narrow">
-      <span class="eyebrow">Pharmabau vom Generalunternehmer</span>
-      <p class="lead-text">
-        Die <strong>Vonhoegen Bauunternehmung</strong> realisiert <strong>Pharma- und Reinraumbau in Aachen, Würselen und dem Rheinland</strong> —
-        von der Reinraumzelle bis zur kompletten GMP-Produktion. Wir planen für Validierung und Behördenabnahme,
-        dokumentieren revisionssicher und bauen auf Wunsch bei laufender Produktion. Alles aus einer Hand, mit
-        Festpreis und festem Ansprechpartner.
+      <span class="eyebrow" data-reveal>Pharmabau vom Generalunternehmer</span>
+      <p class="statement" style="margin-top:1.6rem" data-wordreveal>
+        Wir bauen Reinräume und GMP-Produktionsflächen in Aachen, Würselen und dem Rheinland — validierbar geplant und revisionssicher dokumentiert.
+      </p>
+      <p class="lead-text" data-reveal>
+        Von der Reinraumzelle bis zur kompletten GMP-Produktion: Wir planen für Validierung und Behördenabnahme
+        und bauen auf Wunsch bei laufender Produktion — alles aus einer Hand, mit <strong>Festpreis</strong> und
+        <strong>festem Ansprechpartner</strong>.
       </p>
     </div>
   </section>
 
   <section class="section grey">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">Leistungsumfang</span>
         <h2 class="tt">Was wir im Pharmabau <span class="mute">umsetzen.</span></h2>
       </div>
-      <div class="feature-grid">
+      <div class="feature-grid" data-reveal-group>
         {scope.map((s) => (
           <article class="feature-card"><h3>{s.t}</h3><p>{s.d}</p></article>
         ))}
       </div>
     </div>
   </section>
+
+  <Reviews
+    items={[
+      { quote: 'Der Reinraum wurde im laufenden Betrieb erweitert, sauber dokumentiert und GMP-konform übergeben. Wir wurden in jeder Phase mitgenommen.', name: 'Dr. S. Keller', role: 'Werkleitung, Pharma · Aachen' },
+      { quote: 'Validierbar geplant, revisionssicher dokumentiert — die Behördenabnahme verlief ohne Beanstandung.', name: 'A. Vogt', role: 'Qualifizierung · Rheinland' },
+      { quote: 'Saubere Schnittstellen zwischen Bau, Technik und Reinraumausbau. Ein Ansprechpartner für alles.', name: 'M. Lindner', role: 'Projektleitung · Köln' },
+    ]}
+    eyebrow="Referenzen & Stimmen"
+    title="Pharmabau, der"
+    tail="Audits besteht."
+    variant="grey"
+  />
 
   <Faq items={faqs} title="Pharmabau —" tail="häufige Fragen." />
   <CtaSection

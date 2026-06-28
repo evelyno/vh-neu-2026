@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import Reviews from '../../components/Reviews.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 const path = '/leistungen/brandschutz';
@@ -50,28 +51,42 @@ const jsonLd = [
 
   <section class="section">
     <div class="wrap narrow">
-      <span class="eyebrow">Brandschutz vom Bauprofi</span>
-      <p class="lead-text">
-        Die <strong>Vonhoegen Bauunternehmung</strong> setzt <strong>baulichen Brandschutz in Aachen, Würselen und dem Rheinland</strong> um —
-        von der Schottung einzelner Durchführungen bis zur kompletten Ertüchtigung im Bestand. Wir arbeiten normgerecht,
-        dokumentieren nachvollziehbar und begleiten Sie bis zur erfolgreichen Abnahme.
+      <span class="eyebrow" data-reveal>Brandschutz vom Bauprofi</span>
+      <p class="statement" style="margin-top:1.6rem" data-wordreveal>
+        Wir setzen baulichen Brandschutz in Aachen, Würselen und dem Rheinland um — normgerecht, dokumentiert und bis zur Abnahme begleitet.
+      </p>
+      <p class="lead-text" data-reveal>
+        Von der Schottung einzelner Durchführungen bis zur kompletten Ertüchtigung im Bestand: Wir arbeiten
+        <strong>normgerecht</strong>, dokumentieren nachvollziehbar und begleiten Sie bis zur <strong>erfolgreichen Abnahme</strong>.
       </p>
     </div>
   </section>
 
   <section class="section grey">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">Leistungsumfang</span>
         <h2 class="tt">Brandschutz, der <span class="mute">Bestand hat.</span></h2>
       </div>
-      <div class="feature-grid">
+      <div class="feature-grid" data-reveal-group>
         {scope.map((s) => (
           <article class="feature-card"><h3>{s.t}</h3><p>{s.d}</p></article>
         ))}
       </div>
     </div>
   </section>
+
+  <Reviews
+    items={[
+      { quote: 'Die Brandschutz-Ertüchtigung lief im laufenden Betrieb ohne Störung. Sauber dokumentiert und ohne Beanstandung abgenommen.', name: 'A. Wegener', role: 'Facility Management · Aachen' },
+      { quote: 'Klare Abstimmung mit dem Sachverständigen, fachgerechte Schottungen, termintreue Umsetzung.', name: 'K. Hoffmann', role: 'Gebäudetechnik · Düren' },
+      { quote: 'Endlich ein Partner, der Brandschutz nicht nur plant, sondern auch sauber baut und bis zur Abnahme begleitet.', name: 'S. Reuter', role: 'Bauherr · Köln' },
+    ]}
+    eyebrow="Referenzen & Stimmen"
+    title="Brandschutz, der"
+    tail="abgenommen wird."
+    variant="grey"
+  />
 
   <Faq items={faqs} title="Brandschutz —" tail="häufige Fragen." />
   <CtaSection
