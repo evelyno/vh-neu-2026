@@ -1489,6 +1489,66 @@
       line-height: 1.5
     }
 
+    .req {
+      color: rgba(255, 255, 255, .55);
+      margin-left: .15em;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: .7rem;
+      cursor: pointer;
+      font-size: .82rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, .6);
+    }
+
+    .checkbox input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .checkbox .box {
+      flex: none;
+      width: 20px;
+      height: 20px;
+      margin-top: .1rem;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, .04);
+      display: grid;
+      place-items: center;
+      transition: background .25s, border-color .25s;
+    }
+
+    .checkbox .box::after {
+      content: "";
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      transform: rotate(-45deg) scale(0);
+      margin-top: -2px;
+      transition: transform .2s var(--ease);
+    }
+
+    .checkbox input:checked + .box {
+      background: #fff;
+      border-color: #fff;
+    }
+
+    .checkbox input:checked + .box::after {
+      transform: rotate(-45deg) scale(1);
+    }
+
+    .checkbox input:focus-visible + .box {
+      border-color: rgba(255, 255, 255, .7);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, .15);
+    }
+
     .form-success {
       text-align: center;
       padding: 2.5rem 0
@@ -2063,20 +2123,28 @@
             <motion.form key="form" className="form" onSubmit={e => { e.preventDefault(); setSent(true) }}
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-8%" }}
               exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.6, ease: EASE }}>
-              <div className="field"><label>Name</label><input type="text" name="name" placeholder="Ihr Name" required /></div>
+              <div className="field"><label>Name<span className="req">*</span></label><input type="text" name="name" placeholder="Ihr Name" required /></div>
               <div className="row2">
-                <div className="field"><label>E-Mail oder Telefon</label><input type="text" name="contact" placeholder="So erreichen wir Sie" required /></div>
-                <div className="field"><label>Leistung</label>
-                  <select name="service">
-                    <option value="">Bitte wählen…</option>
-                    <option>Industriebau</option><option>Pharma- & Reinraumbau</option>
-                    <option>Brandschutz</option><option>Sanierung</option><option>Sonstiges</option>
-                  </select>
-                </div>
+                <div className="field"><label>E-Mail-Adresse<span className="req">*</span></label><input type="email" name="email" placeholder="ihre@email.de" required /></div>
+                <div className="field"><label>Telefonnummer</label><input type="tel" name="phone" placeholder="Für schnelle Rückfragen" /></div>
               </div>
-              <div className="field"><label>Worum geht es?</label><textarea name="message" rows="4" placeholder="Kurz zu Ihrem Vorhaben…"></textarea></div>
+              <div className="field"><label>Betreff / Anliegen</label>
+                <select name="subject" defaultValue="Allgemeine Anfrage">
+                  <option>Allgemeine Anfrage</option>
+                  <option>Neubau</option>
+                  <option>Umbau / Sanierung</option>
+                  <option>Reparatur / Kleinauftrag</option>
+                  <option>Beratung gewünscht</option>
+                  <option>Sonstiges</option>
+                </select>
+              </div>
+              <div className="field"><label>Nachricht<span className="req">*</span></label><textarea name="message" rows="4" placeholder="Beschreiben Sie kurz Ihr Anliegen oder Bauvorhaben. Wir melden uns zeitnah bei Ihnen zurück." required></textarea></div>
+              <label className="checkbox">
+                <input type="checkbox" name="privacy" required />
+                <span className="box" aria-hidden="true"></span>
+                <span className="ck-text">Ich habe die Datenschutzerklärung gelesen und stimme zu, dass meine Angaben zur Kontaktaufnahme verarbeitet werden.<span className="req">*</span></span>
+              </label>
               <Btn href="#" variant="light" onClick={e => { e.preventDefault(); setSent(true) }}>Anfrage senden</Btn>
-              <p className="note">Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben gemäß Datenschutzerklärung zu.</p>
             </motion.form>
           ) : (
             <motion.div key="ok" className="form-success"
