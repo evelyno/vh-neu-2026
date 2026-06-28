@@ -18,12 +18,12 @@ const breadcrumbs = [
 ];
 
 const scope = [
-  { t: 'Schadstoffsanierung (TRGS 519)', d: 'Fachgerechter Rückbau asbesthaltiger und schadstoffbelasteter Bauteile — sicher für Mensch und Umwelt.' },
-  { t: 'Rückbau & Entkernung', d: 'Kontrollierter Rückbau und Entkernung als Basis für Neubau, Umnutzung oder Revitalisierung.' },
-  { t: 'Energetische Sanierung', d: 'Dämmung, Hülle und Technik auf aktuellen Stand bringen — für niedrigere Betriebskosten und Werterhalt.' },
-  { t: 'Bestandssanierung', d: 'Instandsetzung und Modernisierung von Gewerbe- und Industriegebäuden im laufenden Betrieb.' },
-  { t: 'Entsorgung & Nachweis', d: 'Ordnungsgemäße Entsorgung mit lückenlosem Nachweis — revisionssicher dokumentiert.' },
-  { t: 'Freimessung & Freigabe', d: 'Begleitung bis zur Freimessung und Freigabe durch die zuständigen Stellen.' },
+  { t: 'Schadstoffsanierung (TRGS 519)', d: 'Fachgerechter Rückbau asbesthaltiger und schadstoffbelasteter Bauteile — sicher für Mensch und Umwelt.', img: '/img/sanierung.webp' },
+  { t: 'Rückbau & Entkernung', d: 'Kontrollierter Rückbau und Entkernung als Basis für Neubau, Umnutzung oder Revitalisierung.', img: '/img/projekt-sanierung.webp' },
+  { t: 'Energetische Sanierung', d: 'Dämmung, Hülle und Technik auf aktuellen Stand bringen — für niedrigere Betriebskosten und Werterhalt.', img: '/img/umbau.webp' },
+  { t: 'Bestandssanierung', d: 'Instandsetzung und Modernisierung von Gewerbe- und Industriegebäuden im laufenden Betrieb.', img: '/img/sanierung.webp' },
+  { t: 'Entsorgung & Nachweis', d: 'Ordnungsgemäße Entsorgung mit lückenlosem Nachweis — revisionssicher dokumentiert.', img: '/img/projekt-sanierung.webp' },
+  { t: 'Freimessung & Freigabe', d: 'Begleitung bis zur Freimessung und Freigabe durch die zuständigen Stellen.', img: '/img/umbau.webp' },
 ];
 
 const faqs = [
@@ -70,7 +70,7 @@ const jsonLd = [
       </div>
       <div class="feature-grid" data-reveal-group>
         {scope.map((s) => (
-          <article class="feature-card"><h3>{s.t}</h3><p>{s.d}</p></article>
+          <article class="feature-card" data-hover-img={s.img}><h3>{s.t}</h3><p>{s.d}</p></article>
         ))}
       </div>
     </div>

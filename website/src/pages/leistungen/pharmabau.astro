@@ -18,12 +18,12 @@ const breadcrumbs = [
 ];
 
 const scope = [
-  { t: 'Reinraumbau', d: 'Reinräume nach Reinraumklassen (ISO 14644 / GMP A–D) — Wand-, Decken- und Bodensysteme inklusive Schleusenkonzept.' },
-  { t: 'GMP-Produktionsflächen', d: 'Produktions- und Abfüllbereiche, geplant für Validierung, Qualifizierung und behördliche Abnahme.' },
-  { t: 'Labor- & Technikbau', d: 'Labore, Technikzentralen und Mediensysteme — sauber getrennt, wartungsfreundlich und dokumentiert.' },
-  { t: 'Bau im laufenden Betrieb', d: 'Erweiterung und Umbau bei laufender Produktion — mit Abschottung, Hygiene- und Sicherheitskonzept.' },
-  { t: 'Qualifizierungs-Doku', d: 'Revisionssichere Dokumentation als Basis für IQ/OQ — nachvollziehbar für Audits und Behörden.' },
-  { t: 'Schlüsselfertig (GU)', d: 'Bau, Technik und Reinraumausbau aus einer Hand — ein Ansprechpartner, ein Festpreis.' },
+  { t: 'Reinraumbau', d: 'Reinräume nach Reinraumklassen (ISO 14644 / GMP A–D) — Wand-, Decken- und Bodensysteme inklusive Schleusenkonzept.', img: '/img/pharma.webp' },
+  { t: 'GMP-Produktionsflächen', d: 'Produktions- und Abfüllbereiche, geplant für Validierung, Qualifizierung und behördliche Abnahme.', img: '/img/projekt-pharma.webp' },
+  { t: 'Labor- & Technikbau', d: 'Labore, Technikzentralen und Mediensysteme — sauber getrennt, wartungsfreundlich und dokumentiert.', img: '/img/pharma.webp' },
+  { t: 'Bau im laufenden Betrieb', d: 'Erweiterung und Umbau bei laufender Produktion — mit Abschottung, Hygiene- und Sicherheitskonzept.', img: '/img/projekt-pharma.webp' },
+  { t: 'Qualifizierungs-Doku', d: 'Revisionssichere Dokumentation als Basis für IQ/OQ — nachvollziehbar für Audits und Behörden.', img: '/img/pharma.webp' },
+  { t: 'Schlüsselfertig (GU)', d: 'Bau, Technik und Reinraumausbau aus einer Hand — ein Ansprechpartner, ein Festpreis.', img: '/img/projekt-pharma.webp' },
 ];
 
 const faqs = [
@@ -71,7 +71,7 @@ const jsonLd = [
       </div>
       <div class="feature-grid" data-reveal-group>
         {scope.map((s) => (
-          <article class="feature-card"><h3>{s.t}</h3><p>{s.d}</p></article>
+          <article class="feature-card" data-hover-img={s.img}><h3>{s.t}</h3><p>{s.d}</p></article>
         ))}
       </div>
     </div>

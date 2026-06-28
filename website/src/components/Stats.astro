@@ -1,0 +1,28 @@
+---
+/**
+ * Kennzahlen-Band mit Count-up-Animation beim Scrollen (FIND-Stil "We're growing").
+ * Count-up-Logik liegt global in Base.astro ([data-count]).
+ */
+interface Stat { value: number; suffix?: string; prefix?: string; label: string }
+interface Props {
+  items: Stat[];
+  variant?: 'dark' | 'grey' | 'default';
+  note?: string;
+}
+const { items, variant = 'dark', note } = Astro.props;
+---
+<section class:list={['section', 'stats', { dark: variant === 'dark', grey: variant === 'grey' }]}>
+  <div class="wrap">
+    <div class="stats-grid" data-reveal-group>
+      {items.map((s) => (
+        <div class="stat">
+          <div class="stat-num">
+            {s.prefix}<span data-count={s.value}>0</span>{s.suffix}
+          </div>
+          <div class="stat-label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+    {note && <p class="stats-note">{note}</p>}
+  </div>
+</section>

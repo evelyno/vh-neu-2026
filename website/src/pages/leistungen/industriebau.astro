@@ -5,6 +5,7 @@ import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
 import Showcase from '../../components/Showcase.astro';
 import Reviews from '../../components/Reviews.astro';
+import Stats from '../../components/Stats.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 const path = '/leistungen/industriebau';
@@ -20,12 +21,12 @@ const breadcrumbs = [
 
 // Leistungsumfang — keyword-orientiert
 const scope = [
-  { t: 'Produktionshallen', d: 'Hallen für Fertigung und Montage — mit tragfähigen Böden, Kranbahnen und auf Ihre Prozesse abgestimmter Statik.' },
-  { t: 'Logistik- & Lagerhallen', d: 'Hochregal-, Kommissionier- und Umschlagflächen mit Rampen, Toren und effizienten Verkehrswegen.' },
-  { t: 'Gewerbe- & Mehrzweckhallen', d: 'Flexible Gewerbebauten mit integrierten Büro-, Sozial- und Ausstellungsflächen.' },
-  { t: 'Hallenerweiterung & Umbau', d: 'Anbauten und Aufstockungen — geplant für den Bau im laufenden Betrieb, ohne Ihre Produktion zu stoppen.' },
-  { t: 'Stahl- & Massivbau', d: 'Stahl-, Beton- oder Hybridkonstruktion — wir wählen das System, das zu Spannweite, Nutzung und Budget passt.' },
-  { t: 'Schlüsselfertigbau (GU)', d: 'Von Gründung bis Übergabe alles aus einer Hand — ein Generalunternehmer, ein Festpreis, ein Ansprechpartner.' },
+  { t: 'Produktionshallen', d: 'Hallen für Fertigung und Montage — mit tragfähigen Böden, Kranbahnen und auf Ihre Prozesse abgestimmter Statik.', img: '/img/industriebau-halle.webp' },
+  { t: 'Logistik- & Lagerhallen', d: 'Hochregal-, Kommissionier- und Umschlagflächen mit Rampen, Toren und effizienten Verkehrswegen.', img: '/img/industriebau-luftbild.webp' },
+  { t: 'Gewerbe- & Mehrzweckhallen', d: 'Flexible Gewerbebauten mit integrierten Büro-, Sozial- und Ausstellungsflächen.', img: '/img/industriebau-gebaeude.webp' },
+  { t: 'Hallenerweiterung & Umbau', d: 'Anbauten und Aufstockungen — geplant für den Bau im laufenden Betrieb, ohne Ihre Produktion zu stoppen.', img: '/img/industriebau-detail.webp' },
+  { t: 'Stahl- & Massivbau', d: 'Stahl-, Beton- oder Hybridkonstruktion — wir wählen das System, das zu Spannweite, Nutzung und Budget passt.', img: '/img/industriebau-hero.webp' },
+  { t: 'Schlüsselfertigbau (GU)', d: 'Von Gründung bis Übergabe alles aus einer Hand — ein Generalunternehmer, ein Festpreis, ein Ansprechpartner.', img: '/img/projekt-halle.webp' },
 ];
 
 const steps = [
@@ -116,7 +117,7 @@ const jsonLd = [
       </div>
       <div class="feature-grid" data-reveal-group>
         {scope.map((s) => (
-          <article class="feature-card">
+          <article class="feature-card" data-hover-img={s.img}>
             <h3>{s.t}</h3>
             <p>{s.d}</p>
           </article>
@@ -158,6 +159,18 @@ const jsonLd = [
       </div>
     </div>
   </section>
+
+  <!-- Kennzahlen -->
+  <Stats
+    variant="dark"
+    items={[
+      { value: 35, suffix: '+', label: 'Jahre Erfahrung im Bauwesen' },
+      { value: 250, suffix: '+', label: 'realisierte Bauprojekte' },
+      { value: 180000, suffix: ' m²', label: 'gebaute Fläche' },
+      { value: 100, suffix: ' %', label: 'fester Ansprechpartner' },
+    ]}
+    note="Beispielhafte Kennzahlen — werden nach Freigabe durch die echten Werte des Unternehmens ersetzt."
+  />
 
   <!-- Ablauf -->
   <section class="section grey">

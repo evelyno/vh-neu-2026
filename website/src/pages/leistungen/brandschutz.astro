@@ -18,12 +18,12 @@ const breadcrumbs = [
 ];
 
 const scope = [
-  { t: 'Baulicher Brandschutz', d: 'Brandwände, Brandabschnitte und feuerwiderstandsfähige Bauteile — geplant und ausgeführt nach aktueller Norm.' },
-  { t: 'Brandschottungen', d: 'Schottung von Kabel-, Rohr- und Lüftungsdurchführungen — fachgerecht eingebaut und dokumentiert.' },
-  { t: 'Brandschutz-Ertüchtigung', d: 'Anhebung bestehender Gebäude auf den geforderten Brandschutzstandard — auch im laufenden Betrieb.' },
-  { t: 'Flucht- & Rettungswege', d: 'Bauliche Umsetzung sicherer Flucht- und Rettungswege inkl. Türen, Abschlüssen und Kennzeichnung.' },
-  { t: 'Bestandssanierung', d: 'Brandschutzgerechte Sanierung im Bestand — abgestimmt mit Sachverständigen und Behörden.' },
-  { t: 'Abnahme-Begleitung', d: 'Dokumentation und Begleitung bis zur erfolgreichen Abnahme durch Prüfer und Behörde.' },
+  { t: 'Baulicher Brandschutz', d: 'Brandwände, Brandabschnitte und feuerwiderstandsfähige Bauteile — geplant und ausgeführt nach aktueller Norm.', img: '/img/brandschutz.webp' },
+  { t: 'Brandschottungen', d: 'Schottung von Kabel-, Rohr- und Lüftungsdurchführungen — fachgerecht eingebaut und dokumentiert.', img: '/img/rohbau.webp' },
+  { t: 'Brandschutz-Ertüchtigung', d: 'Anhebung bestehender Gebäude auf den geforderten Brandschutzstandard — auch im laufenden Betrieb.', img: '/img/brandschutz.webp' },
+  { t: 'Flucht- & Rettungswege', d: 'Bauliche Umsetzung sicherer Flucht- und Rettungswege inkl. Türen, Abschlüssen und Kennzeichnung.', img: '/img/rohbau.webp' },
+  { t: 'Bestandssanierung', d: 'Brandschutzgerechte Sanierung im Bestand — abgestimmt mit Sachverständigen und Behörden.', img: '/img/brandschutz.webp' },
+  { t: 'Abnahme-Begleitung', d: 'Dokumentation und Begleitung bis zur erfolgreichen Abnahme durch Prüfer und Behörde.', img: '/img/rohbau.webp' },
 ];
 
 const faqs = [
@@ -70,7 +70,7 @@ const jsonLd = [
       </div>
       <div class="feature-grid" data-reveal-group>
         {scope.map((s) => (
-          <article class="feature-card"><h3>{s.t}</h3><p>{s.d}</p></article>
+          <article class="feature-card" data-hover-img={s.img}><h3>{s.t}</h3><p>{s.d}</p></article>
         ))}
       </div>
     </div>
