@@ -417,70 +417,55 @@
     }
 
     /* ---- Desktop nav items + Mega-Menü ---- */
-    .nav-item { position: static; display: inline-flex; align-items: center }
+    .nav-item { position: relative; display: inline-flex; align-items: center }
     .nav-trigger { cursor: pointer }
+    /* unsichtbare Hover-Brücke vom Trigger zum Panel (kein Flackern) */
+    .nav-item.has-mega::after { content: ""; position: absolute; top: 100%; left: -24px; right: -24px; height: 56px }
     .nav a.active, .nav-trigger.active { opacity: 1 }
     .nav a.active::after, .nav-trigger.active::after { transform: scaleX(1); transform-origin: left }
 
+    /* Mega-Menü: vollbreites weißes Panel, bündig unter dem Header */
     .mega {
       position: absolute;
       top: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(12px);
-      padding-top: 18px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid var(--line);
+      box-shadow: 0 30px 60px -34px rgba(0, 0, 0, .3);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity .3s var(--ease), transform .3s var(--ease);
+      transform: translateY(-10px);
+      transition: opacity .3s var(--ease), transform .3s var(--ease), visibility .3s;
     }
-    .nav-item.has-mega:hover .mega,
-    .nav-item.has-mega:focus-within .mega {
+    .header:has(.has-mega:hover) .mega,
+    .header:has(.has-mega:focus-within) .mega,
+    .header:has(.mega:hover) .mega {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
+      transform: translateY(0);
     }
-    .mega-panel {
-      background: var(--dark);
-      color: #fff;
-      width: min(720px, 92vw);
-      padding: .4rem clamp(1rem, 2vw, 1.6rem);
-      box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .55);
-    }
-    .mega-row {
+    .mega-inner {
       display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: clamp(1rem, 2vw, 1.6rem);
-      padding: 1.15rem .2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, .1);
-      transition: padding-left .4s var(--ease);
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(1.2rem, 2vw, 2.2rem);
+      padding-block: clamp(1.6rem, 2.4vw, 2.8rem);
     }
-    .mega-row:last-child { border-bottom: none }
-    .mega-num {
-      font-size: .72rem; font-weight: 500;
-      color: rgba(255, 255, 255, .4);
-      font-variant-numeric: tabular-nums;
+    .mega-card { display: flex; flex-direction: column; gap: .9rem }
+    .mega-card-body { display: flex; flex-direction: column; gap: .3rem }
+    .mega-card-img { display: block; overflow: hidden; aspect-ratio: 16/10; background: var(--grey-2) }
+    .mega-card-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.12); transition: transform .55s var(--ease), filter .4s }
+    .mega-card:hover .mega-card-img img { transform: scale(1.05); filter: grayscale(0) }
+    .mega-card-title {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-weight: 700; font-size: 1.18rem; letter-spacing: -.02em; color: var(--ink);
+      transition: gap .35s var(--ease);
     }
-    .mega-row-title {
-      display: block; font-weight: 700; letter-spacing: -.03em; line-height: 1;
-      font-size: clamp(1.35rem, 1.9vw, 1.7rem); color: #fff;
-      transition: transform .4s var(--ease);
-    }
-    .mega-row-desc {
-      display: block; margin-top: .35rem; max-width: 46ch;
-      font-size: .85rem; line-height: 1.45; color: rgba(255, 255, 255, .55);
-      transition: color .4s;
-    }
-    .mega-row-thumb {
-      width: 96px; height: 66px; overflow: hidden; flex: none;
-      filter: grayscale(1); transition: filter .5s, transform .5s var(--ease);
-    }
-    .mega-row-thumb img { width: 100%; height: 100%; object-fit: cover }
-    .mega-row:hover { padding-left: 1rem }
-    .mega-row:hover .mega-row-title { transform: translateX(6px) }
-    .mega-row:hover .mega-row-desc { color: rgba(255, 255, 255, .85) }
-    .mega-row:hover .mega-row-thumb { filter: grayscale(0); transform: scale(1.05) }
+    .mega-card-title::after { content: "→"; font-size: .9em; opacity: 0; transform: translateX(-6px); transition: opacity .35s var(--ease), transform .35s var(--ease) }
+    .mega-card:hover .mega-card-title::after { opacity: 1; transform: translateX(0) }
+    .mega-card-desc { font-size: .86rem; line-height: 1.45; color: var(--ink-soft) }
 
     /* ---- Mobile overlay menu ---- */
     .overlay-menu {

@@ -36,20 +36,6 @@ const isActive = (href: string) =>
               <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </a>
-          <div class="mega" role="menu">
-            <div class="mega-panel">
-              {item.children.map((c, i) => (
-                <a class="mega-row" href={c.href} role="menuitem">
-                  <span class="mega-num">{String(i + 1).padStart(2, '0')}</span>
-                  <span class="mega-row-text">
-                    <span class="mega-row-title">{c.label}</span>
-                    <span class="mega-row-desc">{c.desc}</span>
-                  </span>
-                  <span class="mega-row-thumb"><img src={c.img} alt={c.label} loading="lazy" decoding="async" width="120" height="84" /></span>
-                </a>
-              ))}
-            </div>
-          </div>
         </div>
       ) : (
         <a href={item.href} class:list={{ active: isActive(item.href) }}>{item.label}</a>
@@ -62,6 +48,21 @@ const isActive = (href: string) =>
     <button class="menu-toggle" aria-label="Menü öffnen" aria-controls="mobileMenu" aria-expanded="false">
       <span></span>
     </button>
+  </div>
+
+  <!-- Mega-Menü (vollbreit, bündig unter dem Header) -->
+  <div class="mega" role="menu">
+    <div class="wrap mega-inner">
+      {leistungen.children!.map((c) => (
+        <a class="mega-card" href={c.href} role="menuitem">
+          <span class="mega-card-img"><img src={c.img} alt={c.label} loading="lazy" decoding="async" width="320" height="200" /></span>
+          <span class="mega-card-body">
+            <span class="mega-card-title">{c.label}</span>
+            <span class="mega-card-desc">{c.desc}</span>
+          </span>
+        </a>
+      ))}
+    </div>
   </div>
 </header>
 
