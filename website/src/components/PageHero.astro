@@ -1,0 +1,38 @@
+---
+/**
+ * Standard-Hero für Unterseiten (nicht der animierte Startseiten-Hero).
+ * Vollflächiges Bild mit dunklem Overlay, Eyebrow, H1, Subtext, CTA + Breadcrumb.
+ */
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Crumb { label: string; href: string }
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  image: string;
+  ctaText?: string;
+  ctaHref?: string;
+  breadcrumbs?: Crumb[];
+}
+const {
+  eyebrow,
+  title,
+  subtitle,
+  image,
+  ctaText = 'Projekt anfragen',
+  ctaHref = '/kontakt',
+  breadcrumbs = [],
+} = Astro.props;
+---
+<section class="page-hero">
+  <img class="page-hero-bg" src={image} alt="" aria-hidden="true" fetchpriority="high" />
+  <div class="page-hero-overlay"></div>
+  <div class="wrap page-hero-inner">
+    {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+    {eyebrow && <span class="eyebrow on-dark">{eyebrow}</span>}
+    <h1 set:html={title}></h1>
+    {subtitle && <p class="page-hero-sub">{subtitle}</p>}
+    <a href={ctaHref} class="btn btn-light page-hero-cta">{ctaText} <span class="ico">→</span></a>
+  </div>
+</section>

@@ -1,0 +1,128 @@
+---
+/**
+ * Seitenübergreifender Header.
+ * - Desktop: Hauptnavigation + Mega-Menü für "Leistungen" (mit Bildern)
+ * - Mobile: Vollbild-Overlay mit aufgeklappten Leistungen
+ *
+ * Prop `transparent` (default false): true auf der Startseite, wo der Header
+ * über dem Hero transparent startet und beim Scrollen solide wird.
+ */
+import { nav, company } from '../data/site';
+
+interface Props {
+  transparent?: boolean;
+}
+const { transparent = false } = Astro.props;
+
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const leistungen = nav.find((n) => n.label === 'Leistungen')!;
+
+const isActive = (href: string) =>
+  href === '/' ? current === '/' : current === href || current.startsWith(href + '/');
+---
+
+<header class:list={['header', { scrolled: !transparent }]} data-transparent={transparent}>
+  <a href="/" class="brand" aria-label="Vonhoegen Bauunternehmung — Startseite">
+    <img class="logo-img" src="/vonhoegen-logo.svg" alt="Vonhoegen Bauunternehmung" width="200" height="66" />
+  </a>
+
+  <nav class="nav" aria-label="Hauptnavigation">
+    {nav.map((item) =>
+      item.children ? (
+        <div class="nav-item has-mega">
+          <a href={item.href} class:list={['nav-trigger', { active: isActive(item.href) }]} aria-haspopup="true">
+            {item.label}
+            <svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+          <div class="mega" role="menu">
+            <div class="mega-grid">
+              {item.children.map((c) => (
+                <a class="mega-card" href={c.href} role="menuitem">
+                  <span class="mega-thumb"><img src={c.img} alt={c.label} loading="lazy" decoding="async" width="320" height="220" /></span>
+                  <span class="mega-text">
+                    <span class="mega-title">{c.label}</span>
+                    <span class="mega-desc">{c.desc}</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <a href={item.href} class:list={{ active: isActive(item.href) }}>{item.label}</a>
+      )
+    )}
+  </nav>
+
+  <div class="header-cta">
+    <a href="/kontakt" class="btn btn-dark">Projekt anfragen</a>
+    <button class="menu-toggle" aria-label="Menü öffnen" aria-controls="mobileMenu" aria-expanded="false">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile-Overlay -->
+<div class="overlay-menu" id="mobileMenu" hidden>
+  <div class="menu-header">
+    <a href="/" class="brand"><img class="logo-img" src="/vonhoegen-logo.svg" alt="Vonhoegen Bauunternehmung" width="160" height="52" /></a>
+    <button class="close" aria-label="Menü schließen">✕</button>
+  </div>
+  <nav aria-label="Mobile Navigation">
+    {nav.map((item) =>
+      item.children ? (
+        <div class="m-group">
+          <a href={item.href} class="m-top">{item.label}</a>
+          <div class="m-sub">
+            {item.children.map((c) => (
+              <a href={c.href}>{c.label}</a>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <a href={item.href} class="m-top">{item.label}</a>
+      )
+    )}
+  </nav>
+  <div class="meta">
+    <span>Standort<b>{company.street}, {company.postalCode} {company.city}</b></span>
+    <span>Telefon<b><a href={`tel:${company.phoneHref}`}>{company.phone}</a></b></span>
+    <span>E-Mail<b><a href={`mailto:${company.email}`}>{company.email}</a></b></span>
+  </div>
+</div>
+
+<script>
+  const header = document.querySelector('.header') as HTMLElement | null;
+  const toggle = document.querySelector('.menu-toggle') as HTMLButtonElement | null;
+  const menu = document.getElementById('mobileMenu');
+  const closeBtn = menu?.querySelector('.close') as HTMLButtonElement | null;
+
+  // Scroll-Zustand nur auf Seiten mit transparentem Hero (Startseite)
+  if (header?.dataset.transparent === 'true') {
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // Mobile-Menü öffnen / schließen
+  const openMenu = () => {
+    menu?.removeAttribute('hidden');
+    requestAnimationFrame(() => menu?.classList.add('open'));
+    toggle?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  };
+  const closeMenu = () => {
+    menu?.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    setTimeout(() => menu?.setAttribute('hidden', ''), 450);
+  };
+  toggle?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu?.classList.contains('open')) closeMenu();
+  });
+</script>

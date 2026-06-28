@@ -1,0 +1,31 @@
+---
+/** Wiederverwendbarer Kontakt-/Abschluss-CTA-Block (dunkel, mit Bild & Trust-Punkten). */
+import { company } from '../data/site';
+interface Props {
+  heading?: string;
+  lead?: string;
+  image?: string;
+}
+const {
+  heading = 'Lassen Sie uns Ihr Projekt besprechen.',
+  lead = 'Erzählen Sie uns kurz, was Sie vorhaben. Sie erhalten innerhalb von 48 Stunden eine ehrliche Ersteinschätzung — unverbindlich.',
+  image = '/img/projekt-halle.webp',
+} = Astro.props;
+---
+<section class="cta cta-band">
+  <div class="bg"><img src={image} alt="" aria-hidden="true" loading="lazy" decoding="async" /></div>
+  <div class="wrap">
+    <div class="cta-band-inner">
+      <div>
+        <span class="eyebrow on-dark">Kontakt</span>
+        <h2 set:html={heading}></h2>
+        <p class="lead">{lead}</p>
+      </div>
+      <div class="cta-band-side">
+        <a href="/kontakt" class="btn btn-light">Projekt anfragen <span class="ico">→</span></a>
+        <a href={`tel:${company.phoneHref}`} class="cta-phone">{company.phone}</a>
+        <a href={`mailto:${company.email}`} class="cta-mail">{company.email}</a>
+      </div>
+    </div>
+  </div>
+</section>

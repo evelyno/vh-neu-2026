@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { breadcrumbSchema } from '../../lib/schema';
+import { nav } from '../../data/site';
+
+const path = '/leistungen';
+const title = 'Leistungen — Industriebau, Pharmabau, Brandschutz & Sanierung | Vonhoegen';
+const description =
+  'Die Leistungen der Vonhoegen Bauunternehmung aus Würselen: Industriebau, Pharma- & Reinraumbau, Brandschutz und Schadstoffsanierung — schlüsselfertig für Aachen, das Rheinland, Düsseldorf & Köln.';
+
+const breadcrumbs = [
+  { label: 'Startseite', href: '/' },
+  { label: 'Leistungen', href: path },
+];
+const services = nav.find((n) => n.label === 'Leistungen')!.children!;
+const jsonLd = [breadcrumbSchema(breadcrumbs)];
+---
+
+<Base title={title} description={description} canonicalPath={path} image="/img/industriebau-hero.webp" jsonLd={jsonLd}>
+  <PageHero
+    eyebrow="Leistungen"
+    title="Was wir für Sie bauen."
+    subtitle="Vier Kompetenzfelder, ein Anspruch: schlüsselfertig, terminsicher und mit einem festen Ansprechpartner — von Würselen aus für Aachen, das Rheinland, Düsseldorf und Köln."
+    image="/img/industriebau-hero.webp"
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="refs">
+        {services.map((s) => (
+          <a class="ref" href={s.href}>
+            <div class="media"><img src={s.img} alt={s.label} loading="lazy" decoding="async" /></div>
+            <h3>{s.label}</h3>
+            <p>{s.desc}</p>
+            <span class="more">Mehr erfahren <span class="arr">→</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</Base>

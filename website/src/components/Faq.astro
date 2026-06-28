@@ -1,0 +1,24 @@
+---
+/**
+ * FAQ-Accordion auf Basis nativer <details> (kein JS, voll zugänglich, SEO-stark).
+ * Die passende FAQPage-JSON-LD wird in der jeweiligen Seite über buildFaqSchema() gesetzt.
+ */
+interface QA { q: string; a: string }
+interface Props { items: QA[]; title?: string; tail?: string }
+const { items, title = 'Häufige', tail = 'Fragen.' } = Astro.props;
+---
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head" style="margin-inline:auto;text-align:center">
+      <h2 class="tt">{title} <span class="mute">{tail}</span></h2>
+    </div>
+    <div class="faq" style="margin-top:clamp(40px,5vw,64px)">
+      {items.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-q">{item.q} <span class="pm"></span></summary>
+          <div class="faq-a"><p set:html={item.a}></p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

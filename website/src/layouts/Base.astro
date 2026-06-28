@@ -1,0 +1,130 @@
+---
+/**
+ * Base-Layout — gemeinsame Hülle aller Seiten.
+ * Enthält <head> mit SEO/GEO-Meta, Open Graph, Canonical, JSON-LD
+ * (LocalBusiness/GeneralContractor) sowie Header + Footer.
+ *
+ * Props:
+ *  - title:        Seitentitel (ohne Marken-Suffix)
+ *  - description:  Meta-Description (~150–160 Zeichen)
+ *  - canonicalPath:Pfad ab Domainwurzel, z. B. "/leistungen/industriebau"
+ *  - image:        OG-Bild (absoluter Pfad ab Wurzel)
+ *  - jsonLd:       optionales Array zusätzlicher JSON-LD-Objekte (Service, FAQ, Breadcrumb …)
+ *  - noindex:      true → von Suchmaschinen ausschließen (z. B. Danke-Seiten)
+ */
+import '../styles/styles.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { company } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  image?: string;
+  jsonLd?: Record<string, any>[];
+  noindex?: boolean;
+  transparentHeader?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = '/',
+  image = '/img/industriebau.webp',
+  jsonLd = [],
+  noindex = false,
+  transparentHeader = false,
+} = Astro.props;
+
+const siteName = 'Vonhoegen Bauunternehmung';
+const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+const canonical = new URL(canonicalPath, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+
+// Basis-LocalBusiness-Schema (auf jeder Seite). GEO/Local-SEO-Signal für
+// Suchmaschinen und LLMs: Wer, Wo, Womit, Einzugsgebiet.
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'GeneralContractor',
+  '@id': `${Astro.site}#organization`,
+  name: company.legalName,
+  url: Astro.site?.href,
+  email: company.email,
+  telephone: company.phone,
+  faxNumber: company.fax,
+  image: ogImage,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: company.street,
+    postalCode: company.postalCode,
+    addressLocality: company.city,
+    addressRegion: company.regionShort,
+    addressCountry: company.country,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: company.geo.lat,
+    longitude: company.geo.lng,
+  },
+  areaServed: company.serviceAreas.map((a) => ({ '@type': 'City', name: a })),
+  knowsAbout: ['Industriebau', 'Pharmabau', 'Reinraumbau', 'Brandschutz', 'Schadstoffsanierung', 'Generalunternehmer'],
+};
+
+const schemas = [localBusiness, ...jsonLd];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="author" content={company.legalName} />
+    <meta name="geo.region" content="DE-NW" />
+    <meta name="geo.placename" content={`${company.city}, ${company.region}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Structured data (JSON-LD) -->
+    {schemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+
+    <slot name="head" />
+  </head>
+  <body>
+    <Header transparent={transparentHeader} />
+    <main id="top">
+      <slot />
+    </main>
+    <Footer />
+    <div class="grain" aria-hidden="true"></div>
+  </body>
+</html>

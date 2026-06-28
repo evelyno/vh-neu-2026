@@ -1,0 +1,82 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Faq from '../../components/Faq.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
+
+const path = '/leistungen/brandschutz';
+const title = 'Brandschutz Aachen & Würselen — Konzepte, Schottungen & Ertüchtigung | Vonhoegen';
+const description =
+  'Baulicher Brandschutz aus Würselen bei Aachen: Brandschutzkonzepte, Schottungen, Ertüchtigung und Sanierung im Bestand — normgerecht nach aktueller Bauordnung, geprüft und abgenommen. Im Rheinland, Düsseldorf & Köln.';
+
+const breadcrumbs = [
+  { label: 'Startseite', href: '/' },
+  { label: 'Leistungen', href: '/leistungen' },
+  { label: 'Brandschutz', href: path },
+];
+
+const scope = [
+  { t: 'Baulicher Brandschutz', d: 'Brandwände, Brandabschnitte und feuerwiderstandsfähige Bauteile — geplant und ausgeführt nach aktueller Norm.' },
+  { t: 'Brandschottungen', d: 'Schottung von Kabel-, Rohr- und Lüftungsdurchführungen — fachgerecht eingebaut und dokumentiert.' },
+  { t: 'Brandschutz-Ertüchtigung', d: 'Anhebung bestehender Gebäude auf den geforderten Brandschutzstandard — auch im laufenden Betrieb.' },
+  { t: 'Flucht- & Rettungswege', d: 'Bauliche Umsetzung sicherer Flucht- und Rettungswege inkl. Türen, Abschlüssen und Kennzeichnung.' },
+  { t: 'Bestandssanierung', d: 'Brandschutzgerechte Sanierung im Bestand — abgestimmt mit Sachverständigen und Behörden.' },
+  { t: 'Abnahme-Begleitung', d: 'Dokumentation und Begleitung bis zur erfolgreichen Abnahme durch Prüfer und Behörde.' },
+];
+
+const faqs = [
+  { q: 'Erstellen Sie auch das Brandschutzkonzept?', a: 'Die bauliche Umsetzung verantworten wir; das Brandschutzkonzept erstellen wir gemeinsam mit qualifizierten Sachverständigen, mit denen wir eng zusammenarbeiten — so greifen Planung und Ausführung sauber ineinander.' },
+  { q: 'Führen Sie Brandschutz im laufenden Betrieb aus?', a: 'Ja. Ertüchtigungen und Schottungen planen wir in Abschnitten mit Sicherheits- und Staubschutzkonzept, damit Ihr Betrieb möglichst ungestört weiterläuft.' },
+  { q: 'Sind Ihre Arbeiten geprüft und dokumentiert?', a: 'Ja. Wir dokumentieren die ausgeführten Maßnahmen nachvollziehbar und begleiten Sie bis zur Abnahme durch Prüfsachverständige und Behörden.' },
+  { q: 'In welcher Region arbeiten Sie?', a: 'Schwerpunkt ist Würselen, Aachen und die Städteregion. Brandschutzprojekte realisieren wir zudem überregional im Rheinland, u.&nbsp;a. in Düsseldorf und Köln.' },
+];
+
+const jsonLd = [
+  breadcrumbSchema(breadcrumbs),
+  serviceSchema({ name: 'Brandschutz', serviceType: 'Baulicher Brandschutz', description, url: path }),
+  faqSchema(faqs),
+];
+---
+
+<Base title={title} description={description} canonicalPath={path} image="/img/brandschutz.webp" jsonLd={jsonLd}>
+  <PageHero
+    eyebrow="Leistung · Brandschutz"
+    title="Baulicher Brandschutz —<br />normgerecht & abgenommen"
+    subtitle="Brandschutzkonzepte, Schottungen und Ertüchtigungen nach aktueller Norm — fachgerecht ausgeführt, sauber dokumentiert und bis zur Abnahme begleitet."
+    image="/img/brandschutz.webp"
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap narrow">
+      <span class="eyebrow">Brandschutz vom Bauprofi</span>
+      <p class="lead-text">
+        Die <strong>Vonhoegen Bauunternehmung</strong> setzt <strong>baulichen Brandschutz in Aachen, Würselen und dem Rheinland</strong> um —
+        von der Schottung einzelner Durchführungen bis zur kompletten Ertüchtigung im Bestand. Wir arbeiten normgerecht,
+        dokumentieren nachvollziehbar und begleiten Sie bis zur erfolgreichen Abnahme.
+      </p>
+    </div>
+  </section>
+
+  <section class="section grey">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Leistungsumfang</span>
+        <h2 class="tt">Brandschutz, der <span class="mute">Bestand hat.</span></h2>
+      </div>
+      <div class="feature-grid">
+        {scope.map((s) => (
+          <article class="feature-card"><h3>{s.t}</h3><p>{s.d}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} title="Brandschutz —" tail="häufige Fragen." />
+  <CtaSection
+    heading="Brandschutz-Auflagen zu erfüllen?"
+    lead="Schildern Sie uns kurz Ihr Gebäude und die Anforderung — wir melden uns innerhalb von 48 Stunden."
+    image="/img/brandschutz.webp"
+  />
+</Base>

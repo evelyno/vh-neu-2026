@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const path = '/ueber-uns';
+const title = 'Über uns — Bauunternehmen aus Würselen bei Aachen | Vonhoegen';
+const description =
+  'Die Vonhoegen Bauunternehmung aus Würselen: ein Bauunternehmen mit eigenem Stamm an Fachkräften, festem Ansprechpartner pro Projekt und einem Anspruch an Bauqualität, die Jahrzehnte hält.';
+
+const breadcrumbs = [
+  { label: 'Startseite', href: '/' },
+  { label: 'Über uns', href: path },
+];
+
+const values = [
+  ['Verlässlichkeit', 'Was wir zusagen, halten wir — Festpreis, Termin und Qualität. Lieber ehrlich früh sprechen als später überraschen.'],
+  ['Substanz', 'Wir bauen für Jahrzehnte, nicht für das nächste Quartal. Gute Substanz zahlt sich über die gesamte Nutzungsdauer aus.'],
+  ['Nähe', 'Ein fester Ansprechpartner pro Projekt, kurze Wege und regionale Verwurzelung in der Städteregion Aachen.'],
+];
+
+const jsonLd = [breadcrumbSchema(breadcrumbs)];
+---
+
+<Base title={title} description={description} canonicalPath={path} image="/img/team.webp" jsonLd={jsonLd}>
+  <PageHero
+    eyebrow="Über uns"
+    title="Ein Partner, der bleibt —<br />vom ersten Termin an."
+    subtitle="Die Vonhoegen Bauunternehmung steht für eine Bauweise, die an Jahrzehnten gemessen wird — mit eigenen Fachkräften und einem festen Ansprechpartner pro Projekt."
+    image="/img/team.webp"
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <div class="media"><img src="/img/team.webp" alt="Thomas Vonhoegen, Gründer & Geschäftsführer" loading="lazy" decoding="async" /></div>
+        <div>
+          <span class="eyebrow">Unsere Haltung</span>
+          <blockquote>„Ein Bau ist erst dann gut, wenn er auch in zwanzig Jahren noch hält, was wir versprochen haben."</blockquote>
+          <p class="lead-text">
+            Gegründet von Thomas Vonhoegen, steht das Unternehmen aus <strong>Würselen bei Aachen</strong> für
+            verlässliches, durchdachtes Bauen. Mit eigenem Stamm an Fachkräften, kurzen Wegen und einem festen
+            Ansprechpartner pro Projekt — kein Verstecken hinter anonymen Subunternehmern.
+          </p>
+          <div class="signoff" style="margin-top:1.8rem">
+            <img class="av" src="/img/team.webp" alt="Thomas Vonhoegen" loading="lazy" decoding="async" />
+            <div><div class="nm">Thomas Vonhoegen</div><div class="ro">Gründer & Geschäftsführer</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section grey">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Wofür wir stehen</span>
+        <h2 class="tt">Drei Werte, <span class="mute">die jedes Projekt tragen.</span></h2>
+      </div>
+      <div class="feature-grid">
+        {values.map(([t, d]) => (
+          <article class="feature-card"><h3>{t}</h3><p>{d}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</Base>

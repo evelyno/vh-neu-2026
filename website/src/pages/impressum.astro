@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import { company } from '../data/site';
+
+const path = '/impressum';
+const title = 'Impressum';
+const description = 'Impressum der Vonhoegen Bauunternehmung GmbH, Würselen.';
+---
+
+<Base title={`${title} | Vonhoegen Bauunternehmung`} description={description} canonicalPath={path} noindex={true}>
+  <section class="section legal">
+    <div class="wrap narrow">
+      <span class="eyebrow">Rechtliches</span>
+      <h1 class="tt" style="margin-top:1rem">Impressum</h1>
+
+      <p class="legal-note">
+        Hinweis: Dies sind Beispielinhalte als Platzhalter. Der rechtsgültige Text wird vor dem Livegang
+        durch eine geprüfte Fassung (z.&nbsp;B. von eRecht24) ersetzt.
+      </p>
+
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        {company.legalName}<br />
+        {company.street}<br />
+        {company.postalCode} {company.city}<br />
+        {company.countryName}
+      </p>
+
+      <h2>Vertreten durch</h2>
+      <p>Thomas Vonhoegen (Geschäftsführer)</p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Telefon: <a href={`tel:${company.phoneHref}`}>{company.phone}</a><br />
+        Telefax: {company.fax}<br />
+        Mobil: <a href={`tel:${company.mobileHref}`}>{company.mobile}</a><br />
+        E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a>
+      </p>
+
+      <h2>Registereintrag</h2>
+      <p>
+        Eintragung im Handelsregister.<br />
+        Registergericht: [Amtsgericht — bitte ergänzen]<br />
+        Registernummer: [HRB — bitte ergänzen]
+      </p>
+
+      <h2>Umsatzsteuer-ID</h2>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: [USt-IdNr. — bitte ergänzen]</p>
+
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>
+        Thomas Vonhoegen<br />
+        {company.street}, {company.postalCode} {company.city}
+      </p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p>
+        Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den
+        allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht
+        verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.
+      </p>
+
+      <h2>Haftung für Links</h2>
+      <p>
+        Unser Angebot enthält ggf. Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss
+        haben. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.
+      </p>
+
+      <h2>Urheberrecht</h2>
+      <p>
+        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen
+        Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet.
+      </p>
+    </div>
+  </section>
+</Base>

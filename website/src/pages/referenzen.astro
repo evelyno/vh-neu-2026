@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const path = '/referenzen';
+const title = 'Referenzen — Industrie-, Pharma- & Sanierungsprojekte | Vonhoegen';
+const description =
+  'Ausgewählte Referenzen der Vonhoegen Bauunternehmung: Industriebau, Pharma- & Reinraumbau und Schadstoffsanierung in Aachen, der Städteregion und dem Rheinland — schlüsselfertig übergeben.';
+
+const breadcrumbs = [
+  { label: 'Startseite', href: '/' },
+  { label: 'Referenzen', href: path },
+];
+
+const projects = [
+  ['/img/projekt-halle.webp', '2025 · Industriebau', 'Produktionshalle Eschweiler', '4.200 m² schlüsselfertige Produktions- und Logistikfläche — terminsicher übergeben.'],
+  ['/img/projekt-pharma.webp', '2024 · Pharmabau', 'Reinraum-Erweiterung Aachen', 'GMP-C-Erweiterung im laufenden Betrieb — validierbar geplant und sauber dokumentiert.'],
+  ['/img/projekt-sanierung.webp', '2024 · Sanierung', 'Schadstoffsanierung Stolberg', 'Rückbau und Sanierung nach TRGS 519 — sicher abgenommen und freigegeben.'],
+  ['/img/industriebau.webp', '2023 · Industriebau', 'Logistikzentrum Düren', 'Umschlag- und Lagerhalle mit Rampen und Bürotrakt — aus einer Hand realisiert.'],
+  ['/img/pharma.webp', '2023 · Pharmabau', 'Laborgebäude Rheinland', 'Labor- und Technikflächen mit revisionssicherer Qualifizierungs-Dokumentation.'],
+  ['/img/umbau.webp', '2022 · Umbau', 'Gewerbe-Revitalisierung Köln', 'Energetische Sanierung und Umnutzung im Bestand — bei laufendem Betrieb.'],
+];
+
+const jsonLd = [breadcrumbSchema(breadcrumbs)];
+---
+
+<Base title={title} description={description} canonicalPath={path} image="/img/projekt-halle.webp" jsonLd={jsonLd}>
+  <PageHero
+    eyebrow="Referenzen"
+    title="Gebaut, übergeben, bewährt."
+    subtitle="Ein Auszug aus realisierten Projekten in Industriebau, Pharmabau und Sanierung — in Aachen, der Städteregion und dem Rheinland."
+    image="/img/projekt-halle.webp"
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="refs">
+        {projects.map(([img, d, h, p]) => (
+          <article class="ref">
+            <div class="media"><img src={img} alt={h} loading="lazy" decoding="async" /></div>
+            <div class="date">{d}</div><h3>{h}</h3><p>{p}</p>
+          </article>
+        ))}
+      </div>
+      <p class="lead-text" style="margin-top:2.5rem">
+        Hinweis: Die gezeigten Projekte sind Beispielreferenzen und werden nach Freigabe durch echte
+        Kundenprojekte ersetzt.
+      </p>
+    </div>
+  </section>
+
+  <CtaSection />
+</Base>

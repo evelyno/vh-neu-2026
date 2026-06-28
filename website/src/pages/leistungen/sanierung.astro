@@ -1,0 +1,82 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Faq from '../../components/Faq.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
+
+const path = '/leistungen/sanierung';
+const title = 'Sanierung & Schadstoffsanierung Aachen — TRGS 519 | Vonhoegen';
+const description =
+  'Sanierung & Schadstoffsanierung aus Würselen bei Aachen: Asbest- und Schadstoffrückbau nach TRGS 519, energetische Revitalisierung und Bestandssanierung — sicher, dokumentiert und freigegeben. Im Rheinland, Düsseldorf & Köln.';
+
+const breadcrumbs = [
+  { label: 'Startseite', href: '/' },
+  { label: 'Leistungen', href: '/leistungen' },
+  { label: 'Sanierung', href: path },
+];
+
+const scope = [
+  { t: 'Schadstoffsanierung (TRGS 519)', d: 'Fachgerechter Rückbau asbesthaltiger und schadstoffbelasteter Bauteile — sicher für Mensch und Umwelt.' },
+  { t: 'Rückbau & Entkernung', d: 'Kontrollierter Rückbau und Entkernung als Basis für Neubau, Umnutzung oder Revitalisierung.' },
+  { t: 'Energetische Sanierung', d: 'Dämmung, Hülle und Technik auf aktuellen Stand bringen — für niedrigere Betriebskosten und Werterhalt.' },
+  { t: 'Bestandssanierung', d: 'Instandsetzung und Modernisierung von Gewerbe- und Industriegebäuden im laufenden Betrieb.' },
+  { t: 'Entsorgung & Nachweis', d: 'Ordnungsgemäße Entsorgung mit lückenlosem Nachweis — revisionssicher dokumentiert.' },
+  { t: 'Freimessung & Freigabe', d: 'Begleitung bis zur Freimessung und Freigabe durch die zuständigen Stellen.' },
+];
+
+const faqs = [
+  { q: 'Führen Sie Asbestsanierung nach TRGS 519 durch?', a: 'Ja. Schadstoff- und Asbestsanierung führen wir fachgerecht nach TRGS 519 durch — mit Sicherheits-, Abschottungs- und Entsorgungskonzept zum Schutz von Mitarbeitern, Umgebung und weiterem Betrieb.' },
+  { q: 'Sanieren Sie auch im laufenden Betrieb?', a: 'Ja. Wir planen Sanierungen in Abschnitten mit klaren Abschottungs- und Sicherheitskonzepten, sodass Ihr Betrieb möglichst ungestört weiterläuft.' },
+  { q: 'Übernehmen Sie Entsorgung und Nachweis?', a: 'Ja. Wir organisieren die ordnungsgemäße Entsorgung und liefern eine lückenlose, revisionssichere Dokumentation inklusive Freimessung und Freigabe.' },
+  { q: 'In welcher Region sind Sie tätig?', a: 'Schwerpunkt ist Würselen, Aachen und die Städteregion. Sanierungsprojekte realisieren wir darüber hinaus überregional im Rheinland, u.&nbsp;a. in Düsseldorf und Köln.' },
+];
+
+const jsonLd = [
+  breadcrumbSchema(breadcrumbs),
+  serviceSchema({ name: 'Sanierung & Schadstoffsanierung', serviceType: 'Sanierung, Schadstoffsanierung', description, url: path }),
+  faqSchema(faqs),
+];
+---
+
+<Base title={title} description={description} canonicalPath={path} image="/img/sanierung.webp" jsonLd={jsonLd}>
+  <PageHero
+    eyebrow="Leistung · Sanierung"
+    title="Sanierung & Schadstoff-<br />rückbau nach TRGS 519"
+    subtitle="Fachgerechter Rückbau, Schadstoffsanierung und energetische Revitalisierung — sicher für Mensch, Umwelt und Betrieb, lückenlos dokumentiert und freigegeben."
+    image="/img/sanierung.webp"
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap narrow">
+      <span class="eyebrow">Sanierung vom Fachbetrieb</span>
+      <p class="lead-text">
+        Die <strong>Vonhoegen Bauunternehmung</strong> übernimmt <strong>Sanierung und Schadstoffsanierung in Aachen, Würselen und dem Rheinland</strong> —
+        vom Asbestrückbau nach TRGS 519 über die Entkernung bis zur energetischen Revitalisierung. Sicher geplant,
+        sauber ausgeführt und mit lückenlosem Nachweis bis zur Freigabe.
+      </p>
+    </div>
+  </section>
+
+  <section class="section grey">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Leistungsumfang</span>
+        <h2 class="tt">Sanieren — <span class="mute">sicher & nachweisbar.</span></h2>
+      </div>
+      <div class="feature-grid">
+        {scope.map((s) => (
+          <article class="feature-card"><h3>{s.t}</h3><p>{s.d}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} title="Sanierung —" tail="häufige Fragen." />
+  <CtaSection
+    heading="Schadstoffe oder Sanierungsbedarf?"
+    lead="Schildern Sie uns kurz Objekt und Umfang — wir melden uns innerhalb von 48 Stunden mit einer sicheren Einschätzung."
+    image="/img/sanierung.webp"
+  />
+</Base>

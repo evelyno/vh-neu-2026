@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import { company } from '../data/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+const path = '/kontakt';
+const title = 'Kontakt — Bauanfrage an Vonhoegen Bauunternehmung, Würselen';
+const description =
+  'Kontakt zur Vonhoegen Bauunternehmung GmbH in Würselen bei Aachen. Telefon, E-Mail und Anfrageformular für Industriebau, Pharmabau, Brandschutz und Sanierung im Rheinland.';
+
+const breadcrumbs = [
+  { label: 'Startseite', href: '/' },
+  { label: 'Kontakt', href: path },
+];
+const jsonLd = [breadcrumbSchema(breadcrumbs)];
+---
+
+<Base title={title} description={description} canonicalPath={path} jsonLd={jsonLd}>
+  <section class="cta" id="kontakt" style="min-height:auto">
+    <div class="bg"><img src="/img/projekt-halle.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" /></div>
+    <div class="wrap">
+      <div class="grid" style="padding-top:clamp(140px,16vw,200px)">
+        <div>
+          <span class="eyebrow on-dark">Kontakt</span>
+          <h2 style="margin-top:1.2rem">Lassen Sie uns<br /><em>Ihr Projekt</em><br />besprechen.</h2>
+          <p class="lead">Erzählen Sie uns kurz, was Sie vorhaben. Sie erhalten innerhalb von 48 Stunden eine ehrliche Ersteinschätzung — unverbindlich.</p>
+
+          <div class="contact-block">
+            <div><span class="cl">Anschrift</span><a href="https://maps.google.com/?q=Vonhoegen+Bauunternehmung+Würselen" target="_blank" rel="noopener">{company.legalName}<br />{company.street}<br />{company.postalCode} {company.city}</a></div>
+            <div><span class="cl">Telefon</span><a href={`tel:${company.phoneHref}`}>{company.phone}</a></div>
+            <div><span class="cl">Mobil</span><a href={`tel:${company.mobileHref}`}>{company.mobile}</a></div>
+            <div><span class="cl">Fax</span><span class="cv">{company.fax}</span></div>
+            <div><span class="cl">E-Mail</span><a href={`mailto:${company.email}`}>{company.email}</a></div>
+          </div>
+        </div>
+
+        <form class="form" id="contactForm">
+          <div class="field"><label>Name<span class="req">*</span></label><input type="text" name="name" placeholder="Ihr Name" required /></div>
+          <div class="row2">
+            <div class="field"><label>E-Mail-Adresse<span class="req">*</span></label><input type="email" name="email" placeholder="ihre@email.de" required /></div>
+            <div class="field"><label>Telefonnummer</label><input type="tel" name="phone" placeholder="Für schnelle Rückfragen" /></div>
+          </div>
+          <div class="field"><label>Betreff / Anliegen</label>
+            <select name="subject">
+              <option>Allgemeine Anfrage</option>
+              <option>Neubau</option>
+              <option>Umbau / Sanierung</option>
+              <option>Reparatur / Kleinauftrag</option>
+              <option>Beratung gewünscht</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="field"><label>Nachricht<span class="req">*</span></label><textarea name="message" rows="4" placeholder="Beschreiben Sie kurz Ihr Anliegen oder Bauvorhaben. Wir melden uns zeitnah bei Ihnen zurück." required></textarea></div>
+          <label class="checkbox">
+            <input type="checkbox" name="privacy" required />
+            <span class="box" aria-hidden="true"></span>
+            <span class="ck-text">Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen und stimme zu, dass meine Angaben zur Kontaktaufnahme verarbeitet werden.<span class="req">*</span></span>
+          </label>
+          <button type="submit" class="btn btn-light" style="justify-content:center">Anfrage senden <span class="ico">→</span></button>
+          <p class="note" style="font-size:.78rem;color:rgba(255,255,255,.45);text-align:center;line-height:1.5">
+            Hinweis: Das Formular ist aktuell ein Demoformular ohne Versand-Backend. Die Anbindung folgt vor dem Livegang.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.innerHTML =
+      '<div class="form-success"><div class="big">✓</div>' +
+      '<h3 style="color:#fff">Vielen Dank für Ihre Anfrage — wir melden uns umgehend.</h3>' +
+      '<p style="color:rgba(255,255,255,.7);margin-top:.6rem">Ihre Anfrage ist eingegangen. Sie hören innerhalb von 48 Stunden von uns.</p></div>';
+  });
+</script>

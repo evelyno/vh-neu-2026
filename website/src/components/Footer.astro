@@ -1,0 +1,44 @@
+---
+/** Seitenübergreifender Footer mit zentral gepflegten Links & Firmendaten. */
+import { company, footerLeistungen, footerUnternehmen } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Leistungen</h4>
+        <ul>
+          {footerLeistungen.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4>Unternehmen</h4>
+        <ul>
+          {footerUnternehmen.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="contact">
+        <h4>Kontakt</h4>
+        <b>Standort</b><a href="https://maps.google.com/?q=Vonhoegen+Bauunternehmung+Würselen" target="_blank" rel="noopener">{company.street}, {company.postalCode} {company.city}</a>
+        <b>Telefon</b><a href={`tel:${company.phoneHref}`}>{company.phone}</a>
+        <b>E-Mail</b><a href={`mailto:${company.email}`}>{company.email}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-mark"><span>VONHOEGEN</span></div>
+
+  <div class="bottom">
+    <span>© {year} {company.legalName}</span>
+    <div class="socials">
+      <a href="/impressum">Impressum</a>
+      <a href="/datenschutz">Datenschutz</a>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import HomeContent from '../components/home/HomeContent.jsx';
+import { company } from '../data/site';
+
+const title = 'Vonhoegen Bauunternehmung — Industriebau, Pharmabau & Brandschutz aus Würselen';
+const description =
+  'Bauunternehmen aus Würselen bei Aachen für Industriebau, Pharma- & Reinraumbau, Brandschutz und Sanierung. Schlüsselfertig, terminsicher, mit festem Ansprechpartner — auch in Düsseldorf & Köln.';
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: company.legalName,
+  url: 'https://www.vonhoegen-bauunternehmung.de/',
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    ['Übernehmen Sie auch Projekte im laufenden Betrieb?', 'Ja. Gerade im Industrie- und Pharmaumfeld planen wir Bauabschnitte so, dass Ihr Betrieb weiterläuft — mit klaren Sicherheits- und Abschottungskonzepten.'],
+    ['Wie verbindlich sind Ihre Termine und Preise?', 'Sie erhalten eine klare Leistungsbeschreibung mit Festpreis und verbindlichem Terminplan. Was wir zusagen, halten wir — oder sprechen frühzeitig darüber.'],
+    ['Sind Sie für Asbestsanierung zertifiziert?', 'Ja, Sanierungen führen wir fachgerecht nach TRGS 519 durch — sicher für Ihre Mitarbeiter, die Umgebung und den weiteren Betrieb.'],
+    ['In welcher Region sind Sie tätig?', 'Schwerpunkt ist die Region Aachen / Städteregion und das angrenzende Rheinland (Düsseldorf, Köln). Für größere Projekte sind wir überregional im Einsatz.'],
+  ].map(([q, a]) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+---
+
+<Base
+  title={title}
+  description={description}
+  canonicalPath="/"
+  transparentHeader={true}
+  jsonLd={[websiteSchema, faqSchema]}
+>
+  <HomeContent client:load />
+</Base>
