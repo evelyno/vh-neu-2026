@@ -29,10 +29,14 @@ const {
   <img class="page-hero-bg" src={image} alt="" aria-hidden="true" fetchpriority="high" />
   <div class="page-hero-overlay"></div>
   <div class="wrap page-hero-inner">
-    {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
     {eyebrow && <span class="eyebrow on-dark">{eyebrow}</span>}
     <h1 set:html={title}></h1>
     {subtitle && <p class="page-hero-sub">{subtitle}</p>}
     <a href={ctaHref} class="btn btn-light page-hero-cta">{ctaText} <span class="ico">→</span></a>
   </div>
 </section>
+{breadcrumbs.length > 0 && (
+  <div class="breadcrumb-bar">
+    <div class="wrap"><Breadcrumbs items={breadcrumbs} /></div>
+  </div>
+)}

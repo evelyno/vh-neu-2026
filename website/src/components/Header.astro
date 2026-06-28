@@ -37,14 +37,15 @@ const isActive = (href: string) =>
             </svg>
           </a>
           <div class="mega" role="menu">
-            <div class="mega-grid">
-              {item.children.map((c) => (
-                <a class="mega-card" href={c.href} role="menuitem">
-                  <span class="mega-thumb"><img src={c.img} alt={c.label} loading="lazy" decoding="async" width="320" height="220" /></span>
-                  <span class="mega-text">
-                    <span class="mega-title">{c.label}</span>
-                    <span class="mega-desc">{c.desc}</span>
+            <div class="mega-panel">
+              {item.children.map((c, i) => (
+                <a class="mega-row" href={c.href} role="menuitem">
+                  <span class="mega-num">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="mega-row-text">
+                    <span class="mega-row-title">{c.label}</span>
+                    <span class="mega-row-desc">{c.desc}</span>
                   </span>
+                  <span class="mega-row-thumb"><img src={c.img} alt={c.label} loading="lazy" decoding="async" width="120" height="84" /></span>
                 </a>
               ))}
             </div>
