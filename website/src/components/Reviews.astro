@@ -1,38 +1,88 @@
 ---
 /**
- * Wiederverwendbare Bewertungs-/Referenz-Section für Landingpages.
- * Zeigt Kundenstimmen mit Sternebewertung; data-reveal animiert beim Scrollen.
+ * Referenzen / Stimmen — Slider im "Success Stories"-Stil:
+ * zweizeilige Überschrift + Intro, Trennlinie, nummerierte Tabs + Anführungszeichen,
+ * großes Serifen-Zitat und Autor. Umschalten per Zahlen-Buttons (scoped JS).
  */
 interface Review { quote: string; name: string; role: string }
 interface Props {
   items: Review[];
-  eyebrow?: string;
   title?: string;
   tail?: string;
+  intro?: string;
   variant?: 'grey' | 'default';
 }
 const {
   items,
-  eyebrow = 'Was Bauherren sagen',
-  title = 'Verlassen Sie sich',
-  tail = 'nicht auf unser Wort.',
+  title = 'Referenzen',
+  tail = '& Stimmen.',
+  intro = 'Was Bauherren über die Zusammenarbeit mit Vonhoegen sagen — ehrlich, konkret und aus echten Projekten.',
   variant = 'grey',
 } = Astro.props;
+
+const initials = (name: string) =>
+  name
+    .replace(/[^A-Za-zÄÖÜäöüß.\s]/g, '')
+    .split(/\s+/)
+    .filter((t) => /[A-Za-zÄÖÜäöü]/.test(t))
+    .slice(0, 2)
+    .map((t) => t[0].toUpperCase())
+    .join('');
 ---
-<section class:list={['section', { grey: variant === 'grey' }]}>
+<section class:list={['section', 'reviews-slider', { grey: variant === 'grey' }]}>
   <div class="wrap">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">{eyebrow}</span>
-      <h2 class="tt" style="margin-top:1.2rem">{title} <span class="mute">{tail}</span></h2>
+    <div class="rs-head" data-reveal>
+      <h2 class="tt"><span class="mute">{title}</span><br />{tail}</h2>
+      <p class="rs-intro">{intro}</p>
     </div>
-    <div class="reviews-grid" data-reveal-group>
-      {items.map((r) => (
-        <figure class="review-card">
-          <div class="stars" aria-label="5 von 5 Sternen">★★★★★</div>
-          <blockquote>„{r.quote}"</blockquote>
-          <figcaption><b>{r.name}</b><span>{r.role}</span></figcaption>
+
+    <hr class="rs-divider" />
+
+    <div class="rs-controls">
+      <div class="rs-nums" role="tablist" aria-label="Stimmen">
+        {items.map((_, i) => (
+          <button class:list={['rs-num', { active: i === 0 }]} data-i={i} role="tab" aria-selected={i === 0 ? 'true' : 'false'}>
+            {i + 1}
+          </button>
+        ))}
+      </div>
+      <span class="rs-quote-mark" aria-hidden="true">”</span>
+    </div>
+
+    <div class="rs-stage">
+      {items.map((r, i) => (
+        <figure class="rs-item" data-i={i} hidden={i !== 0}>
+          <blockquote>{r.quote}</blockquote>
+          <figcaption>
+            <span class="rs-avatar" aria-hidden="true">{initials(r.name)}</span>
+            <span class="rs-meta"><b>{r.name}</b><span>{r.role}</span></span>
+          </figcaption>
         </figure>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('.reviews-slider').forEach((root) => {
+    const nums = root.querySelectorAll('.rs-num');
+    const items = root.querySelectorAll('.rs-item');
+    let current = 0;
+    const show = (n) => {
+      if (n === current) return;
+      items[current]?.classList.remove('enter');
+      items[current]?.setAttribute('hidden', '');
+      nums[current]?.classList.remove('active');
+      nums[current]?.setAttribute('aria-selected', 'false');
+      current = n;
+      const next = items[current];
+      next?.removeAttribute('hidden');
+      // Reflow für Re-Animation
+      void next?.offsetWidth;
+      next?.classList.add('enter');
+      nums[current]?.classList.add('active');
+      nums[current]?.setAttribute('aria-selected', 'true');
+    };
+    nums.forEach((b, i) => b.addEventListener('click', () => show(i)));
+  });
+</script>
