@@ -802,13 +802,14 @@
 
     @media(max-width:720px) {
       .chevrons {
-        flex-wrap: wrap;
-        gap: 10px
+        flex-wrap: nowrap;
+        gap: 5px
       }
 
       .chev {
-        flex: 1 1 44%;
-        max-width: none
+        flex: 1 1 0;
+        max-width: none;
+        aspect-ratio: 4/6
       }
     }
 
