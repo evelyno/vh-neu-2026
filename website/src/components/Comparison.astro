@@ -1,0 +1,44 @@
+---
+/** #6 Vergleich: Generalunternehmer vs. Einzelvergabe. LLM-/GEO-freundlich. */
+interface Row { label: string; gu: string; other: string }
+interface Props {
+  rows: Row[];
+  eyebrow?: string;
+  title?: string;
+  tail?: string;
+  guLabel?: string;
+  otherLabel?: string;
+  variant?: 'grey' | 'default';
+}
+const {
+  rows,
+  eyebrow = 'Im Vergleich',
+  title = 'Generalunternehmer',
+  tail = 'oder Einzelvergabe?',
+  guLabel = 'Mit Vonhoegen als GU',
+  otherLabel = 'Einzelvergabe',
+  variant = 'default',
+} = Astro.props;
+---
+<section class:list={['section', { grey: variant === 'grey' }]}>
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="tt">{title} <span class="mute">{tail}</span></h2>
+    </div>
+    <div class="compare" data-reveal>
+      <div class="compare-row compare-head">
+        <div class="compare-crit"></div>
+        <div class="compare-gu">{guLabel}</div>
+        <div class="compare-other">{otherLabel}</div>
+      </div>
+      {rows.map((r) => (
+        <div class="compare-row">
+          <div class="compare-crit">{r.label}</div>
+          <div class="compare-gu"><span class="ck" aria-hidden="true">✓</span>{r.gu}</div>
+          <div class="compare-other"><span class="x" aria-hidden="true">–</span>{r.other}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

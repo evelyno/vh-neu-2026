@@ -1,0 +1,30 @@
+---
+/** #5 Normen, Standards & Zertifizierungen — Trust / E-E-A-T-Signal. */
+interface Item { label: string; desc: string }
+interface Props { items: Item[]; eyebrow?: string; title?: string; tail?: string; note?: string; variant?: 'grey' | 'default' }
+const {
+  items,
+  eyebrow = 'Normen & Standards',
+  title = 'Worauf Sie sich',
+  tail = 'verlassen können.',
+  note,
+  variant = 'grey',
+} = Astro.props;
+---
+<section class:list={['section', { grey: variant === 'grey' }]}>
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="tt">{title} <span class="mute">{tail}</span></h2>
+    </div>
+    <div class="cert-grid" data-reveal-group>
+      {items.map((it) => (
+        <article class="cert-card">
+          <span class="cert-check" aria-hidden="true">✓</span>
+          <div><h3>{it.label}</h3><p>{it.desc}</p></div>
+        </article>
+      ))}
+    </div>
+    {note && <p class="cert-note">{note}</p>}
+  </div>
+</section>

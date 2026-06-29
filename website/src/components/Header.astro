@@ -22,32 +22,34 @@ const isActive = (href: string) =>
 ---
 
 <header class:list={['header', { scrolled: !transparent }]} data-transparent={transparent}>
-  <a href="/" class="brand" aria-label="Vonhoegen Bauunternehmung — Startseite">
-    <img class="logo-img" src="/vonhoegen-logo.svg" alt="Vonhoegen Bauunternehmung" width="200" height="66" />
-  </a>
+  <div class="wrap header-inner">
+    <a href="/" class="brand" aria-label="Vonhoegen Bauunternehmung — Startseite">
+      <img class="logo-img" src="/vonhoegen-logo.svg" alt="Vonhoegen Bauunternehmung" width="200" height="66" />
+    </a>
 
-  <nav class="nav" aria-label="Hauptnavigation">
-    {nav.map((item) =>
-      item.children ? (
-        <div class="nav-item has-mega">
-          <a href={item.href} class:list={['nav-trigger', { active: isActive(item.href) }]} aria-haspopup="true">
-            {item.label}
-            <svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
-              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </a>
-        </div>
-      ) : (
-        <a href={item.href} class:list={{ active: isActive(item.href) }}>{item.label}</a>
-      )
-    )}
-  </nav>
+    <nav class="nav" aria-label="Hauptnavigation">
+      {nav.map((item) =>
+        item.children ? (
+          <div class="nav-item has-mega">
+            <a href={item.href} class:list={['nav-trigger', { active: isActive(item.href) }]} aria-haspopup="true">
+              {item.label}
+              <svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+          </div>
+        ) : (
+          <a href={item.href} class:list={{ active: isActive(item.href) }}>{item.label}</a>
+        )
+      )}
+    </nav>
 
-  <div class="header-cta">
-    <a href="/kontakt" class="btn btn-dark">Projekt anfragen</a>
-    <button class="menu-toggle" aria-label="Menü öffnen" aria-controls="mobileMenu" aria-expanded="false">
-      <span></span>
-    </button>
+    <div class="header-cta">
+      <a href="/kontakt" class="btn btn-dark">Projekt anfragen</a>
+      <button class="menu-toggle" aria-label="Menü öffnen" aria-controls="mobileMenu" aria-expanded="false">
+        <span></span>
+      </button>
+    </div>
   </div>
 
   <!-- Mega-Menü (vollbreit, bündig unter dem Header) -->

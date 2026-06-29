@@ -1,0 +1,22 @@
+---
+/** #4 Branchen / Zielgruppen — "Für wen wir bauen". */
+interface Item { label: string; desc: string }
+interface Props { items: Item[]; eyebrow?: string; title?: string; tail?: string; variant?: 'grey' | 'default' }
+const { items, eyebrow = 'Branchen', title = 'Für wen wir', tail = 'bauen.', variant = 'default' } = Astro.props;
+---
+<section class:list={['section', { grey: variant === 'grey' }]}>
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="tt">{title} <span class="mute">{tail}</span></h2>
+    </div>
+    <div class="industry-grid" data-reveal-group>
+      {items.map((it) => (
+        <article class="industry-card">
+          <h3>{it.label}</h3>
+          <p>{it.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -6,6 +6,10 @@ import CtaSection from '../../components/CtaSection.astro';
 import Showcase from '../../components/Showcase.astro';
 import Reviews from '../../components/Reviews.astro';
 import Stats from '../../components/Stats.astro';
+import Industries from '../../components/Industries.astro';
+import Certifications from '../../components/Certifications.astro';
+import Comparison from '../../components/Comparison.astro';
+import RelatedServices from '../../components/RelatedServices.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 const path = '/leistungen/industriebau';
@@ -126,16 +130,34 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- Showcase: fertige, moderne Gebäude -->
+  <!-- #4 Branchen -->
+  <Industries
+    eyebrow="Branchen"
+    title="Für wen wir"
+    tail="Industriebau realisieren."
+    items={[
+      { label: 'Logistik & Distribution', desc: 'Umschlag-, Lager- und Kommissionierflächen mit Rampen, Toren und kurzen Wegen.' },
+      { label: 'Produktion & Fertigung', desc: 'Hallen mit tragfähigen Böden, Kranbahnen und auf den Prozess abgestimmter Statik.' },
+      { label: 'Automotive & Zulieferer', desc: 'Produktions- und Montagebauten für anspruchsvolle Fertigungsumgebungen.' },
+      { label: 'Lebensmittel & Getränke', desc: 'Hygienegerechte Produktions- und Lagerflächen, sauber dokumentiert.' },
+      { label: 'Handel & Gewerbe', desc: 'Gewerbe-, Ausstellungs- und Mehrzweckbauten mit integrierten Büroflächen.' },
+      { label: 'Maschinen- & Anlagenbau', desc: 'Hohe Hallen mit Schwerlastböden für Maschinen, Anlagen und Montage.' },
+    ]}
+  />
+
+  <!-- Showcase: fertige, moderne Gebäude (Carousel) -->
   <Showcase
+    variant="grey"
     eyebrow="Einblicke"
     title="So sieht Industriebau"
     tail="von Vonhoegen aus."
-    intro="Von der Stahlkonstruktion bis zur schlüsselfertigen Übergabe — ein Eindruck moderner Produktions-, Logistik- und Gewerbebauten."
+    intro="Von der Stahlkonstruktion bis zur schlüsselfertigen Übergabe — ein Eindruck moderner Produktions-, Logistik- und Gewerbebauten. Wischen oder ziehen Sie für mehr."
     images={[
-      { src: '/img/industriebau-gebaeude.webp', alt: 'Fertiggestelltes modernes Gewerbe- und Industriegebäude mit Glas- und Metallfassade in der Dämmerung', caption: 'Schlüsselfertiges Gewerbegebäude mit Büro- und Produktionstrakt' },
-      { src: '/img/industriebau-halle.webp', alt: 'Moderne, helle Produktionshalle mit poliertem Betonboden und hoher Stahlkonstruktion', caption: 'Produktionshalle — hell, hoch und prozessgerecht' },
-      { src: '/img/industriebau-luftbild.webp', alt: 'Luftaufnahme eines modernen Logistik- und Lagerkomplexes mit Ladezonen und Photovoltaik', caption: 'Logistikkomplex mit Ladezonen und Photovoltaik' },
+      { src: '/img/industriebau-gebaeude.webp', tag: 'Gewerbebau', alt: 'Fertiggestelltes modernes Gewerbe- und Industriegebäude mit Glas- und Metallfassade in der Dämmerung', caption: 'Schlüsselfertiges Gewerbegebäude mit Büro- und Produktionstrakt' },
+      { src: '/img/industriebau-halle.webp', tag: 'Produktion', alt: 'Moderne, helle Produktionshalle mit poliertem Betonboden und hoher Stahlkonstruktion', caption: 'Produktionshalle — hell, hoch und prozessgerecht' },
+      { src: '/img/industriebau-luftbild.webp', tag: 'Logistik', alt: 'Luftaufnahme eines modernen Logistik- und Lagerkomplexes mit Ladezonen und Photovoltaik', caption: 'Logistikkomplex mit Ladezonen und Photovoltaik' },
+      { src: '/img/industriebau-hero.webp', tag: 'Industriepark', alt: 'Modernes Industriegebäude mit Ladezonen und Lkw im Gewerbegebiet bei Sonnenuntergang', caption: 'Industrie- und Gewerbeneubau mit Ladehof' },
+      { src: '/img/industriebau-detail.webp', tag: 'Rohbau', alt: 'Tragwerk einer modernen Industriehalle im Bau — Stahlkonstruktion mit Oberlichtern', caption: 'Tragwerk & Rohbau — statisch durchdacht' },
     ]}
   />
 
@@ -187,8 +209,22 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- #6 Vergleich: GU vs. Einzelvergabe -->
+  <Comparison
+    eyebrow="Im Vergleich"
+    title="Generalunternehmer"
+    tail="oder Einzelvergabe?"
+    rows={[
+      { label: 'Ansprechpartner', gu: 'Einer — von der Planung bis zur Übergabe', other: 'Viele — Koordination liegt bei Ihnen' },
+      { label: 'Preis- & Terminsicherheit', gu: 'Ein Festpreis, ein verbindlicher Terminplan', other: 'Viele Einzelpreise, Termine schwer steuerbar' },
+      { label: 'Koordination der Gewerke', gu: 'Wir steuern und verantworten alle Gewerke', other: 'Sie koordinieren jedes Gewerk selbst' },
+      { label: 'Haftung & Gewährleistung', gu: 'Eine Hand, eine Gewährleistung', other: 'Schnittstellen-Streit zwischen Firmen möglich' },
+      { label: 'Aufwand für Sie', gu: 'Minimal — Sie behalten den Kopf fürs Geschäft', other: 'Hoch — laufende Abstimmung nötig' },
+    ]}
+  />
+
   <!-- Einsatzgebiet / Local SEO -->
-  <section class="section">
+  <section class="section grey">
     <div class="wrap">
       <div class="area-layout">
         <div class="area-intro" data-reveal>
@@ -209,6 +245,23 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- #5 Normen & Standards -->
+  <Certifications
+    eyebrow="Normen & Standards"
+    title="Worauf Sie sich"
+    tail="verlassen können."
+    variant="default"
+    items={[
+      { label: 'Statik nach Eurocode', desc: 'Tragwerksplanung nach gültigen Eurocodes — geprüft und nachvollziehbar dokumentiert.' },
+      { label: 'Stahlbau DIN EN 1090', desc: 'Ausführung und Konformität von Stahltragwerken nach DIN EN 1090.' },
+      { label: 'Arbeits- & Baustellensicherheit', desc: 'Konsequente Umsetzung der Arbeitssicherheit nach BG-Bau-Vorgaben.' },
+      { label: 'Brandschutz nach Bauordnung', desc: 'Baulicher Brandschutz nach aktueller Landesbauordnung — bis zur Abnahme begleitet.' },
+      { label: 'Lückenlose Dokumentation', desc: 'Revisionssichere Bau- und Bestandsdokumentation für Betrieb und Behörden.' },
+      { label: 'Geprüfte Partner & Eigenpersonal', desc: 'Eigene Fachkräfte und qualifizierte, langjährig geprüfte Nachunternehmer.' },
+    ]}
+    note="Beispielhafte Aufstellung — konkrete Zertifikate und Nachweise des Unternehmens werden nach Freigabe ergänzt."
+  />
+
   <Reviews
     items={reviews}
     eyebrow="Referenzen & Stimmen"
@@ -218,6 +271,9 @@ const jsonLd = [
   />
 
   <Faq items={faqs} title="Industriebau —" tail="häufige Fragen." />
+
+  <!-- #7 Verwandte Leistungen -->
+  <RelatedServices currentPath={path} variant="grey" />
 
   <CtaSection
     heading="Sie planen eine Halle?<br />Lassen Sie uns starten."

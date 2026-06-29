@@ -1,42 +1,92 @@
 ---
 /**
- * Bild-Showcase für Leistungsseiten — zeigt fertige, moderne Gebäude/Projekte.
- * Erstes Bild groß (breit), darunter zwei kleinere. Reveal + Hover-Zoom.
+ * Einblicke — horizontales Carousel mit Karten (Bild + Caption).
+ * Touch-Swipe (nativ), Trackpad, Drag-to-scroll (Desktop) und ein stilischer
+ * Fortschritts-Scrollbalken (container-breit). Scoped JS pro Instanz.
  */
-interface Shot { src: string; alt: string; caption?: string }
+interface Shot { src: string; alt: string; caption?: string; tag?: string }
 interface Props {
   eyebrow?: string;
   title: string;
   tail?: string;
   intro?: string;
-  images: Shot[]; // erwartet 3 Bilder: [breit, klein, klein]
+  images: Shot[];
   variant?: 'grey' | 'default';
 }
-const { eyebrow = 'Referenzbilder', title, tail = '', intro, images, variant = 'default' } = Astro.props;
-const [lead, ...rest] = images;
+const { eyebrow = 'Einblicke', title, tail = '', intro, images, variant = 'default' } = Astro.props;
 ---
-<section class:list={['section', { grey: variant === 'grey' }]}>
+<section class:list={['section', 'showcase', { grey: variant === 'grey' }]}>
   <div class="wrap">
-    <div class="section-head" data-reveal>
-      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-      <h2 class="tt" style="margin-top:1.2rem">{title} {tail && <span class="mute">{tail}</span>}</h2>
-      {intro && <p style="margin-top:1.2rem;color:var(--ink-soft);max-width:60ch;line-height:1.6">{intro}</p>}
-    </div>
-
-    <figure class="showcase-lead" data-reveal>
-      <div class="media"><img src={lead.src} alt={lead.alt} loading="lazy" decoding="async" /></div>
-      {lead.caption && <figcaption>{lead.caption}</figcaption>}
-    </figure>
-
-    {rest.length > 0 && (
-      <div class="showcase-row" data-reveal-group>
-        {rest.map((s) => (
-          <figure>
-            <div class="media"><img src={s.src} alt={s.alt} loading="lazy" decoding="async" /></div>
-            {s.caption && <figcaption>{s.caption}</figcaption>}
-          </figure>
-        ))}
+    <div class="showcase-head" data-reveal>
+      <div>
+        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        <h2 class="tt" style="margin-top:1.2rem">{title} {tail && <span class="mute">{tail}</span>}</h2>
       </div>
-    )}
+      {intro && <p class="showcase-intro">{intro}</p>}
+    </div>
+  </div>
+
+  <div class="showcase-carousel" data-reveal>
+    <div class="showcase-track">
+      {images.map((s) => (
+        <figure class="showcase-card">
+          <div class="media"><img src={s.src} alt={s.alt} loading="lazy" decoding="async" /></div>
+          <figcaption>
+            {s.tag && <span class="sc-tag">{s.tag}</span>}
+            {s.caption && <span class="sc-cap">{s.caption}</span>}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="showcase-progress" role="presentation"><span class="showcase-progress-thumb"></span></div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('.showcase').forEach((root) => {
+    const track = root.querySelector('.showcase-carousel');
+    const thumb = root.querySelector('.showcase-progress-thumb');
+    const bar = root.querySelector('.showcase-progress');
+    if (!track || !thumb || !bar) return;
+
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const ratio = track.clientWidth / track.scrollWidth;
+      const w = Math.max(0.12, Math.min(1, ratio));
+      thumb.style.width = w * 100 + '%';
+      const p = max > 0 ? track.scrollLeft / max : 0;
+      thumb.style.transform = `translateX(${p * (bar.clientWidth - thumb.clientWidth)}px)`;
+    };
+    update();
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+
+    // Drag-to-scroll auf den Karten (Desktop, feine Maus)
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      let down = false, startX = 0, startScroll = 0;
+      track.addEventListener('pointerdown', (e) => {
+        down = true; startX = e.clientX; startScroll = track.scrollLeft;
+        track.classList.add('dragging');
+      });
+      window.addEventListener('pointerup', () => { down = false; track.classList.remove('dragging'); });
+      window.addEventListener('pointermove', (e) => {
+        if (!down) return;
+        track.scrollLeft = startScroll - (e.clientX - startX);
+      });
+    }
+
+    // Klick/Drag auf den Fortschrittsbalken
+    const seek = (clientX) => {
+      const rect = bar.getBoundingClientRect();
+      const p = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      track.scrollLeft = p * (track.scrollWidth - track.clientWidth);
+    };
+    let barDown = false;
+    bar.addEventListener('pointerdown', (e) => { barDown = true; seek(e.clientX); });
+    window.addEventListener('pointerup', () => { barDown = false; });
+    window.addEventListener('pointermove', (e) => { if (barDown) seek(e.clientX); });
+  });
+</script>

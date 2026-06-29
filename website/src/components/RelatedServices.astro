@@ -1,0 +1,29 @@
+---
+/** #7 Verwandte Leistungen — interne Verlinkung zu den anderen Leistungsseiten. */
+import { nav } from '../data/site';
+interface Props { currentPath: string; eyebrow?: string; title?: string; tail?: string; variant?: 'grey' | 'default' }
+const { currentPath, eyebrow = 'Weitere Leistungen', title = 'Das könnte Sie', tail = 'auch interessieren.', variant = 'grey' } = Astro.props;
+
+const services = nav.find((n) => n.label === 'Leistungen')!.children!;
+const others = services.filter((s) => s.href !== currentPath);
+---
+<section class:list={['section', { grey: variant === 'grey' }]}>
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="tt">{title} <span class="mute">{tail}</span></h2>
+    </div>
+    <div class="related-grid" data-reveal-group>
+      {others.map((s) => (
+        <a class="related-card" href={s.href}>
+          <div class="media"><img src={s.img} alt={s.label} loading="lazy" decoding="async" /></div>
+          <div class="related-body">
+            <h3>{s.label}</h3>
+            <p>{s.desc}</p>
+            <span class="more">Mehr erfahren <span class="arr">→</span></span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
