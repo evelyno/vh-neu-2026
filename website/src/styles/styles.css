@@ -1815,7 +1815,7 @@
 
     /* Breadcrumbs (in eigener Leiste unter dem Hero, zentriert) */
     .breadcrumb-bar { border-bottom: 1px solid var(--line); padding-block: 1.1rem }
-    .breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; padding: 0; margin: 0; font-size: .85rem }
+    .breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; justify-content: flex-start; gap: .5rem; padding: 0; margin: 0; font-size: .85rem }
     .breadcrumbs li { display: inline-flex; align-items: center; gap: .5rem }
     .breadcrumbs a { color: var(--ink-faint); transition: color .25s }
     .breadcrumbs a:hover { color: var(--ink) }
