@@ -1836,7 +1836,7 @@
       position: absolute; inset: 0;
       background: linear-gradient(180deg, rgba(0, 0, 0, .35) 0%, rgba(0, 0, 0, .25) 40%, rgba(0, 0, 0, .72) 100%);
     }
-    .page-hero-inner { position: relative; z-index: 2; padding-block: clamp(48px, 8vw, 96px); color: #fff }
+    .page-hero-inner { position: relative; z-index: 2; width: 100%; padding-block: clamp(48px, 8vw, 96px); color: #fff }
     .page-hero h1 {
       color: #fff; max-width: 18ch; margin-top: 1.2rem;
       text-shadow: 0 2px 30px rgba(0, 0, 0, .4);
