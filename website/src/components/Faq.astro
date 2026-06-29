@@ -15,7 +15,11 @@ const { items, title = 'Häufige', tail = 'Fragen.' } = Astro.props;
     <div class="faq" style="margin-top:clamp(40px,5vw,64px)">
       {items.map((item) => (
         <details class="faq-item">
-          <summary class="faq-q">{item.q} <span class="pm"></span></summary>
+          <summary class="faq-q">
+            <span class="faq-num" aria-hidden="true"></span>
+            <span class="faq-qt">{item.q}</span>
+            <span class="pm" aria-hidden="true"></span>
+          </summary>
           <div class="faq-a"><p set:html={item.a}></p></div>
         </details>
       ))}
