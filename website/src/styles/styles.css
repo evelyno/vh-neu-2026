@@ -662,6 +662,40 @@
       justify-content: center
     }
 
+    /* ===== Hero-Variante v2 — Inhalt links unten verankert ===== */
+    .hero-kicker { display: none }
+    .hero--v2 .hero-grad {
+      background: linear-gradient(0deg,
+        rgba(0, 0, 0, .74) 0%,
+        rgba(0, 0, 0, .5) 22%,
+        rgba(0, 0, 0, .14) 48%,
+        rgba(0, 0, 0, 0) 72%);
+    }
+    .hero--v2 .hero-copy { justify-content: flex-end }
+    .hero--v2 .hero-copy .inner {
+      text-align: left;
+      padding-bottom: clamp(80px, 13vh, 160px);
+    }
+    .hero--v2 .hero-kicker {
+      display: inline-block;
+      font-size: .8rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      color: rgba(255, 255, 255, .82); margin-bottom: 1.4rem;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, .45);
+    }
+    .hero--v2 h1 {
+      margin-inline: 0; max-width: 15ch;
+      font-size: clamp(2.6rem, 7vw, 6.6rem); line-height: .96;
+    }
+    .hero--v2 .sub { margin-left: 0; margin-right: 0; max-width: 46ch }
+    .hero--v2 .cta-row { justify-content: flex-start }
+    .hero--v2 .scroll-hint { left: auto; right: var(--gutter); transform: none; align-items: flex-end }
+    @media(max-width:600px) {
+      .hero--v2 h1 { font-size: clamp(2rem, 8.5vw, 3.2rem); max-width: 13ch }
+      .hero--v2 .hero-copy .inner { padding-bottom: clamp(64px, 11vh, 120px) }
+      .hero--v2 .hero-kicker { margin-bottom: 1rem; font-size: .72rem }
+      .hero--v2 .scroll-hint { display: none }
+    }
+
     /* giant image-masked wordmark finale */
     .hero-mark {
       position: absolute;

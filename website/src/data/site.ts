@@ -29,6 +29,14 @@ export const company = {
   geo: { lat: 50.8231, lng: 6.1287 }, // Würselen (Richtwert — bei Bedarf präzisieren)
 } as const;
 
+/**
+ * Hero-Variante der Startseite.
+ *  'v2' = neue, links-unten verankerte Variante (harmoniert mit den Unterseiten)
+ *  'v1' = ursprüngliche, zentrierte Variante
+ * Zum Zurückwechseln einfach auf 'v1' setzen.
+ */
+export const heroVariant: 'v1' | 'v2' = 'v2';
+
 export type NavChild = { label: string; href: string; img?: string; desc?: string };
 export type NavItem = { label: string; href: string; children?: NavChild[] };
 

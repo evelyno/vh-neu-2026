@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValueEvent,
 } from 'framer-motion';
+import { heroVariant } from '../../data/site';
 
 /* ---------- shared easing / variants ---------- */
 const EASE = [0.16, 1, 0.3, 1];
@@ -76,7 +77,7 @@ function WordReveal({ text, className, style }) {
 
 /* ============================ HERO ============================ */
 const FRAME_COUNT = 193;
-function Hero() {
+function Hero({ variant = 'v1' }) {
   const heroRef = useRef(null);
   const canvasRef = useRef(null);
   const st = useRef({ frames: [], ctx: null, W: 0, H: 0, first: false });
@@ -143,7 +144,7 @@ function Hero() {
 
   const lines = ['WIR BAUEN, WAS BESTAND HAT.'];
   return (
-    <section className="hero" ref={heroRef} id="hero">
+    <section className={`hero${variant === 'v2' ? ' hero--v2' : ''}`} ref={heroRef} id="hero">
       <div className="hero-stage">
         <canvas id="buildCanvas" ref={canvasRef}></canvas>
         <div className="hero-grad"></div>
@@ -168,6 +169,9 @@ function Hero() {
 
       <motion.div className="hero-copy" style={{ opacity: copyOpacity, y: copyY }}>
         <div className="inner">
+          <motion.span className="hero-kicker" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}>
+            Bauunternehmung · Würselen, seit 1987
+          </motion.span>
           <motion.h1 initial="hidden" animate="show"
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}>
             {lines.map((ln, i) => (
@@ -355,7 +359,7 @@ function ContactForm() {
 export default function HomeContent() {
   return (
     <>
-      <Hero />
+      <Hero variant={heroVariant} />
 
       {/* WARUM */}
       <section className="section" id="warum">
