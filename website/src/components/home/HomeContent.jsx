@@ -295,7 +295,11 @@ function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
     <motion.div className={`faq-item${open ? ' open' : ''}`} variants={fadeUp}>
-      <button className="faq-q" onClick={() => setOpen((o) => !o)}>{q} <span className="pm"></span></button>
+      <button className="faq-q" onClick={() => setOpen((o) => !o)}>
+        <span className="faq-num" aria-hidden="true"></span>
+        <span className="faq-qt">{q}</span>
+        <span className="pm" aria-hidden="true"></span>
+      </button>
       <AnimatePresence initial={false}>
         {open && (
           <motion.div className="faq-a"

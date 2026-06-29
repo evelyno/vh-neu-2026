@@ -1339,8 +1339,7 @@
     /* ---- FAQ ---- */
     .faq {
       --faq-indent: clamp(48px, 7vw, 96px);
-      max-width: 1040px;
-      margin: 0 auto;
+      --faq-gap: clamp(.6rem, 1.4vw, 1.4rem);
       counter-reset: faq;
     }
 
@@ -1358,7 +1357,7 @@
       display: grid;
       grid-template-columns: var(--faq-indent) 1fr auto;
       align-items: start;
-      column-gap: clamp(.6rem, 1.4vw, 1.4rem);
+      column-gap: var(--faq-gap);
       padding: clamp(1.4rem, 2.4vw, 2.1rem) 0;
       text-align: left;
       color: var(--ink);
@@ -1414,7 +1413,8 @@
       transform: translate(-50%, -50%)
     }
 
-    details.faq-item[open] .pm {
+    details.faq-item[open] .pm,
+    .faq-item.open .pm {
       transform: rotate(45deg)
     }
 
@@ -1423,16 +1423,15 @@
     }
 
     .faq-a p {
-      padding: 0 var(--faq-indent) clamp(1.5rem, 2.4vw, 2.1rem) var(--faq-indent);
+      padding: 0 0 clamp(1.5rem, 2.4vw, 2.1rem) calc(var(--faq-indent) + var(--faq-gap));
       color: var(--ink-soft);
-      max-width: 72ch;
+      max-width: 80ch;
       font-size: clamp(1rem, 1.2vw, 1.075rem);
       line-height: 1.65
     }
 
     @media (max-width: 560px) {
       .faq { --faq-indent: 36px }
-      .faq-a p { padding-right: 0 }
     }
 
     /* ---- CTA / contact ---- */
