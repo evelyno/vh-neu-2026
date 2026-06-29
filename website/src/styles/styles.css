@@ -1807,7 +1807,7 @@
 
     /* Schmaler Textcontainer */
     .wrap.narrow { max-width: 920px }
-    .lead-text { font-size: clamp(1.1rem, 1.7vw, 1.38rem); line-height: 1.65; color: var(--ink-soft); margin-top: 1.4rem }
+    .lead-text { font-size: clamp(1.1rem, 1.7vw, 1.38rem); line-height: 1.65; color: var(--ink-soft); margin-top: 1.4rem; max-width: 62ch }
     .lead-text strong { color: var(--ink); font-weight: 600 }
 
     /* Feature-Grid (Leistungsumfang) */
