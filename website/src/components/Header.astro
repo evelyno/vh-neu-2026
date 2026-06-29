@@ -76,8 +76,14 @@ const isActive = (href: string) =>
     {nav.map((item) =>
       item.children ? (
         <div class="m-group">
-          <a href={item.href} class="m-top">{item.label}</a>
+          <button type="button" class="m-top m-toggle" aria-expanded="false">
+            {item.label}
+            <svg class="m-chev" width="16" height="10" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
           <div class="m-sub">
+            <a href={item.href}>Übersicht</a>
             {item.children.map((c) => (
               <a href={c.href}>{c.label}</a>
             ))}
@@ -126,5 +132,14 @@ const isActive = (href: string) =>
   menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menu?.classList.contains('open')) closeMenu();
+  });
+
+  // Akkordeon: Untermenü erst nach Klick auf "Leistungen" ausfahren
+  menu?.querySelectorAll('.m-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest('.m-group');
+      const open = group?.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
   });
 </script>
