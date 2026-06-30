@@ -56,7 +56,7 @@ export const nav: NavItem[] = [
       {
         label: 'Pharmabau',
         href: '/leistungen/pharmabau',
-        img: '/img/pharma.webp',
+        img: '/img/pharma-reinraum.webp',
         desc: 'Reinraum- & GMP-konformer Bau, validierbar dokumentiert.',
       },
       {

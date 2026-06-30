@@ -3,7 +3,13 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import Showcase from '../../components/Showcase.astro';
 import Reviews from '../../components/Reviews.astro';
+import Stats from '../../components/Stats.astro';
+import Industries from '../../components/Industries.astro';
+import Certifications from '../../components/Certifications.astro';
+import Comparison from '../../components/Comparison.astro';
+import RelatedServices from '../../components/RelatedServices.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 const path = '/leistungen/pharmabau';
@@ -18,19 +24,39 @@ const breadcrumbs = [
 ];
 
 const scope = [
-  { t: 'Reinraumbau', d: 'Reinräume nach Reinraumklassen (ISO 14644 / GMP A–D) — Wand-, Decken- und Bodensysteme inklusive Schleusenkonzept.', img: '/img/pharma.webp' },
-  { t: 'GMP-Produktionsflächen', d: 'Produktions- und Abfüllbereiche, geplant für Validierung, Qualifizierung und behördliche Abnahme.', img: '/img/projekt-pharma.webp' },
-  { t: 'Umbau unter Reinraumbedingungen', d: 'Umbaumaßnahmen im sterilen Umfeld — mit Staubboxen, Abschottung und Hygienekonzept bei laufender Produktion.', img: '/img/umbau.webp' },
-  { t: 'Maschinenfundamente', d: 'Schwingungsarme Fundamente für Produktions- und Abfüllanlagen — exakt auf die Anlage abgestimmt.', img: '/img/projekt-pharma.webp' },
-  { t: 'Kernbohrungen (auch in Reinräumen)', d: 'Präzise Kernbohrungen für Medien und Durchführungen — staubarm auch in Reinraumbereichen.', img: '/img/pharma.webp' },
-  { t: 'Brandschutz unter Reinraumbedingungen', d: 'Baulicher Brandschutz und Schottungen — fachgerecht auch unter Reinraum- und Hygieneanforderungen.', img: '/img/brandschutz.webp' },
+  { t: 'Reinraumbau', d: 'Reinräume nach Reinraumklassen (ISO 14644 / GMP A–D) — Wand-, Decken- und Bodensysteme inklusive Schleusenkonzept.' },
+  { t: 'GMP-Produktionsflächen', d: 'Produktions- und Abfüllbereiche, geplant für Validierung, Qualifizierung und behördliche Abnahme.' },
+  { t: 'Umbau unter Reinraumbedingungen', d: 'Umbaumaßnahmen im sterilen Umfeld — mit Staubboxen, Abschottung und Hygienekonzept bei laufender Produktion.' },
+  { t: 'Maschinenfundamente', d: 'Schwingungsarme Fundamente für Produktions- und Abfüllanlagen — exakt auf die Anlage abgestimmt.' },
+  { t: 'Kernbohrungen (auch in Reinräumen)', d: 'Präzise Kernbohrungen für Medien und Durchführungen — staubarm auch in Reinraumbereichen.' },
+  { t: 'Brandschutz unter Reinraumbedingungen', d: 'Baulicher Brandschutz und Schottungen — fachgerecht auch unter Reinraum- und Hygieneanforderungen.' },
+];
+
+const steps = [
+  ['01', 'Anforderung & Reinraumklasse', 'Wir klären Prozess, Produkt, geforderte Reinraumklasse und Qualifizierungsbedarf — und übersetzen sie in ein validierbares Konzept.'],
+  ['02', 'Planung & Festpreis', 'Sie erhalten Konzept, Materialkonzept, verbindlichen Festpreis und Terminplan — abgestimmt auf Hygiene- und Validierungsanforderungen.'],
+  ['03', 'Bau im Reinraum', 'Mit eigenen Staubwandsystemen und sauberer Abschottung bauen wir — auf Wunsch bei laufender Produktion — staubfrei und untermischungsfrei.'],
+  ['04', 'Doku & Übergabe', 'Revisionssichere Dokumentation als Basis für IQ/OQ, saubere Übergabe und ein Ansprechpartner, der erreichbar bleibt.'],
+];
+
+const benefits = [
+  ['Eigene Staubwandsysteme', 'Staubboxen in jeder Größe ermöglichen Umbau und Erweiterung bei laufender, steriler Produktion — staubfrei und untermischungsfrei.'],
+  ['GMP- & FDA-konform', 'Wir planen und bauen validierbar, qualifizierbar und revisionssicher dokumentiert — bereit für Audits und Behördenabnahme.'],
+  ['Geschultes Reinraum-Team', 'FDA-, GMP- und brandschutzgeschultes Personal mit langjähriger Erfahrung im sensiblen Pharmaumfeld.'],
+  ['Alles aus einer Hand', 'Bau, Technik und Reinraumausbau aus einer Hand — ein Vertrag, ein Festpreis, ein fester Ansprechpartner.'],
 ];
 
 const faqs = [
   { q: 'Bauen Sie GMP- und FDA-konform?', a: 'Ja. Wir planen und errichten Produktions- und Reinraumbereiche so, dass sie GMP-Anforderungen erfüllen und qualifizier- bzw. validierbar sind — inklusive revisionssicherer Dokumentation.' },
   { q: 'Welche Reinraumklassen realisieren Sie?', a: 'Wir setzen Reinräume entsprechend ISO 14644 und GMP-Klassen A–D um. Die konkrete Auslegung stimmen wir auf Ihr Produkt und Ihren Prozess ab.' },
-  { q: 'Können Sie im laufenden Betrieb erweitern?', a: 'Ja, das ist im Pharmaumfeld unser Standardfall: Wir arbeiten in Bauabschnitten mit klaren Abschottungs-, Hygiene- und Sicherheitskonzepten, damit Ihre Produktion weiterläuft.' },
+  { q: 'Können Sie im laufenden Betrieb erweitern?', a: 'Ja, das ist im Pharmaumfeld unser Standardfall: Mit eigenentwickelten Staubwandsystemen (Staubboxen in jeder Größe) arbeiten wir staubfrei und untermischungsfrei, damit Ihre Produktion weiterläuft.' },
   { q: 'In welcher Region sind Sie tätig?', a: 'Schwerpunkt ist Würselen, Aachen und die Städteregion. Pharmabau-Projekte realisieren wir darüber hinaus überregional im Rheinland, u.&nbsp;a. in Düsseldorf und Köln.' },
+];
+
+const reviews = [
+  { quote: 'Der Reinraum wurde im laufenden Betrieb erweitert, sauber dokumentiert und GMP-konform übergeben. Wir wurden in jeder Phase mitgenommen.', name: 'Dr. S. Keller', role: 'Werkleitung, Pharma · Aachen' },
+  { quote: 'Validierbar geplant, revisionssicher dokumentiert — die Behördenabnahme verlief ohne Beanstandung.', name: 'A. Vogt', role: 'Qualifizierung · Rheinland' },
+  { quote: 'Saubere Schnittstellen zwischen Bau, Technik und Reinraumausbau. Ein Ansprechpartner für alles.', name: 'M. Lindner', role: 'Projektleitung · Köln' },
 ];
 
 const jsonLd = [
@@ -40,12 +66,12 @@ const jsonLd = [
 ];
 ---
 
-<Base title={title} description={description} canonicalPath={path} image="/img/pharma.webp" jsonLd={jsonLd}>
+<Base title={title} description={description} canonicalPath={path} image="/img/pharma-hero.webp" jsonLd={jsonLd}>
   <PageHero
     eyebrow="Leistung · Pharmabau"
     title="Pharma- & Reinraumbau —<br />GMP-konform aus Würselen"
     subtitle="Reinräume, GMP-Produktionsflächen und Labore — validierbar geplant, revisionssicher dokumentiert und auf Wunsch im laufenden Betrieb realisiert."
-    image="/img/pharma.webp"
+    image="/img/pharma-hero.webp"
     breadcrumbs={breadcrumbs}
   />
 
@@ -65,6 +91,7 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- Leistungsumfang -->
   <section class="section grey">
     <div class="wrap">
       <div class="section-head" data-reveal>
@@ -79,12 +106,140 @@ const jsonLd = [
     </div>
   </section>
 
-  <Reviews
+  <!-- #4 Branchen -->
+  <Industries
+    eyebrow="Branchen"
+    title="Für wen wir"
+    tail="Pharmabau realisieren."
     items={[
-      { quote: 'Der Reinraum wurde im laufenden Betrieb erweitert, sauber dokumentiert und GMP-konform übergeben. Wir wurden in jeder Phase mitgenommen.', name: 'Dr. S. Keller', role: 'Werkleitung, Pharma · Aachen' },
-      { quote: 'Validierbar geplant, revisionssicher dokumentiert — die Behördenabnahme verlief ohne Beanstandung.', name: 'A. Vogt', role: 'Qualifizierung · Rheinland' },
-      { quote: 'Saubere Schnittstellen zwischen Bau, Technik und Reinraumausbau. Ein Ansprechpartner für alles.', name: 'M. Lindner', role: 'Projektleitung · Köln' },
+      { label: 'Pharma & Biotech', desc: 'Produktions-, Abfüll- und Verpackungsbereiche nach GMP — validierbar geplant.' },
+      { label: 'Lebensmittel & Getränke', desc: 'Hygienegerechte Produktion mit Staubwandsystemen für untermischungsfreies Arbeiten.' },
+      { label: 'Kosmetik & Körperpflege', desc: 'Saubere Produktionsumgebungen mit kontrollierten Hygiene- und Reinraumzonen.' },
+      { label: 'Medizinprodukte', desc: 'Reinraumgerechte Fertigungs- und Montageflächen nach ISO 14644.' },
+      { label: 'Chemie & Feinchemie', desc: 'Beständige Produktionsbereiche mit durchdachtem Medien- und Sicherheitskonzept.' },
+      { label: 'Labor & Forschung', desc: 'Labore, Technikzentralen und Mediensysteme — sauber getrennt und dokumentiert.' },
     ]}
+  />
+
+  <!-- Showcase: Reinraum & GMP (Carousel) -->
+  <Showcase
+    variant="grey"
+    eyebrow="Einblicke"
+    title="So sieht Pharmabau"
+    tail="von Vonhoegen aus."
+    intro="Vom sterilen Reinraum bis zur validierbaren GMP-Produktion — ein Eindruck moderner Pharma- und Reinraumbauten. Wischen oder ziehen Sie für mehr."
+    images={[
+      { src: '/img/pharma-reinraum.webp', tag: 'Reinraum', alt: 'Moderner Reinraum mit weißen Wandpaneelen, HEPA-Decke und Edelstahltischen', caption: 'Reinraum nach ISO 14644 — flächenbündig und reinigungsfreundlich' },
+      { src: '/img/pharma-produktion.webp', tag: 'GMP-Produktion', alt: 'GMP-Produktionslinie mit Edelstahlmaschinen in steriler Umgebung', caption: 'GMP-Produktions- und Abfülllinie — validierbar geplant' },
+      { src: '/img/pharma-edelstahl.webp', tag: 'Edelstahl', alt: 'Polierte Edelstahlschränke und -tische in einem Reinraum', caption: 'Edelstahlschränke, -tische & -verkleidungen aus eigener Fertigung' },
+      { src: '/img/pharma-schleuse.webp', tag: 'Schleuse', alt: 'Reinraumkorridor mit Personalschleuse und Glastüren', caption: 'Personal- und Materialschleusen mit klarem Hygienekonzept' },
+      { src: '/img/pharma-umbau.webp', tag: 'Umbau', alt: 'Reinraum-Umbau mit Staubwandsystemen während der laufenden Produktion', caption: 'Umbau mit Staubwandsystemen — staubfrei bei laufender Produktion' },
+    ]}
+  />
+
+  <!-- Detail-Bild + Vorteile -->
+  <section class="section">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="media"><img src="/img/pharma-produktion.webp" alt="GMP-Produktionslinie mit Edelstahlmaschinen in steriler Reinraumumgebung" loading="lazy" decoding="async" /></div>
+        <div>
+          <span class="eyebrow">Ihr Vorteil</span>
+          <h2 class="tt" style="margin-top:1.2rem">Warum die Pharmaindustrie <span class="mute">auf Vonhoegen setzt.</span></h2>
+          <div class="benefit-list" data-reveal-group>
+            {benefits.map(([h, p]) => (
+              <div class="benefit">
+                <span class="ck">✓</span>
+                <div><h3>{h}</h3><p>{p}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kennzahlen -->
+  <Stats
+    variant="dark"
+    items={[
+      { value: 35, suffix: '+', label: 'Jahre Erfahrung im Bauwesen' },
+      { value: 100, suffix: ' %', label: 'validierbar dokumentiert' },
+      { value: 24, suffix: '/7', label: 'erreichbar für die Industrie' },
+      { value: 4, suffix: ' Klassen', label: 'GMP A–D realisiert' },
+    ]}
+    note="Beispielhafte Kennzahlen — werden nach Freigabe durch die echten Werte des Unternehmens ersetzt."
+  />
+
+  <!-- Ablauf -->
+  <section class="section grey">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Ablauf</span>
+        <h2 class="tt">Vom Konzept zum Reinraum — <span class="mute">in vier Schritten.</span></h2>
+      </div>
+      <div class="steps steps-4" data-reveal-group>
+        {steps.map(([n, h, p]) => (
+          <div class="step"><div class="no">{n}</div><div><h3>{h}</h3><p>{p}</p></div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- #6 Vergleich: GU vs. Einzelvergabe -->
+  <Comparison
+    eyebrow="Im Vergleich"
+    title="Generalunternehmer"
+    tail="oder Einzelvergabe?"
+    rows={[
+      { label: 'Ansprechpartner', gu: 'Einer — von der Planung bis zur Übergabe', other: 'Viele — Koordination liegt bei Ihnen' },
+      { label: 'Reinraum-Know-how', gu: 'Bau, Technik & Reinraumausbau aus einer Hand', other: 'Schnittstellen zwischen Fachfirmen' },
+      { label: 'Bau im laufenden Betrieb', gu: 'Eigene Staubwandsysteme, untermischungsfrei', other: 'Produktionsunterbrechung oft nötig' },
+      { label: 'Dokumentation', gu: 'Revisionssicher, IQ/OQ-tauglich', other: 'Uneinheitlich, mühsam zusammenzuführen' },
+      { label: 'Aufwand für Sie', gu: 'Minimal — Sie behalten den Kopf fürs Geschäft', other: 'Hoch — laufende Abstimmung nötig' },
+    ]}
+  />
+
+  <!-- Einsatzgebiet / Local SEO -->
+  <section class="section grey">
+    <div class="wrap">
+      <div class="area-layout">
+        <div class="area-intro" data-reveal>
+          <span class="eyebrow">Einsatzgebiet</span>
+          <h2 class="tt" style="margin-top:1.2rem">Ihr Pharmabau-Partner in <span class="mute">Aachen, NRW & dem Rheinland.</span></h2>
+          <p class="lead-text" style="margin-top:1.4rem">
+            Von unserem Standort in Würselen sind wir schnell in der gesamten <strong>Städteregion Aachen</strong> vor Ort —
+            und realisieren Pharma- und Reinraumbau ebenso im weiteren Rheinland, von Düsseldorf bis Köln.
+          </p>
+        </div>
+        <ul class="area-tags" data-reveal>
+          <li>Würselen</li><li>Aachen</li><li>Städteregion Aachen</li><li>Eschweiler</li>
+          <li>Stolberg</li><li>Herzogenrath</li><li>Alsdorf</li><li>Baesweiler</li>
+          <li>Düren</li><li>Jülich</li><li>Düsseldorf</li><li>Köln</li>
+          <li>Mönchengladbach</li><li>Neuss</li><li>Leverkusen</li><li>Rheinland</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- #5 Normen & Standards -->
+  <Certifications
+    eyebrow="Normen & Standards"
+    title="Worauf Sie sich"
+    tail="verlassen können."
+    variant="default"
+    items={[
+      { label: 'GMP-konform (A–D)', desc: 'Planung und Bau nach Good Manufacturing Practice — validierbar und qualifizierbar.' },
+      { label: 'Reinraum nach ISO 14644', desc: 'Reinraumklassen nach ISO 14644, ausgelegt auf Produkt und Prozess.' },
+      { label: 'FDA-geschultes Personal', desc: 'Unsere Mitarbeiter sind FDA-, GMP- und brandschutzgeschult.' },
+      { label: 'Revisionssichere Doku', desc: 'Lückenlose Dokumentation als Basis für IQ/OQ und Audits.' },
+      { label: 'Hygiene- & Materialkonzept', desc: 'Hygienegerechte, reinigungsfreundliche Materialien und flächenbündige Oberflächen.' },
+      { label: 'Geprüfte Partner & Eigenpersonal', desc: 'Eigene Fachkräfte und qualifizierte, langjährig geprüfte Nachunternehmer.' },
+    ]}
+    note="Beispielhafte Aufstellung — konkrete Zertifikate und Nachweise des Unternehmens werden nach Freigabe ergänzt."
+  />
+
+  <Reviews
+    items={reviews}
     eyebrow="Referenzen & Stimmen"
     title="Pharmabau, der"
     tail="Audits besteht."
@@ -92,9 +247,13 @@ const jsonLd = [
   />
 
   <Faq items={faqs} title="Pharmabau —" tail="häufige Fragen." />
+
+  <!-- #7 Verwandte Leistungen -->
+  <RelatedServices currentPath={path} variant="grey" />
+
   <CtaSection
     heading="Reinraum oder GMP-Fläche geplant?"
     lead="Schildern Sie uns Ihr Vorhaben — wir melden uns innerhalb von 48 Stunden mit einer ehrlichen Ersteinschätzung."
-    image="/img/pharma.webp"
+    image="/img/pharma-hero.webp"
   />
 </Base>
