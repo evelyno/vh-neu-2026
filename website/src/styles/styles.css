@@ -475,23 +475,36 @@
     }
     .mega-inner {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: clamp(1.2rem, 2vw, 2.2rem);
-      padding-block: clamp(1.6rem, 2.4vw, 2.8rem);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px;
+      padding-block: clamp(1rem, 1.6vw, 1.8rem);
     }
-    .mega-card { display: flex; flex-direction: column; gap: .9rem }
-    .mega-card-body { display: flex; flex-direction: column; gap: .3rem }
-    .mega-card-img { display: block; overflow: hidden; aspect-ratio: 16/10; background: var(--grey-2) }
-    .mega-card-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.12); transition: transform .55s var(--ease), filter .4s }
-    .mega-card:hover .mega-card-img img { transform: scale(1.05); filter: grayscale(0) }
+    /* Kompakte horizontale Karten — im Stil der "Was wir für Sie bauen"-Liste:
+       kleines Graustufen-Thumbnail, das beim Hover Farbe annimmt, eckige Kanten. */
+    .mega-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 1rem;
+      padding: .85rem 1rem;
+      transition: background .3s var(--ease);
+    }
+    .mega-card:hover { background: var(--grey-2) }
+    .mega-card-body { display: flex; flex-direction: column; gap: .15rem; min-width: 0 }
+    .mega-card-img {
+      display: block; overflow: hidden; flex: none;
+      width: 56px; height: 56px;
+      background: var(--grey-2);
+    }
+    .mega-card-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: transform .55s var(--ease), filter .45s }
+    .mega-card:hover .mega-card-img img { transform: scale(1.06); filter: grayscale(0) }
     .mega-card-title {
-      display: inline-flex; align-items: center; gap: .5rem;
-      font-weight: 700; font-size: 1.18rem; letter-spacing: -.02em; color: var(--ink);
-      transition: gap .35s var(--ease);
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-weight: 600; font-size: 1.02rem; letter-spacing: -.02em; color: var(--ink);
     }
-    .mega-card-title::after { content: "→"; font-size: .9em; opacity: 0; transform: translateX(-6px); transition: opacity .35s var(--ease), transform .35s var(--ease) }
+    .mega-card-title::after { content: "→"; font-size: .85em; opacity: 0; transform: translateX(-6px); transition: opacity .35s var(--ease), transform .35s var(--ease) }
     .mega-card:hover .mega-card-title::after { opacity: 1; transform: translateX(0) }
-    .mega-card-desc { font-size: .86rem; line-height: 1.45; color: var(--ink-soft) }
+    .mega-card-desc { font-size: .8rem; line-height: 1.4; color: var(--ink-soft) }
 
     /* ---- Mobile overlay menu ---- */
     .overlay-menu {
