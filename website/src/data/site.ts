@@ -62,7 +62,7 @@ export const nav: NavItem[] = [
       {
         label: 'Brandschutz',
         href: '/leistungen/brandschutz',
-        img: '/img/brandschutz.webp',
+        img: '/img/brandschutz-hero.webp',
         desc: 'Konzepte, Schottungen & Ertüchtigungen nach Norm.',
       },
       {

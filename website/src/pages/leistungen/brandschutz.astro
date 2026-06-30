@@ -3,7 +3,13 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import Showcase from '../../components/Showcase.astro';
 import Reviews from '../../components/Reviews.astro';
+import Stats from '../../components/Stats.astro';
+import Industries from '../../components/Industries.astro';
+import Certifications from '../../components/Certifications.astro';
+import Comparison from '../../components/Comparison.astro';
+import RelatedServices from '../../components/RelatedServices.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 const path = '/leistungen/brandschutz';
@@ -18,12 +24,26 @@ const breadcrumbs = [
 ];
 
 const scope = [
-  { t: 'Abschottung von Durchführungen', d: 'Fachgerechte Abschottung von Rohr-, Kabel- und Kombidurchführungen — geprüft und dokumentiert.', img: '/img/brandschutz.webp' },
-  { t: 'Abschottung von Gebäudefugen', d: 'Brandschutzgerechte Abschottung von Bau- und Gebäudefugen nach aktueller Norm.', img: '/img/rohbau.webp' },
-  { t: 'Kanalsysteme & Abkofferungen', d: 'Herstellen von Kanalsystemen und Brandschutzabkofferungen — sauber ausgeführt in allen Ausbaubereichen.', img: '/img/brandschutz.webp' },
-  { t: 'Revisionsabschlüsse & -klappen', d: 'Einbau von Revisionsabschlüssen und Revisionsklappen für sichere, wartbare Schottungen.', img: '/img/rohbau.webp' },
-  { t: 'Brandschutztüren', d: 'Einbauen, Prüfen und Instandsetzen von Brandschutztüren — funktionssicher und abnahmebereit.', img: '/img/brandschutz.webp' },
-  { t: 'Ertüchtigung & Abnahme-Begleitung', d: 'Anhebung bestehender Gebäude auf den geforderten Standard, auch im laufenden Betrieb — begleitet bis zur Abnahme.', img: '/img/rohbau.webp' },
+  { t: 'Abschottung von Durchführungen', d: 'Fachgerechte Abschottung von Rohr-, Kabel- und Kombidurchführungen — geprüft und dokumentiert.' },
+  { t: 'Abschottung von Gebäudefugen', d: 'Brandschutzgerechte Abschottung von Bau- und Gebäudefugen nach aktueller Norm.' },
+  { t: 'Kanalsysteme & Abkofferungen', d: 'Herstellen von Kanalsystemen und Brandschutzabkofferungen — sauber ausgeführt in allen Ausbaubereichen.' },
+  { t: 'Revisionsabschlüsse & -klappen', d: 'Einbau von Revisionsabschlüssen und Revisionsklappen für sichere, wartbare Schottungen.' },
+  { t: 'Brandschutztüren', d: 'Einbauen, Prüfen und Instandsetzen von Brandschutztüren — funktionssicher und abnahmebereit.' },
+  { t: 'Ertüchtigung & Abnahme-Begleitung', d: 'Anhebung bestehender Gebäude auf den geforderten Standard, auch im laufenden Betrieb — begleitet bis zur Abnahme.' },
+];
+
+const steps = [
+  ['01', 'Bestand & Anforderung', 'Wir erfassen Gebäude, Nutzung und Brandschutzkonzept — und leiten die nötigen Maßnahmen ab.'],
+  ['02', 'Planung & Festpreis', 'Sie erhalten Maßnahmenplan, Materialkonzept, Festpreis und Terminplan — abgestimmt mit dem Sachverständigen.'],
+  ['03', 'Ausführung', 'Schottungen, Abkofferungen, Türen und Ertüchtigungen — fachgerecht, auf Wunsch im laufenden Betrieb.'],
+  ['04', 'Doku & Abnahme', 'Nachvollziehbare Dokumentation und Begleitung bis zur erfolgreichen Abnahme durch Prüfer und Behörde.'],
+];
+
+const benefits = [
+  ['Bau & Brandschutz aus einer Hand', 'Schottung, Abkofferung, Türen und Abnahme — verzahnt mit dem Bauablauf statt teuer nachgerüstet.'],
+  ['F30 bis F120', 'Genormte und geprüfte Brandschutzkonstruktionen in allen gängigen Feuerwiderstandsklassen.'],
+  ['Im laufenden Betrieb', 'Ertüchtigung und Schottung mit Staubschutz- und Sicherheitskonzept — Ihr Betrieb läuft weiter.'],
+  ['Bis zur Abnahme begleitet', 'Nachvollziehbare Dokumentation und Begleitung bis zur erfolgreichen Abnahme durch Prüfer und Behörde.'],
 ];
 
 const faqs = [
@@ -34,6 +54,12 @@ const faqs = [
   { q: 'In welcher Region arbeiten Sie?', a: 'Schwerpunkt ist Würselen, Aachen und die Städteregion. Brandschutzprojekte realisieren wir zudem überregional im Rheinland, u.&nbsp;a. in Düsseldorf und Köln.' },
 ];
 
+const reviews = [
+  { quote: 'Die Brandschutz-Ertüchtigung lief im laufenden Betrieb ohne Störung. Sauber dokumentiert und ohne Beanstandung abgenommen.', name: 'A. Wegener', role: 'Facility Management · Aachen' },
+  { quote: 'Klare Abstimmung mit dem Sachverständigen, fachgerechte Schottungen, termintreue Umsetzung.', name: 'K. Hoffmann', role: 'Gebäudetechnik · Düren' },
+  { quote: 'Endlich ein Partner, der Brandschutz nicht nur plant, sondern auch sauber baut und bis zur Abnahme begleitet.', name: 'S. Reuter', role: 'Bauherr · Köln' },
+];
+
 const jsonLd = [
   breadcrumbSchema(breadcrumbs),
   serviceSchema({ name: 'Brandschutz', serviceType: 'Baulicher Brandschutz', description, url: path }),
@@ -41,12 +67,12 @@ const jsonLd = [
 ];
 ---
 
-<Base title={title} description={description} canonicalPath={path} image="/img/brandschutz.webp" jsonLd={jsonLd}>
+<Base title={title} description={description} canonicalPath={path} image="/img/brandschutz-hero.webp" jsonLd={jsonLd}>
   <PageHero
     eyebrow="Leistung · Brandschutz"
     title="Baulicher Brandschutz —<br />normgerecht & abgenommen"
     subtitle="Brandschutzkonzepte, Schottungen und Ertüchtigungen nach aktueller Norm — fachgerecht ausgeführt, sauber dokumentiert und bis zur Abnahme begleitet."
-    image="/img/brandschutz.webp"
+    image="/img/brandschutz-hero.webp"
     breadcrumbs={breadcrumbs}
   />
 
@@ -66,6 +92,7 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- Leistungsumfang -->
   <section class="section grey">
     <div class="wrap">
       <div class="section-head" data-reveal>
@@ -80,12 +107,141 @@ const jsonLd = [
     </div>
   </section>
 
-  <Reviews
+  <!-- #4 Branchen -->
+  <Industries
+    eyebrow="Branchen"
+    title="Für wen wir"
+    tail="Brandschutz umsetzen."
     items={[
-      { quote: 'Die Brandschutz-Ertüchtigung lief im laufenden Betrieb ohne Störung. Sauber dokumentiert und ohne Beanstandung abgenommen.', name: 'A. Wegener', role: 'Facility Management · Aachen' },
-      { quote: 'Klare Abstimmung mit dem Sachverständigen, fachgerechte Schottungen, termintreue Umsetzung.', name: 'K. Hoffmann', role: 'Gebäudetechnik · Düren' },
-      { quote: 'Endlich ein Partner, der Brandschutz nicht nur plant, sondern auch sauber baut und bis zur Abnahme begleitet.', name: 'S. Reuter', role: 'Bauherr · Köln' },
+      { label: 'Industrie & Produktion', desc: 'Brandschutz in Hallen, Produktions- und Lagerbereichen mit hohen Anforderungen.' },
+      { label: 'Logistik & Lager', desc: 'Schottungen und Brandabschnitte für große, brandschutztechnisch anspruchsvolle Flächen.' },
+      { label: 'Gesundheit & Pflege', desc: 'Sensible Bereiche mit erhöhten Anforderungen an Flucht- und Rettungswege.' },
+      { label: 'Büro & Verwaltung', desc: 'Baulicher Brandschutz, Schottungen und Türen in Verwaltungs- und Bürogebäuden.' },
+      { label: 'Handel & Gewerbe', desc: 'Brandschutz für Verkaufs-, Ausstellungs- und Mehrzweckflächen.' },
+      { label: 'Öffentliche Gebäude', desc: 'Normgerechter Brandschutz für Schulen, Verwaltung und öffentliche Bauten.' },
     ]}
+  />
+
+  <!-- Showcase (Carousel) -->
+  <Showcase
+    variant="grey"
+    eyebrow="Einblicke"
+    title="So sieht Brandschutz"
+    tail="von Vonhoegen aus."
+    intro="Von der geprüften Schottung bis zur Brandschutztür — ein Eindruck fachgerecht ausgeführter Brandschutzmaßnahmen. Wischen oder ziehen Sie für mehr."
+    images={[
+      { src: '/img/brandschutz-hero.webp', tag: 'Brandschutztür', alt: 'Industrieinnenraum mit grauer Brandschutztür und roter Steigleitung', caption: 'Brandschutztür & Steigleitung — funktionssicher eingebaut' },
+      { src: '/img/brandschutz-schottung.webp', tag: 'Schottung', alt: 'Detail einer Brandschottung mit Kabeln und Rohren in roter Brandschutzmasse', caption: 'Geprüfte Abschottung von Rohr- und Kabeldurchführungen' },
+      { src: '/img/brandschutz.webp', tag: 'Baulicher Brandschutz', alt: 'Baulicher Brandschutz in einem Gebäude', caption: 'Baulicher Brandschutz in allen Ausbaubereichen' },
+      { src: '/img/rohbau.webp', tag: 'Ertüchtigung', alt: 'Brandschutzgerechte Ertüchtigung im Bestand', caption: 'Ertüchtigung im Bestand — auch im laufenden Betrieb' },
+    ]}
+  />
+
+  <!-- Detail-Bild + Vorteile -->
+  <section class="section">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="media"><img src="/img/brandschutz-schottung.webp" alt="Detail einer fachgerechten Brandschottung mit roter Brandschutzmasse" loading="lazy" decoding="async" /></div>
+        <div>
+          <span class="eyebrow">Ihr Vorteil</span>
+          <h2 class="tt" style="margin-top:1.2rem">Warum Bauherren beim Brandschutz <span class="mute">auf Vonhoegen setzen.</span></h2>
+          <div class="benefit-list" data-reveal-group>
+            {benefits.map(([h, p]) => (
+              <div class="benefit">
+                <span class="ck">✓</span>
+                <div><h3>{h}</h3><p>{p}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kennzahlen -->
+  <Stats
+    variant="dark"
+    items={[
+      { value: 120, suffix: ' Min.', label: 'Feuerwiderstand bis F120' },
+      { value: 35, suffix: '+', label: 'Jahre Erfahrung im Bauwesen' },
+      { value: 4, suffix: ' Klassen', label: 'F30 · F60 · F90 · F120' },
+      { value: 100, suffix: ' %', label: 'bis zur Abnahme begleitet' },
+    ]}
+    note="Beispielhafte Kennzahlen — werden nach Freigabe durch die echten Werte des Unternehmens ersetzt."
+  />
+
+  <!-- Ablauf -->
+  <section class="section grey">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Ablauf</span>
+        <h2 class="tt">Vom Konzept zur Abnahme — <span class="mute">in vier Schritten.</span></h2>
+      </div>
+      <div class="steps steps-4" data-reveal-group>
+        {steps.map(([n, h, p]) => (
+          <div class="step"><div class="no">{n}</div><div><h3>{h}</h3><p>{p}</p></div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- #6 Vergleich -->
+  <Comparison
+    eyebrow="Im Vergleich"
+    title="Brandschutz vom Baupartner"
+    tail="oder separate Vergabe?"
+    guLabel="Vonhoegen — Bau & Brandschutz"
+    otherLabel="Separate Vergabe"
+    rows={[
+      { label: 'Schnittstellen', gu: 'Bau, Schottung & Abnahme aus einer Hand', other: 'Koordination mehrerer Firmen' },
+      { label: 'Im laufenden Betrieb', gu: 'Mit Staubschutz- & Sicherheitskonzept', other: 'Häufig mit Betriebsunterbrechung' },
+      { label: 'Feuerwiderstand', gu: 'F30–F120 genormt & geprüft', other: 'Uneinheitliche Ausführung' },
+      { label: 'Dokumentation', gu: 'Nachvollziehbar bis zur Abnahme', other: 'Lückenhaft, mühsam zusammenzuführen' },
+      { label: 'Gewährleistung', gu: 'Eine Hand, eine Verantwortung', other: 'Schnittstellen-Streit möglich' },
+    ]}
+  />
+
+  <!-- Einsatzgebiet / Local SEO -->
+  <section class="section grey">
+    <div class="wrap">
+      <div class="area-layout">
+        <div class="area-intro" data-reveal>
+          <span class="eyebrow">Einsatzgebiet</span>
+          <h2 class="tt" style="margin-top:1.2rem">Ihr Brandschutz-Partner in <span class="mute">Aachen, NRW & dem Rheinland.</span></h2>
+          <p class="lead-text" style="margin-top:1.4rem">
+            Von unserem Standort in Würselen sind wir schnell in der gesamten <strong>Städteregion Aachen</strong> vor Ort —
+            und realisieren Brandschutzmaßnahmen ebenso im weiteren Rheinland, von Düsseldorf bis Köln.
+          </p>
+        </div>
+        <ul class="area-tags" data-reveal>
+          <li>Würselen</li><li>Aachen</li><li>Städteregion Aachen</li><li>Eschweiler</li>
+          <li>Stolberg</li><li>Herzogenrath</li><li>Alsdorf</li><li>Baesweiler</li>
+          <li>Düren</li><li>Jülich</li><li>Düsseldorf</li><li>Köln</li>
+          <li>Mönchengladbach</li><li>Neuss</li><li>Leverkusen</li><li>Rheinland</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- #5 Normen & Standards -->
+  <Certifications
+    eyebrow="Normen & Standards"
+    title="Worauf Sie sich"
+    tail="verlassen können."
+    variant="default"
+    items={[
+      { label: 'Feuerwiderstand F30–F120', desc: 'Genormte, geprüfte Konstruktionen in allen gängigen Feuerwiderstandsklassen.' },
+      { label: 'Geprüfte Systeme', desc: 'Einsatz zugelassener, geprüfter Schott- und Abschottungssysteme.' },
+      { label: 'Nach Landesbauordnung', desc: 'Baulicher Brandschutz nach aktueller Landesbauordnung und Brandschutzkonzept.' },
+      { label: 'Abnahme-Begleitung', desc: 'Begleitung bis zur Abnahme durch Prüfsachverständige und Behörden.' },
+      { label: 'Lückenlose Dokumentation', desc: 'Nachvollziehbare Dokumentation der ausgeführten Maßnahmen.' },
+      { label: 'Geschultes Personal', desc: 'Brandschutzgeschulte Fachkräfte und qualifizierte, geprüfte Partner.' },
+    ]}
+    note="Beispielhafte Aufstellung — konkrete Zertifikate und Nachweise des Unternehmens werden nach Freigabe ergänzt."
+  />
+
+  <Reviews
+    items={reviews}
     eyebrow="Referenzen & Stimmen"
     title="Brandschutz, der"
     tail="abgenommen wird."
@@ -93,9 +249,13 @@ const jsonLd = [
   />
 
   <Faq items={faqs} title="Brandschutz —" tail="häufige Fragen." />
+
+  <!-- #7 Verwandte Leistungen -->
+  <RelatedServices currentPath={path} variant="grey" />
+
   <CtaSection
     heading="Brandschutz-Auflagen zu erfüllen?"
     lead="Schildern Sie uns kurz Ihr Gebäude und die Anforderung — wir melden uns innerhalb von 48 Stunden."
-    image="/img/brandschutz.webp"
+    image="/img/brandschutz-hero.webp"
   />
 </Base>
