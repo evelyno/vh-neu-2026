@@ -1799,23 +1799,6 @@
       text-shadow: 0 0 12px rgba(255, 255, 255, .2);
     }
 
-    /* Alemannia Business Partner — Footer */
-    .footer-partner {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: clamp(28px, 3.4vw, 44px);
-      padding: 14px 20px;
-      border: 1px solid var(--line-dark);
-      color: rgba(255, 255, 255, .72);
-      font-size: .92rem;
-      line-height: 1.4;
-      transition: border-color .3s var(--ease), color .3s var(--ease);
-    }
-    .footer-partner:hover { border-color: rgba(255, 255, 255, .35); color: #fff }
-    .footer-partner img { flex: none; height: 56px; width: auto; display: block }
-    .footer-partner strong { color: #fff; font-weight: 600 }
-
     /* Alemannia Business Partner — Über uns */
     .partner-callout {
       display: flex;
