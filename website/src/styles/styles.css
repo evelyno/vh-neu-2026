@@ -1805,19 +1805,38 @@
     .footer-partner strong { color: #fff; font-weight: 600 }
 
     /* Alemannia Business Partner — Über uns */
-    .partner-badge {
+    .partner-callout {
       display: flex;
       align-items: center;
-      gap: clamp(1.2rem, 2.4vw, 2rem);
-      margin-top: clamp(32px, 4vw, 56px);
-      padding: clamp(20px, 2.4vw, 32px);
+      gap: clamp(2rem, 5vw, 5.5rem);
+    }
+    .partner-logo {
+      position: relative;
+      flex: none;
+      display: grid;
+      place-items: center;
+    }
+    .partner-logo img { height: clamp(120px, 14vw, 180px); width: auto; display: block }
+    .partner-logo-fallback { display: none }
+    .partner-logo.is-empty {
+      width: clamp(150px, 18vw, 190px);
+      height: clamp(150px, 18vw, 190px);
       border: 1px solid var(--line);
       background: #fff;
     }
-    .partner-badge img { flex: none; height: clamp(84px, 9vw, 120px); width: auto; display: block }
-    .partner-badge p { margin-top: .5rem; color: var(--ink-soft); line-height: 1.55; max-width: 60ch }
-    @media (max-width: 560px) {
-      .partner-badge { flex-direction: column; align-items: flex-start; text-align: left }
+    .partner-logo.is-empty .partner-logo-fallback {
+      display: block;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      line-height: 1.3;
+      font-size: clamp(.95rem, 1.3vw, 1.12rem);
+      color: var(--ink);
+      padding: 1rem;
+    }
+    .partner-callout-text { max-width: 62ch }
+    @media (max-width: 760px) {
+      .partner-callout { flex-direction: column; align-items: flex-start; gap: 1.8rem }
     }
 
     /* giant footer wordmark */

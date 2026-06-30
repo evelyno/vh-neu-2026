@@ -30,69 +30,81 @@ const qualities = [
 const jsonLd = [breadcrumbSchema(breadcrumbs)];
 ---
 
-<Base title={title} description={description} canonicalPath={path} image="/img/team.webp" jsonLd={jsonLd}>
+<Base title={title} description={description} canonicalPath={path} image="/img/ueber-uns-hero.webp" jsonLd={jsonLd}>
   <PageHero
     eyebrow="Über uns"
     title="Ein Partner, der bleibt —<br />vom ersten Termin an."
     subtitle="Die Vonhoegen Bauunternehmung steht für eine Bauweise, die an Jahrzehnten gemessen wird — mit eigenen Fachkräften und einem festen Ansprechpartner pro Projekt."
-    image="/img/team.webp"
+    image="/img/ueber-uns-hero.webp"
     breadcrumbs={breadcrumbs}
   />
 
+  <!-- Intro / Haltung — Wort-Reveal wie auf den Leistungsseiten -->
   <section class="section">
     <div class="wrap">
-      <div class="split">
-        <div class="media"><img src="/img/team.webp" alt="Thomas Vonhoegen, Gründer & Geschäftsführer" loading="lazy" decoding="async" /></div>
-        <div>
-          <span class="eyebrow">Unsere Haltung</span>
-          <blockquote>„Ein Bau ist erst dann gut, wenn er auch in zwanzig Jahren noch hält, was wir versprochen haben."</blockquote>
-          <p class="lead-text">
-            Als Bauunternehmen aus <strong>Würselen bei Aachen</strong> garantieren wir unseren Kunden ein
-            <strong>Höchstmaß an Leistungsfähigkeit und Zuverlässigkeit</strong>. Bauen mit Erfahrung lässt keine
-            Wünsche offen — alle Wünsche der Bauherren erfüllen wir mit unserem leistungsstarken Team. Langjährige
-            Erfahrung mit verschiedensten Materialien und Techniken zeichnet unser Unternehmen aus, mit einem festen
-            Ansprechpartner pro Projekt statt anonymer Subunternehmer.
-          </p>
-          <div class="signoff" style="margin-top:1.8rem">
-            <img class="av" src="/img/team.webp" alt="Thomas Vonhoegen" loading="lazy" decoding="async" />
-            <div><div class="nm">Thomas Vonhoegen</div><div class="ro">Gründer & Geschäftsführer</div></div>
-          </div>
-        </div>
-      </div>
+      <span class="eyebrow" data-reveal>Unsere Haltung</span>
+      <p class="statement" style="margin-top:1.6rem" data-wordreveal>
+        Bauen mit Erfahrung lässt keine Wünsche offen — dafür stehen wir aus Würselen bei Aachen.
+      </p>
+      <p class="lead-text" data-reveal>
+        Als Bauunternehmen garantieren wir unseren Kunden ein <strong>Höchstmaß an Leistungsfähigkeit und
+        Zuverlässigkeit</strong>. Alle Wünsche der Bauherren erfüllen wir mit unserem leistungsstarken Team —
+        langjährige Erfahrung mit verschiedensten Materialien und Techniken zeichnet uns aus. Mit einem
+        <strong>festen Ansprechpartner pro Projekt</strong> statt anonymer Subunternehmer entsteht ein Bau, der auch
+        in zwanzig Jahren noch hält, was wir heute versprechen.
+      </p>
     </div>
   </section>
 
+  <!-- Kompetenz & Ausstattung — als nummerierte Schritte -->
   <section class="section grey">
     <div class="wrap">
       <div class="section-head" data-reveal>
         <span class="eyebrow">Kompetenz & Ausstattung</span>
         <h2 class="tt">Worauf sich unsere Kunden <span class="mute">verlassen können.</span></h2>
       </div>
-      <div class="feature-grid" data-reveal-group>
-        {qualities.map(([t, d]) => (
-          <article class="feature-card"><h3>{t}</h3><p>{d}</p></article>
+      <div class="steps steps-4" data-reveal-group>
+        {qualities.map(([t, d], i) => (
+          <div class="step">
+            <div class="no">{String(i + 1).padStart(2, '0')}</div>
+            <div><h3>{t}</h3><p>{d}</p></div>
+          </div>
         ))}
-      </div>
-      <div class="partner-badge" data-reveal>
-        <img src="/img/alemannia-business-partner.png" alt="Alemannia Aachen Business Partner" width="120" height="150" loading="lazy" decoding="async" onerror="this.style.display='none'" />
-        <div>
-          <span class="eyebrow">Partnerschaft</span>
-          <p>Die Vonhoegen Bauunternehmung ist stolzer <strong>Alemannia Aachen Business Partner</strong> — regional verwurzelt, auch über das Bauen hinaus.</p>
-        </div>
       </div>
     </div>
   </section>
 
+  <!-- Werte -->
   <section class="section">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">Wofür wir stehen</span>
         <h2 class="tt">Drei Werte, <span class="mute">die jedes Projekt tragen.</span></h2>
       </div>
-      <div class="feature-grid">
+      <div class="feature-grid" data-reveal-group>
         {values.map(([t, d]) => (
           <article class="feature-card"><h3>{t}</h3><p>{d}</p></article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnerschaft Alemannia Aachen -->
+  <section class="section grey">
+    <div class="wrap">
+      <div class="partner-callout" data-reveal>
+        <div class="partner-logo">
+          <img src="/img/alemannia-business-partner.png" alt="Alemannia Aachen Business Partner" width="150" height="188" loading="lazy" decoding="async" onerror="this.closest('.partner-logo').classList.add('is-empty')" />
+          <span class="partner-logo-fallback">Alemannia Aachen<br />Business Partner</span>
+        </div>
+        <div class="partner-callout-text">
+          <span class="eyebrow">Partnerschaft</span>
+          <h2 class="tt" style="margin-top:1rem">Offizieller <span class="mute">Alemannia Aachen Business Partner.</span></h2>
+          <p class="lead-text" style="margin-top:1.3rem">
+            Wir sind in der Region nicht nur zuhause, wir engagieren uns hier — als offizieller Business Partner von
+            Alemannia Aachen. Regionale Verbundenheit, die über die Baustelle hinausreicht.
+          </p>
+        </div>
       </div>
     </div>
   </section>
