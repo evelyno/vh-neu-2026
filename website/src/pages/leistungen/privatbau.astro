@@ -1,0 +1,103 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Faq from '../../components/Faq.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import Reviews from '../../components/Reviews.astro';
+import RelatedServices from '../../components/RelatedServices.astro';
+import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
+
+const path = '/leistungen/privatbau';
+const title = 'Privatbau Aachen & Würselen — Wohnungsbau & Bauen im Bestand | Vonhoegen';
+const description =
+  'Privatbau aus Würselen bei Aachen: Ein- und Mehrfamilienhäuser, Hochbau, Umbau und Sanierung im Bestand — vom Eigenheim bis zur Modernisierung, mit derselben Qualität und Zuverlässigkeit wie im Industriebau. Im Rheinland, Düsseldorf & Köln.';
+
+const breadcrumbs = [
+  { label: 'Startseite', href: '/' },
+  { label: 'Leistungen', href: '/leistungen' },
+  { label: 'Privatbau', href: path },
+];
+
+// Leistungsumfang Privatbau — aus dem realen Portfolio
+const scope = [
+  { t: 'Ein- & Mehrfamilienhäuser', d: 'Vom privaten Eigenheim bis zum Mehrfamilienhaus — durchdacht geplant und solide gebaut.' },
+  { t: 'Hochbau & Rohbau', d: 'Tragfähiger Rohbau in Stahlbeton und Mauerwerk als verlässliche Basis für Ihr Bauvorhaben.' },
+  { t: 'Bauen im Bestand', d: 'An-, Um- und Aufbauten an bestehender Substanz — sorgfältig in das Vorhandene eingefügt.' },
+  { t: 'Umbau & Modernisierung', d: 'Umbauten inkl. Fliesenarbeiten und Bruchsteinmauerwerk — handwerklich sauber umgesetzt.' },
+  { t: 'Sanierung & Kernbohrungen', d: 'Instandsetzung und Sanierung im Bestand, präzise Kernbohrungen für Durchführungen und Technik.' },
+  { t: 'Brandschutz & Stahlbau', d: 'Baulicher Brandschutz und Stahlkonstruktionen — auch im privaten Bauen aus einer Hand.' },
+];
+
+const faqs = [
+  { q: 'Bauen Sie auch private Eigenheime?', a: 'Ja. Ob privates Eigenheim oder Mehrfamilienhaus — Sie bauen mit demselben Team und derselben Sorgfalt, mit der wir auch komplexe Industriegebäude errichten. Auf Zuverlässigkeit und höchste Qualität können Sie sich dabei verlassen.' },
+  { q: 'Übernehmen Sie auch Umbauten und Sanierungen im Bestand?', a: 'Ja. Bauen im Bestand ist einer unserer Schwerpunkte — von Umbau und Modernisierung (u.&nbsp;a. Fliesenarbeiten und Bruchsteinmauerwerk) über Sanierung und Kernbohrungen bis zu baulichem Brandschutz und Stahlbau.' },
+  { q: 'Bekomme ich auch im Privatbau einen festen Ansprechpartner?', a: 'Ja. Wie bei jedem Projekt haben Sie einen festen Ansprechpartner von der ersten Skizze bis zur Übergabe — mit klarer Leistungsbeschreibung, verbindlichem Terminplan und nachvollziehbarer Kalkulation.' },
+  { q: 'In welcher Region bauen Sie privat?', a: 'Schwerpunkt ist Würselen, Aachen und die Städteregion. Privatbau-Projekte realisieren wir darüber hinaus im weiteren Rheinland, u.&nbsp;a. in Düsseldorf und Köln.' },
+];
+
+const jsonLd = [
+  breadcrumbSchema(breadcrumbs),
+  serviceSchema({ name: 'Privatbau', serviceType: 'Privatbau, Wohnungsbau, Bauen im Bestand', description, url: path }),
+  faqSchema(faqs),
+];
+---
+
+<Base title={title} description={description} canonicalPath={path} image="/img/umbau.webp" jsonLd={jsonLd}>
+  <PageHero
+    eyebrow="Leistung · Privatbau"
+    title="Privatbau — vom Eigenheim<br />bis zum Bau im Bestand"
+    subtitle="Ein- und Mehrfamilienhäuser, Hochbau, Umbau und Sanierung — privat gebaut mit derselben Zuverlässigkeit und Qualität, die unsere Industriekunden seit Jahren schätzen."
+    image="/img/umbau.webp"
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>Privatbau vom Fachbetrieb</span>
+      <p class="statement" style="margin-top:1.6rem" data-wordreveal>
+        Egal ob privates Eigenheim oder Umbau im Bestand — in Aachen, Würselen und dem Rheinland bauen wir mit Substanz.
+      </p>
+      <p class="lead-text" data-reveal>
+        Ob Sie als Bauherr Ihr <strong>privates Eigenheim</strong> errichten oder im Bestand umbauen und sanieren:
+        Bei uns verlassen Sie sich auf <strong>Zuverlässigkeit und höchste Qualität</strong> — mit langjähriger
+        Erfahrung in unterschiedlichsten Materialien und Techniken und einem festen Ansprechpartner pro Projekt.
+      </p>
+    </div>
+  </section>
+
+  <section class="section grey">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Leistungsumfang</span>
+        <h2 class="tt">Was wir im Privatbau <span class="mute">für Sie umsetzen.</span></h2>
+      </div>
+      <div class="feature-grid" data-reveal-group>
+        {scope.map((s) => (
+          <article class="feature-card"><h3>{s.t}</h3><p>{s.d}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Reviews
+    items={[
+      { quote: 'Unser Umbau im Bestand wurde handwerklich sauber und termintreu umgesetzt — vom Rohbau bis zu den Fliesenarbeiten alles aus einer Hand.', name: 'F. Hansen', role: 'Bauherr · Würselen' },
+      { quote: 'Die gleiche Sorgfalt wie im Gewerbebau, nur fürs eigene Haus. Ehrliche Beratung und ein fester Ansprechpartner.', name: 'C. Berg', role: 'Privater Bauherr · Aachen' },
+      { quote: 'Sanierung und Kernbohrungen sauber geplant, Brandschutz inklusive — wir haben uns rundum gut aufgehoben gefühlt.', name: 'M. Peters', role: 'Eigentümer · Herzogenrath' },
+    ]}
+    eyebrow="Referenzen & Stimmen"
+    title="Privatbau, der"
+    tail="Vertrauen verdient."
+    variant="grey"
+  />
+
+  <Faq items={faqs} title="Privatbau —" tail="häufige Fragen." />
+
+  <RelatedServices currentPath={path} variant="grey" />
+
+  <CtaSection
+    heading="Sie planen privat zu bauen<br />oder umzubauen?"
+    lead="Schildern Sie uns kurz Ihr Vorhaben — wir melden uns innerhalb von 48 Stunden mit einer ehrlichen Ersteinschätzung."
+    image="/img/umbau.webp"
+  />
+</Base>

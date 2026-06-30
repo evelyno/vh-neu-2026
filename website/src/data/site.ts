@@ -71,6 +71,12 @@ export const nav: NavItem[] = [
         img: '/img/sanierung.webp',
         desc: 'Schadstoff- & Rückbau nach TRGS 519, energetisch revitalisiert.',
       },
+      {
+        label: 'Privatbau',
+        href: '/leistungen/privatbau',
+        img: '/img/umbau.webp',
+        desc: 'Wohnungsbau & Bauen im Bestand — vom Eigenheim bis zum Umbau.',
+      },
     ],
   },
   { label: 'Über uns', href: '/ueber-uns' },

@@ -1787,6 +1787,39 @@
       text-shadow: 0 0 12px rgba(255, 255, 255, .2);
     }
 
+    /* Alemannia Business Partner — Footer */
+    .footer-partner {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: clamp(28px, 3.4vw, 44px);
+      padding: 14px 20px;
+      border: 1px solid var(--line-dark);
+      color: rgba(255, 255, 255, .72);
+      font-size: .92rem;
+      line-height: 1.4;
+      transition: border-color .3s var(--ease), color .3s var(--ease);
+    }
+    .footer-partner:hover { border-color: rgba(255, 255, 255, .35); color: #fff }
+    .footer-partner img { flex: none; height: 56px; width: auto; display: block }
+    .footer-partner strong { color: #fff; font-weight: 600 }
+
+    /* Alemannia Business Partner — Über uns */
+    .partner-badge {
+      display: flex;
+      align-items: center;
+      gap: clamp(1.2rem, 2.4vw, 2rem);
+      margin-top: clamp(32px, 4vw, 56px);
+      padding: clamp(20px, 2.4vw, 32px);
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .partner-badge img { flex: none; height: clamp(84px, 9vw, 120px); width: auto; display: block }
+    .partner-badge p { margin-top: .5rem; color: var(--ink-soft); line-height: 1.55; max-width: 60ch }
+    @media (max-width: 560px) {
+      .partner-badge { flex-direction: column; align-items: flex-start; text-align: left }
+    }
+
     /* giant footer wordmark */
     .footer-mark {
       padding-block: clamp(20px, 3vw, 36px) 0;
@@ -2089,7 +2122,7 @@
     .cmp-who { display: none }
 
     /* #7 Verwandte Leistungen */
-    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.8rem); margin-top: clamp(40px, 5vw, 64px) }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(1rem, 2vw, 1.8rem); margin-top: clamp(40px, 5vw, 64px) }
     .related-card { display: flex; flex-direction: column; border: 1px solid var(--line); background: var(--bg); overflow: hidden; transition: transform .4s var(--ease), box-shadow .4s var(--ease) }
     .section.grey .related-card { background: #fff }
     .related-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .25) }

@@ -20,6 +20,13 @@ const values = [
   ['Nähe', 'Ein fester Ansprechpartner pro Projekt, kurze Wege und regionale Verwurzelung in der Städteregion Aachen.'],
 ];
 
+const qualities = [
+  ['Rund um die Uhr erreichbar', 'Für Kunden der Industrie stehen wir rund um die Uhr telefonisch zur Verfügung — wenn es darauf ankommt, sind wir da.'],
+  ['FDA-, GMP- & Brandschutz-geschult', 'Wir beschäftigen ausschließlich qualifiziertes und geschultes Personal. Unsere Mitarbeiter sind FDA-, GMP- und Brandschutz-geschult.'],
+  ['Moderner Maschinen- & Fahrzeugpark', 'Unser Maschinen- und Fahrzeugpark ist stets auf dem neuesten Stand und unterliegt regelmäßigen jährlichen Prüfungen.'],
+  ['Eigene Staubwandsysteme', 'Eigenentwickelte Staubwände (Staubboxen in jeder Größe) ermöglichen Arbeiten bei laufender Produktion — staubfrei und untermischungsfrei.'],
+];
+
 const jsonLd = [breadcrumbSchema(breadcrumbs)];
 ---
 
@@ -40,9 +47,11 @@ const jsonLd = [breadcrumbSchema(breadcrumbs)];
           <span class="eyebrow">Unsere Haltung</span>
           <blockquote>„Ein Bau ist erst dann gut, wenn er auch in zwanzig Jahren noch hält, was wir versprochen haben."</blockquote>
           <p class="lead-text">
-            Gegründet von Thomas Vonhoegen, steht das Unternehmen aus <strong>Würselen bei Aachen</strong> für
-            verlässliches, durchdachtes Bauen. Mit eigenem Stamm an Fachkräften, kurzen Wegen und einem festen
-            Ansprechpartner pro Projekt — kein Verstecken hinter anonymen Subunternehmern.
+            Als Bauunternehmen aus <strong>Würselen bei Aachen</strong> garantieren wir unseren Kunden ein
+            <strong>Höchstmaß an Leistungsfähigkeit und Zuverlässigkeit</strong>. Bauen mit Erfahrung lässt keine
+            Wünsche offen — alle Wünsche der Bauherren erfüllen wir mit unserem leistungsstarken Team. Langjährige
+            Erfahrung mit verschiedensten Materialien und Techniken zeichnet unser Unternehmen aus, mit einem festen
+            Ansprechpartner pro Projekt statt anonymer Subunternehmer.
           </p>
           <div class="signoff" style="margin-top:1.8rem">
             <img class="av" src="/img/team.webp" alt="Thomas Vonhoegen" loading="lazy" decoding="async" />
@@ -54,6 +63,27 @@ const jsonLd = [breadcrumbSchema(breadcrumbs)];
   </section>
 
   <section class="section grey">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Kompetenz & Ausstattung</span>
+        <h2 class="tt">Worauf sich unsere Kunden <span class="mute">verlassen können.</span></h2>
+      </div>
+      <div class="feature-grid" data-reveal-group>
+        {qualities.map(([t, d]) => (
+          <article class="feature-card"><h3>{t}</h3><p>{d}</p></article>
+        ))}
+      </div>
+      <div class="partner-badge" data-reveal>
+        <img src="/img/alemannia-business-partner.png" alt="Alemannia Aachen Business Partner" width="120" height="150" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+        <div>
+          <span class="eyebrow">Partnerschaft</span>
+          <p>Die Vonhoegen Bauunternehmung ist stolzer <strong>Alemannia Aachen Business Partner</strong> — regional verwurzelt, auch über das Bauen hinaus.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Wofür wir stehen</span>

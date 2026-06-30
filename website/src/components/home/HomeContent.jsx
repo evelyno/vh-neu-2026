@@ -198,6 +198,7 @@ const SERVICES = [
   { n: '02', t: 'Pharmabau', href: '/leistungen/pharmabau', img: '/img/pharma.webp', d: 'Bauen unter Reinraumbedingungen — GMP- und FDA-konform, validierbar und revisionssicher dokumentiert.' },
   { n: '03', t: 'Brandschutz', href: '/leistungen/brandschutz', img: '/img/brandschutz.webp', d: 'Brandschutzkonzepte, Schottungen und Ertüchtigungen nach aktueller Norm — geprüft und abgenommen.' },
   { n: '04', t: 'Sanierung', href: '/leistungen/sanierung', img: '/img/sanierung.webp', d: 'Fachgerechter Rückbau nach TRGS 519 und energetische Revitalisierung — sicher für Mensch, Umwelt und Betrieb.' },
+  { n: '05', t: 'Privatbau', href: '/leistungen/privatbau', img: '/img/umbau.webp', d: 'Vom Eigenheim bis zum Umbau im Bestand — Ein- und Mehrfamilienhäuser, Hochbau und Sanierung mit der gleichen Qualität wie im Industriebau.' },
 ];
 function Services() {
   return (
