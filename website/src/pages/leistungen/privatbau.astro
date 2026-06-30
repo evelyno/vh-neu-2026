@@ -4,6 +4,10 @@ import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
 import Reviews from '../../components/Reviews.astro';
+import Stats from '../../components/Stats.astro';
+import Industries from '../../components/Industries.astro';
+import Certifications from '../../components/Certifications.astro';
+import Comparison from '../../components/Comparison.astro';
 import RelatedServices from '../../components/RelatedServices.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
@@ -18,7 +22,6 @@ const breadcrumbs = [
   { label: 'Privatbau', href: path },
 ];
 
-// Leistungsumfang Privatbau — aus dem realen Portfolio
 const scope = [
   { t: 'Ein- & Mehrfamilienhäuser', d: 'Vom privaten Eigenheim bis zum Mehrfamilienhaus — durchdacht geplant und solide gebaut.' },
   { t: 'Hochbau & Rohbau', d: 'Tragfähiger Rohbau in Stahlbeton und Mauerwerk als verlässliche Basis für Ihr Bauvorhaben.' },
@@ -28,11 +31,31 @@ const scope = [
   { t: 'Brandschutz & Stahlbau', d: 'Baulicher Brandschutz und Stahlkonstruktionen — auch im privaten Bauen aus einer Hand.' },
 ];
 
+const steps = [
+  ['01', 'Idee & Beratung', 'Wir besprechen Ihr Vorhaben, Grundstück bzw. Bestand und Ihre Wünsche — ehrlich und auf Augenhöhe.'],
+  ['02', 'Planung & Festpreis', 'Sie erhalten ein klares Konzept mit verbindlichem Festpreis und realistischem Terminplan.'],
+  ['03', 'Bau & Ausführung', 'Eigene Fachkräfte und geprüfte Partner setzen termintreu um — vom Rohbau bis zum letzten Detail.'],
+  ['04', 'Übergabe', 'Saubere Übergabe und ein Ansprechpartner, der auch danach für Sie erreichbar bleibt.'],
+];
+
+const benefits = [
+  ['Qualität wie im Gewerbebau', 'Dieselbe Sorgfalt und dieselben Fachkräfte wie bei komplexen Industriegebäuden — fürs eigene Zuhause.'],
+  ['Fester Ansprechpartner', 'Ein Projektleiter von der ersten Skizze bis zur Übergabe — kein Verstecken hinter Subunternehmern.'],
+  ['Bauen im Bestand', 'Umbau, Modernisierung und Sanierung an bestehender Substanz — sorgfältig ins Vorhandene eingefügt.'],
+  ['Alles aus einer Hand', 'Rohbau, Umbau, Sanierung, Kernbohrungen, Brandschutz und Stahlbau — ein Ansprechpartner, ein Festpreis.'],
+];
+
 const faqs = [
   { q: 'Bauen Sie auch private Eigenheime?', a: 'Ja. Ob privates Eigenheim oder Mehrfamilienhaus — Sie bauen mit demselben Team und derselben Sorgfalt, mit der wir auch komplexe Industriegebäude errichten. Auf Zuverlässigkeit und höchste Qualität können Sie sich dabei verlassen.' },
   { q: 'Übernehmen Sie auch Umbauten und Sanierungen im Bestand?', a: 'Ja. Bauen im Bestand ist einer unserer Schwerpunkte — von Umbau und Modernisierung (u.&nbsp;a. Fliesenarbeiten und Bruchsteinmauerwerk) über Sanierung und Kernbohrungen bis zu baulichem Brandschutz und Stahlbau.' },
   { q: 'Bekomme ich auch im Privatbau einen festen Ansprechpartner?', a: 'Ja. Wie bei jedem Projekt haben Sie einen festen Ansprechpartner von der ersten Skizze bis zur Übergabe — mit klarer Leistungsbeschreibung, verbindlichem Terminplan und nachvollziehbarer Kalkulation.' },
   { q: 'In welcher Region bauen Sie privat?', a: 'Schwerpunkt ist Würselen, Aachen und die Städteregion. Privatbau-Projekte realisieren wir darüber hinaus im weiteren Rheinland, u.&nbsp;a. in Düsseldorf und Köln.' },
+];
+
+const reviews = [
+  { quote: 'Unser Umbau im Bestand wurde handwerklich sauber und termintreu umgesetzt — vom Rohbau bis zu den Fliesenarbeiten alles aus einer Hand.', name: 'F. Hansen', role: 'Bauherr · Würselen' },
+  { quote: 'Die gleiche Sorgfalt wie im Gewerbebau, nur fürs eigene Haus. Ehrliche Beratung und ein fester Ansprechpartner.', name: 'C. Berg', role: 'Privater Bauherr · Aachen' },
+  { quote: 'Sanierung und Kernbohrungen sauber geplant, Brandschutz inklusive — wir haben uns rundum gut aufgehoben gefühlt.', name: 'M. Peters', role: 'Eigentümer · Herzogenrath' },
 ];
 
 const jsonLd = [
@@ -65,6 +88,7 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- Leistungsumfang -->
   <section class="section grey">
     <div class="wrap">
       <div class="section-head" data-reveal>
@@ -79,12 +103,125 @@ const jsonLd = [
     </div>
   </section>
 
-  <Reviews
+  <!-- #4 Projektarten -->
+  <Industries
+    eyebrow="Projektarten"
+    title="Was wir für Sie"
+    tail="privat realisieren."
     items={[
-      { quote: 'Unser Umbau im Bestand wurde handwerklich sauber und termintreu umgesetzt — vom Rohbau bis zu den Fliesenarbeiten alles aus einer Hand.', name: 'F. Hansen', role: 'Bauherr · Würselen' },
-      { quote: 'Die gleiche Sorgfalt wie im Gewerbebau, nur fürs eigene Haus. Ehrliche Beratung und ein fester Ansprechpartner.', name: 'C. Berg', role: 'Privater Bauherr · Aachen' },
-      { quote: 'Sanierung und Kernbohrungen sauber geplant, Brandschutz inklusive — wir haben uns rundum gut aufgehoben gefühlt.', name: 'M. Peters', role: 'Eigentümer · Herzogenrath' },
+      { label: 'Ein- & Mehrfamilienhäuser', desc: 'Vom Eigenheim bis zum Mehrfamilienhaus — durchdacht geplant, solide gebaut.' },
+      { label: 'Anbau & Aufstockung', desc: 'Mehr Raum schaffen — sorgfältig an die bestehende Substanz angefügt.' },
+      { label: 'Umbau & Modernisierung', desc: 'Umbauten inkl. Fliesenarbeiten und Bruchsteinmauerwerk, handwerklich sauber.' },
+      { label: 'Bestandssanierung', desc: 'Instandsetzung und Sanierung in die Jahre gekommener Gebäude.' },
+      { label: 'Rohbau & Hochbau', desc: 'Tragfähiger Rohbau in Stahlbeton und Mauerwerk als verlässliche Basis.' },
+      { label: 'Stahlbau & Kernbohrungen', desc: 'Stahlkonstruktionen und präzise Kernbohrungen — auch im privaten Bauen.' },
     ]}
+  />
+
+  <!-- Detail-Bild + Vorteile -->
+  <section class="section">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="media"><img src="/img/umbau.webp" alt="Umbau und Modernisierung eines Wohngebäudes im Bestand" loading="lazy" decoding="async" /></div>
+        <div>
+          <span class="eyebrow">Ihr Vorteil</span>
+          <h2 class="tt" style="margin-top:1.2rem">Warum private Bauherren <span class="mute">auf Vonhoegen setzen.</span></h2>
+          <div class="benefit-list" data-reveal-group>
+            {benefits.map(([h, p]) => (
+              <div class="benefit">
+                <span class="ck">✓</span>
+                <div><h3>{h}</h3><p>{p}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kennzahlen -->
+  <Stats
+    variant="dark"
+    items={[
+      { value: 35, suffix: '+', label: 'Jahre Erfahrung im Bauwesen' },
+      { value: 100, suffix: ' %', label: 'fester Ansprechpartner pro Projekt' },
+      { value: 8, suffix: '', label: 'Gewerke aus einer Hand' },
+      { value: 24, suffix: '/7', label: 'erreichbar, wenn es zählt' },
+    ]}
+    note="Beispielhafte Kennzahlen — werden nach Freigabe durch die echten Werte des Unternehmens ersetzt."
+  />
+
+  <!-- Ablauf -->
+  <section class="section grey">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Ablauf</span>
+        <h2 class="tt">Von der Idee zum Zuhause — <span class="mute">in vier Schritten.</span></h2>
+      </div>
+      <div class="steps steps-4" data-reveal-group>
+        {steps.map(([n, h, p]) => (
+          <div class="step"><div class="no">{n}</div><div><h3>{h}</h3><p>{p}</p></div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- #6 Vergleich -->
+  <Comparison
+    eyebrow="Im Vergleich"
+    title="Ein Baupartner"
+    tail="oder Einzelgewerke selbst?"
+    guLabel="Vonhoegen als Baupartner"
+    otherLabel="Einzelgewerke selbst"
+    rows={[
+      { label: 'Ansprechpartner', gu: 'Einer — von der Planung bis zur Übergabe', other: 'Viele — Koordination liegt bei Ihnen' },
+      { label: 'Preis & Termin', gu: 'Ein Festpreis, ein verbindlicher Terminplan', other: 'Viele Einzelpreise, schwer steuerbar' },
+      { label: 'Gewerke', gu: 'Vom Rohbau bis zum Detail aus einer Hand', other: 'Jedes Gewerk selbst organisieren' },
+      { label: 'Gewährleistung', gu: 'Eine Hand, eine Verantwortung', other: 'Schnittstellen-Streit möglich' },
+      { label: 'Aufwand für Sie', gu: 'Minimal — Sie wohnen, wir bauen', other: 'Hoch — ständige Abstimmung nötig' },
+    ]}
+  />
+
+  <!-- Einsatzgebiet / Local SEO -->
+  <section class="section grey">
+    <div class="wrap">
+      <div class="area-layout">
+        <div class="area-intro" data-reveal>
+          <span class="eyebrow">Einsatzgebiet</span>
+          <h2 class="tt" style="margin-top:1.2rem">Ihr Baupartner in <span class="mute">Aachen, NRW & dem Rheinland.</span></h2>
+          <p class="lead-text" style="margin-top:1.4rem">
+            Von unserem Standort in Würselen sind wir schnell in der gesamten <strong>Städteregion Aachen</strong> vor Ort —
+            und realisieren private Bauvorhaben ebenso im weiteren Rheinland, von Düsseldorf bis Köln.
+          </p>
+        </div>
+        <ul class="area-tags" data-reveal>
+          <li>Würselen</li><li>Aachen</li><li>Städteregion Aachen</li><li>Eschweiler</li>
+          <li>Stolberg</li><li>Herzogenrath</li><li>Alsdorf</li><li>Baesweiler</li>
+          <li>Düren</li><li>Jülich</li><li>Düsseldorf</li><li>Köln</li>
+          <li>Mönchengladbach</li><li>Neuss</li><li>Leverkusen</li><li>Rheinland</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- #5 Qualität & Substanz -->
+  <Certifications
+    eyebrow="Qualität & Substanz"
+    title="Worauf Sie sich"
+    tail="verlassen können."
+    variant="default"
+    items={[
+      { label: 'Substanz für Jahrzehnte', desc: 'Wir bauen für die gesamte Nutzungsdauer, nicht fürs nächste Quartal.' },
+      { label: 'Erfahrung mit Material & Technik', desc: 'Langjährige Erfahrung mit verschiedensten Materialien und Techniken.' },
+      { label: 'Festpreis & Termintreue', desc: 'Verbindliche Kalkulation und realistischer Terminplan — was wir zusagen, halten wir.' },
+      { label: 'Eigene Fachkräfte', desc: 'Eigener Stamm an Fachkräften statt anonymer Subunternehmer.' },
+      { label: 'Bauen im Bestand', desc: 'Sorgfältiges Arbeiten an bestehender, oft bewohnter Substanz.' },
+      { label: 'Regionale Nähe', desc: 'Kurze Wege aus Würselen in die Städteregion und das Rheinland.' },
+    ]}
+  />
+
+  <Reviews
+    items={reviews}
     eyebrow="Referenzen & Stimmen"
     title="Privatbau, der"
     tail="Vertrauen verdient."

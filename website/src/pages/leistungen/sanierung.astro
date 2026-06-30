@@ -3,7 +3,13 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import Showcase from '../../components/Showcase.astro';
 import Reviews from '../../components/Reviews.astro';
+import Stats from '../../components/Stats.astro';
+import Industries from '../../components/Industries.astro';
+import Certifications from '../../components/Certifications.astro';
+import Comparison from '../../components/Comparison.astro';
+import RelatedServices from '../../components/RelatedServices.astro';
 import { faqSchema, breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 const path = '/leistungen/sanierung';
@@ -18,12 +24,26 @@ const breadcrumbs = [
 ];
 
 const scope = [
-  { t: 'Schadstoffsanierung (TRGS 519)', d: 'Fachgerechter Rückbau asbesthaltiger und schadstoffbelasteter Bauteile — sicher für Mensch und Umwelt.', img: '/img/sanierung.webp' },
-  { t: 'Rückbau & Entkernung', d: 'Kontrollierter Rückbau und Entkernung als Basis für Neubau, Umnutzung oder Revitalisierung.', img: '/img/projekt-sanierung.webp' },
-  { t: 'Energetische Sanierung', d: 'Dämmung, Hülle und Technik auf aktuellen Stand bringen — für niedrigere Betriebskosten und Werterhalt.', img: '/img/umbau.webp' },
-  { t: 'Bestandssanierung', d: 'Instandsetzung und Modernisierung von Gewerbe- und Industriegebäuden im laufenden Betrieb.', img: '/img/sanierung.webp' },
-  { t: 'Entsorgung & Nachweis', d: 'Ordnungsgemäße Entsorgung mit lückenlosem Nachweis — revisionssicher dokumentiert.', img: '/img/projekt-sanierung.webp' },
-  { t: 'Freimessung & Freigabe', d: 'Begleitung bis zur Freimessung und Freigabe durch die zuständigen Stellen.', img: '/img/umbau.webp' },
+  { t: 'Schadstoffsanierung (TRGS 519)', d: 'Fachgerechter Rückbau asbesthaltiger und schadstoffbelasteter Bauteile — sicher für Mensch und Umwelt.' },
+  { t: 'Rückbau & Entkernung', d: 'Kontrollierter Rückbau und Entkernung als Basis für Neubau, Umnutzung oder Revitalisierung.' },
+  { t: 'Energetische Sanierung', d: 'Dämmung, Hülle und Technik auf aktuellen Stand bringen — für niedrigere Betriebskosten und Werterhalt.' },
+  { t: 'Bestandssanierung', d: 'Instandsetzung und Modernisierung von Gewerbe- und Industriegebäuden im laufenden Betrieb.' },
+  { t: 'Entsorgung & Nachweis', d: 'Ordnungsgemäße Entsorgung mit lückenlosem Nachweis — revisionssicher dokumentiert.' },
+  { t: 'Freimessung & Freigabe', d: 'Begleitung bis zur Freimessung und Freigabe durch die zuständigen Stellen.' },
+];
+
+const steps = [
+  ['01', 'Erfassung & Schadstoffcheck', 'Wir erfassen Objekt, Bausubstanz und Schadstoffe — und leiten das sichere Vorgehen ab.'],
+  ['02', 'Konzept & Festpreis', 'Sie erhalten Sanierungs-, Abschottungs- und Entsorgungskonzept mit verbindlichem Festpreis und Terminplan.'],
+  ['03', 'Sichere Ausführung', 'Rückbau und Schadstoffsanierung nach TRGS 519 — sicher abgeschottet, auf Wunsch im laufenden Betrieb.'],
+  ['04', 'Freimessung & Freigabe', 'Ordnungsgemäße Entsorgung, lückenloser Nachweis und Begleitung bis zur Freimessung und Freigabe.'],
+];
+
+const benefits = [
+  ['Sicher nach TRGS 519', 'Schadstoff- und Asbestsanierung fachgerecht nach TRGS 519 — mit Sicherheits-, Abschottungs- und Entsorgungskonzept.'],
+  ['Im laufenden Betrieb', 'Sanierung in Abschnitten mit Staub- und Sicherheitskonzept — Ihr Betrieb läuft weiter.'],
+  ['Lückenloser Nachweis', 'Ordnungsgemäße Entsorgung mit revisionssicherer Dokumentation bis zur Freimessung und Freigabe.'],
+  ['Alles aus einer Hand', 'Rückbau, Sanierung und Wiederaufbau aus einer Hand — ein Ansprechpartner, ein Festpreis.'],
 ];
 
 const faqs = [
@@ -31,6 +51,12 @@ const faqs = [
   { q: 'Sanieren Sie auch im laufenden Betrieb?', a: 'Ja. Wir planen Sanierungen in Abschnitten mit klaren Abschottungs- und Sicherheitskonzepten, sodass Ihr Betrieb möglichst ungestört weiterläuft.' },
   { q: 'Übernehmen Sie Entsorgung und Nachweis?', a: 'Ja. Wir organisieren die ordnungsgemäße Entsorgung und liefern eine lückenlose, revisionssichere Dokumentation inklusive Freimessung und Freigabe.' },
   { q: 'In welcher Region sind Sie tätig?', a: 'Schwerpunkt ist Würselen, Aachen und die Städteregion. Sanierungsprojekte realisieren wir darüber hinaus überregional im Rheinland, u.&nbsp;a. in Düsseldorf und Köln.' },
+];
+
+const reviews = [
+  { quote: 'Die Schadstoffsanierung nach TRGS 519 lief absolut sicher und reibungslos — für unsere Mitarbeiter und den weiteren Betrieb.', name: 'A. Wegener', role: 'Facility Management · Stolberg' },
+  { quote: 'Kontrollierter Rückbau, lückenlose Nachweise, saubere Freigabe. Genau so muss eine Sanierung laufen.', name: 'P. Krämer', role: 'Eigentümer · Aachen' },
+  { quote: 'Energetische Revitalisierung im laufenden Betrieb — durchdacht geplant und termintreu umgesetzt.', name: 'J. Bauer', role: 'Verwaltung · Köln' },
 ];
 
 const jsonLd = [
@@ -57,11 +83,13 @@ const jsonLd = [
       </p>
       <p class="lead-text" data-reveal>
         Vom kontrollierten Rückbau über die Entkernung bis zur energetischen Sanierung: <strong>sicher geplant</strong>,
-        sauber ausgeführt und mit <strong>lückenlosem Nachweis bis zur Freigabe</strong>.
+        sauber ausgeführt und mit <strong>lückenlosem Nachweis bis zur Freigabe</strong>. Schadstoffe sanieren wir
+        fachgerecht nach TRGS 519 — zum Schutz Ihrer Mitarbeiter, der Umgebung und des weiteren Betriebs.
       </p>
     </div>
   </section>
 
+  <!-- Leistungsumfang -->
   <section class="section grey">
     <div class="wrap">
       <div class="section-head" data-reveal>
@@ -76,12 +104,141 @@ const jsonLd = [
     </div>
   </section>
 
-  <Reviews
+  <!-- #4 Branchen -->
+  <Industries
+    eyebrow="Branchen"
+    title="Für wen wir"
+    tail="sanieren & zurückbauen."
     items={[
-      { quote: 'Die Schadstoffsanierung nach TRGS 519 lief absolut sicher und reibungslos — für unsere Mitarbeiter und den weiteren Betrieb.', name: 'A. Wegener', role: 'Facility Management · Stolberg' },
-      { quote: 'Kontrollierter Rückbau, lückenlose Nachweise, saubere Freigabe. Genau so muss eine Sanierung laufen.', name: 'P. Krämer', role: 'Eigentümer · Aachen' },
-      { quote: 'Energetische Revitalisierung im laufenden Betrieb — durchdacht geplant und termintreu umgesetzt.', name: 'J. Bauer', role: 'Verwaltung · Köln' },
+      { label: 'Industrie & Gewerbe', desc: 'Rückbau und Sanierung von Produktions-, Lager- und Gewerbeflächen.' },
+      { label: 'Bestandsimmobilien', desc: 'Energetische und bauliche Revitalisierung in die Jahre gekommener Gebäude.' },
+      { label: 'Pharma & Labor', desc: 'Rückbau unter Hygiene- und Sicherheitsanforderungen, auch im sensiblen Umfeld.' },
+      { label: 'Öffentliche Hand', desc: 'Sanierung und Schadstoffrückbau für öffentliche Gebäude und Liegenschaften.' },
+      { label: 'Wohnungswirtschaft', desc: 'Bestands- und Schadstoffsanierung für Wohn- und Mehrfamilienobjekte.' },
+      { label: 'Eigentümer & Verwalter', desc: 'Werterhalt durch fachgerechte Instandsetzung und Modernisierung.' },
     ]}
+  />
+
+  <!-- Showcase (Carousel) -->
+  <Showcase
+    variant="grey"
+    eyebrow="Einblicke"
+    title="So sieht Sanierung"
+    tail="von Vonhoegen aus."
+    intro="Vom sicheren Schadstoffrückbau bis zur energetischen Revitalisierung — ein Eindruck unserer Sanierungsprojekte. Wischen oder ziehen Sie für mehr."
+    images={[
+      { src: '/img/sanierung.webp', tag: 'Schadstoffsanierung', alt: 'Schadstoffsanierung nach TRGS 519 in abgeschottetem Bereich', caption: 'Schadstoffsanierung nach TRGS 519 — sicher abgeschottet' },
+      { src: '/img/projekt-sanierung.webp', tag: 'Rückbau', alt: 'Kontrollierter Rückbau und Entkernung eines Gebäudes', caption: 'Kontrollierter Rückbau & Entkernung' },
+      { src: '/img/umbau.webp', tag: 'Revitalisierung', alt: 'Energetische Revitalisierung und Modernisierung im Bestand', caption: 'Energetische Revitalisierung im Bestand' },
+      { src: '/img/rohbau.webp', tag: 'Bestand', alt: 'Instandsetzung der Bausubstanz im Bestand', caption: 'Instandsetzung der Bausubstanz' },
+    ]}
+  />
+
+  <!-- Detail-Bild + Vorteile -->
+  <section class="section">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="media"><img src="/img/projekt-sanierung.webp" alt="Kontrollierter Rückbau und Schadstoffsanierung im abgeschotteten Bereich" loading="lazy" decoding="async" /></div>
+        <div>
+          <span class="eyebrow">Ihr Vorteil</span>
+          <h2 class="tt" style="margin-top:1.2rem">Warum Eigentümer bei der Sanierung <span class="mute">auf Vonhoegen setzen.</span></h2>
+          <div class="benefit-list" data-reveal-group>
+            {benefits.map(([h, p]) => (
+              <div class="benefit">
+                <span class="ck">✓</span>
+                <div><h3>{h}</h3><p>{p}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kennzahlen -->
+  <Stats
+    variant="dark"
+    items={[
+      { value: 35, suffix: '+', label: 'Jahre Erfahrung im Bauwesen' },
+      { value: 519, suffix: '', label: 'Sanierung nach TRGS 519' },
+      { value: 100, suffix: ' %', label: 'lückenloser Nachweis bis zur Freigabe' },
+      { value: 24, suffix: '/7', label: 'erreichbar für die Industrie' },
+    ]}
+    note="Beispielhafte Kennzahlen — werden nach Freigabe durch die echten Werte des Unternehmens ersetzt."
+  />
+
+  <!-- Ablauf -->
+  <section class="section grey">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Ablauf</span>
+        <h2 class="tt">Von der Erfassung zur Freigabe — <span class="mute">in vier Schritten.</span></h2>
+      </div>
+      <div class="steps steps-4" data-reveal-group>
+        {steps.map(([n, h, p]) => (
+          <div class="step"><div class="no">{n}</div><div><h3>{h}</h3><p>{p}</p></div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- #6 Vergleich -->
+  <Comparison
+    eyebrow="Im Vergleich"
+    title="Sanierung vom Fachbetrieb"
+    tail="oder ungeprüfter Rückbau?"
+    guLabel="Vonhoegen — Sanierung & Nachweis"
+    otherLabel="Ungeprüfter Rückbau"
+    rows={[
+      { label: 'Sicherheit', gu: 'TRGS 519, Abschottung & Schutzkonzept', other: 'Gefährdung von Mensch & Umwelt' },
+      { label: 'Im laufenden Betrieb', gu: 'Abschnittsweise, mit Staubschutz', other: 'Betriebsunterbrechung nötig' },
+      { label: 'Entsorgung', gu: 'Ordnungsgemäß, lückenlos belegt', other: 'Nachweise oft unvollständig' },
+      { label: 'Freigabe', gu: 'Begleitet bis zur Freimessung', other: 'Risiko bei der Abnahme' },
+      { label: 'Verantwortung', gu: 'Alles aus einer Hand', other: 'Schnittstellen zwischen Firmen' },
+    ]}
+  />
+
+  <!-- Einsatzgebiet / Local SEO -->
+  <section class="section grey">
+    <div class="wrap">
+      <div class="area-layout">
+        <div class="area-intro" data-reveal>
+          <span class="eyebrow">Einsatzgebiet</span>
+          <h2 class="tt" style="margin-top:1.2rem">Ihr Sanierungs-Partner in <span class="mute">Aachen, NRW & dem Rheinland.</span></h2>
+          <p class="lead-text" style="margin-top:1.4rem">
+            Von unserem Standort in Würselen sind wir schnell in der gesamten <strong>Städteregion Aachen</strong> vor Ort —
+            und realisieren Sanierungs- und Rückbauprojekte ebenso im weiteren Rheinland, von Düsseldorf bis Köln.
+          </p>
+        </div>
+        <ul class="area-tags" data-reveal>
+          <li>Würselen</li><li>Aachen</li><li>Städteregion Aachen</li><li>Eschweiler</li>
+          <li>Stolberg</li><li>Herzogenrath</li><li>Alsdorf</li><li>Baesweiler</li>
+          <li>Düren</li><li>Jülich</li><li>Düsseldorf</li><li>Köln</li>
+          <li>Mönchengladbach</li><li>Neuss</li><li>Leverkusen</li><li>Rheinland</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- #5 Normen & Standards -->
+  <Certifications
+    eyebrow="Normen & Standards"
+    title="Worauf Sie sich"
+    tail="verlassen können."
+    variant="default"
+    items={[
+      { label: 'TRGS 519', desc: 'Asbest- und Schadstoffsanierung fachgerecht nach TRGS 519.' },
+      { label: 'Sicherheits- & Abschottungskonzept', desc: 'Schutz von Mitarbeitern, Umgebung und weiterem Betrieb.' },
+      { label: 'Ordnungsgemäße Entsorgung', desc: 'Entsorgung mit lückenlosem, revisionssicherem Nachweis.' },
+      { label: 'Freimessung & Freigabe', desc: 'Begleitung bis zur Freimessung und Freigabe durch zuständige Stellen.' },
+      { label: 'Geschultes Personal', desc: 'Qualifiziertes, geschultes Personal für sichere Sanierung.' },
+      { label: 'Geprüfte Partner & Eigenpersonal', desc: 'Eigene Fachkräfte und qualifizierte, langjährig geprüfte Nachunternehmer.' },
+    ]}
+    note="Beispielhafte Aufstellung — konkrete Zertifikate und Nachweise des Unternehmens werden nach Freigabe ergänzt."
+  />
+
+  <Reviews
+    items={reviews}
     eyebrow="Referenzen & Stimmen"
     title="Sanierung, die"
     tail="sicher freigegeben wird."
@@ -89,6 +246,10 @@ const jsonLd = [
   />
 
   <Faq items={faqs} title="Sanierung —" tail="häufige Fragen." />
+
+  <!-- #7 Verwandte Leistungen -->
+  <RelatedServices currentPath={path} variant="grey" />
+
   <CtaSection
     heading="Schadstoffe oder Sanierungsbedarf?"
     lead="Schildern Sie uns kurz Objekt und Umfang — wir melden uns innerhalb von 48 Stunden mit einer sicheren Einschätzung."
