@@ -703,7 +703,6 @@
     }
     .hero--v2 .sub { margin-left: 0; margin-right: 0; max-width: 46ch }
     .hero--v2 .cta-row { justify-content: flex-start }
-    .hero--v2 .scroll-hint { left: auto; right: var(--gutter); transform: none; align-items: flex-end }
     @media(max-width:600px) {
       .hero--v2 h1 { font-size: clamp(2rem, 8.5vw, 3.2rem); max-width: 13ch }
       .hero--v2 .hero-copy .inner { padding-bottom: clamp(64px, 11vh, 120px) }
