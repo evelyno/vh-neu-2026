@@ -64,16 +64,35 @@ const { eyebrow = 'Einblicke', title, tail = '', intro, images, variant = 'defau
     track.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update, { passive: true });
 
+    // Sanft zur nächstgelegenen Karte einrasten
+    const snapToNearest = () => {
+      const cards = track.querySelectorAll('.showcase-card');
+      const edge = parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
+      const base = track.getBoundingClientRect().left;
+      let bestLeft = track.scrollLeft, bestDist = Infinity;
+      cards.forEach((c) => {
+        const delta = c.getBoundingClientRect().left - base - edge;
+        const target = track.scrollLeft + delta;
+        if (Math.abs(delta) < bestDist) { bestDist = Math.abs(delta); bestLeft = target; }
+      });
+      track.scrollTo({ left: bestLeft, behavior: 'smooth' });
+    };
+
     // Drag-to-scroll auf den Karten (Desktop, feine Maus)
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      let down = false, startX = 0, startScroll = 0;
+      let down = false, moved = false, startX = 0, startScroll = 0;
       track.addEventListener('pointerdown', (e) => {
-        down = true; startX = e.clientX; startScroll = track.scrollLeft;
+        down = true; moved = false; startX = e.clientX; startScroll = track.scrollLeft;
         track.classList.add('dragging');
       });
-      window.addEventListener('pointerup', () => { down = false; track.classList.remove('dragging'); });
+      window.addEventListener('pointerup', () => {
+        if (!down) return;
+        down = false; track.classList.remove('dragging');
+        if (moved) snapToNearest();
+      });
       window.addEventListener('pointermove', (e) => {
         if (!down) return;
+        if (Math.abs(e.clientX - startX) > 3) moved = true;
         track.scrollLeft = startScroll - (e.clientX - startX);
       });
     }

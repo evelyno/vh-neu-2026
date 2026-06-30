@@ -35,8 +35,14 @@ const {
       {rows.map((r) => (
         <div class="compare-row">
           <div class="compare-crit">{r.label}</div>
-          <div class="compare-gu"><span class="ck" aria-hidden="true">✓</span>{r.gu}</div>
-          <div class="compare-other"><span class="x" aria-hidden="true">–</span>{r.other}</div>
+          <div class="compare-gu">
+            <span class="ck" aria-hidden="true">✓</span>
+            <span class="cmp-body"><span class="cmp-who">{guLabel}</span>{r.gu}</span>
+          </div>
+          <div class="compare-other">
+            <span class="x" aria-hidden="true">–</span>
+            <span class="cmp-body"><span class="cmp-who">{otherLabel}</span>{r.other}</span>
+          </div>
         </div>
       ))}
     </div>

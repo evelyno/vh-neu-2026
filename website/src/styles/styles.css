@@ -2022,11 +2022,12 @@
     .showcase-carousel {
       margin-top: clamp(40px, 5vw, 64px);
       overflow-x: auto; overflow-y: hidden;
-      scroll-snap-type: x proximity;
+      scroll-snap-type: x mandatory;
       scroll-padding-left: var(--edge);
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       cursor: grab;
+      overscroll-behavior-x: contain;
     }
     .showcase-carousel::-webkit-scrollbar { display: none }
     .showcase-carousel.dragging { cursor: grabbing; scroll-snap-type: none }
@@ -2037,7 +2038,7 @@
       padding-right: var(--gutter);
       width: max-content;
     }
-    .showcase-card { flex: 0 0 auto; width: clamp(260px, 30vw, 430px); margin: 0; scroll-snap-align: start }
+    .showcase-card { flex: 0 0 auto; width: clamp(260px, 30vw, 430px); margin: 0; scroll-snap-align: start; scroll-snap-stop: always }
     .showcase-card .media { aspect-ratio: 4/3; overflow: hidden }
     .showcase-card .media img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease) }
     .showcase-card:hover .media img { transform: scale(1.04) }
@@ -2085,6 +2086,7 @@
     .compare-head .compare-other { color: var(--ink) }
     .compare-gu .ck { flex: none; width: 20px; height: 20px; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; font-size: .68rem }
     .compare-other .x { flex: none; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-size: .8rem; color: var(--ink-faint) }
+    .cmp-who { display: none }
 
     /* #7 Verwandte Leistungen */
     .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.8rem); margin-top: clamp(40px, 5vw, 64px) }
@@ -2108,9 +2110,23 @@
     @media(max-width:600px) {
       .industry-grid { grid-template-columns: 1fr }
       .cert-grid { grid-template-columns: 1fr }
-      .compare-row { grid-template-columns: 1fr }
-      .compare-row > div { border-bottom: 1px solid var(--line) }
+
+      /* Vergleich als gestapelte, klar beschriftete Karten */
+      .compare { border: 0 }
       .compare-head { display: none }
+      .compare-row { grid-template-columns: 1fr; border: 1px solid var(--line); margin-bottom: 14px }
+      .compare-row:last-child { margin-bottom: 0; border-bottom: 1px solid var(--line) }
+      .compare-row > div { border-bottom: 1px solid var(--line); align-items: flex-start; gap: .7rem }
+      .compare-row > div:last-child { border-bottom: 0 }
+      .compare-crit { font-weight: 600; color: var(--ink); font-size: 1.05rem }
+      .compare-gu, .section.grey .compare-gu { background: var(--ink) }
+      .compare-other { background: var(--bg) }
+      .section.grey .compare-other { background: #fff }
+      .cmp-body { display: flex; flex-direction: column; gap: .2rem }
+      .cmp-who { display: block; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase }
+      .compare-gu .cmp-who { color: rgba(255,255,255,.6) }
+      .compare-other .cmp-who { color: var(--ink-faint) }
+      .compare-gu .ck, .compare-other .x { margin-top: .15rem }
     }
 
     /* Kontakt-Detailblock */
