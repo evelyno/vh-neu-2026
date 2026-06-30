@@ -1413,21 +1413,35 @@
       transform: translate(-50%, -50%)
     }
 
-    details.faq-item[open] .pm,
-    .faq-item.open .pm {
+    /* JS aktiv: .is-open steuert den Zustand; ohne JS greift details[open] */
+    .faq-item.is-open .pm,
+    html:not(.reveal-ready) details.faq-item[open] .pm {
       transform: rotate(45deg)
     }
 
+    /* Sanftes Auf-/Zuklappen über grid-template-rows (0fr -> 1fr) */
     .faq-a {
-      overflow: hidden
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows .5s var(--ease);
+    }
+
+    .faq-item.is-open .faq-a,
+    html:not(.reveal-ready) details.faq-item[open] .faq-a {
+      grid-template-rows: 1fr;
+    }
+
+    .faq-a-inner {
+      overflow: hidden;
+      min-height: 0;
     }
 
     .faq-a p {
-      padding: 0 0 clamp(1.5rem, 2.4vw, 2.1rem) calc(var(--faq-indent) + var(--faq-gap));
+      padding: 0 0 clamp(1.6rem, 2.6vw, 2.3rem) calc(var(--faq-indent) + var(--faq-gap));
       color: var(--ink-soft);
-      max-width: 80ch;
-      font-size: clamp(1rem, 1.2vw, 1.075rem);
-      line-height: 1.65
+      max-width: 92ch;
+      font-size: clamp(1.075rem, 1.45vw, 1.3rem);
+      line-height: 1.7
     }
 
     @media (max-width: 560px) {

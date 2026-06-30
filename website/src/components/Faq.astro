@@ -20,9 +20,47 @@ const { items, title = 'Häufige', tail = 'Fragen.' } = Astro.props;
             <span class="faq-qt">{item.q}</span>
             <span class="pm" aria-hidden="true"></span>
           </summary>
-          <div class="faq-a"><p set:html={item.a}></p></div>
+          <div class="faq-a"><div class="faq-a-inner"><p set:html={item.a}></p></div></div>
         </details>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  /* Akkordeon: smooth aus-/einklappen, immer nur ein Eintrag offen.
+     <details> bleibt als No-JS-/SEO-Fallback erhalten; bei aktivem JS
+     steuern wir die Höhe per Klasse (CSS grid-template-rows-Transition). */
+  document.querySelectorAll<HTMLElement>('.faq').forEach((group) => {
+    const items = Array.from(group.querySelectorAll<HTMLDetailsElement>('details.faq-item'));
+
+    const close = (d: HTMLDetailsElement) => {
+      d.classList.remove('is-open');
+      const a = d.querySelector<HTMLElement>('.faq-a');
+      if (!d.open) return;
+      const done = (e: TransitionEvent) => {
+        if (e.propertyName !== 'grid-template-rows') return;
+        if (!d.classList.contains('is-open')) d.open = false;
+        a?.removeEventListener('transitionend', done);
+      };
+      a?.addEventListener('transitionend', done);
+    };
+
+    const open = (d: HTMLDetailsElement) => {
+      d.open = true;
+      const a = d.querySelector<HTMLElement>('.faq-a');
+      void a?.offsetHeight; // Reflow erzwingen, damit 0fr -> 1fr animiert
+      d.classList.add('is-open');
+    };
+
+    items.forEach((d) => {
+      const summary = d.querySelector('summary');
+      summary?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const wasOpen = d.classList.contains('is-open');
+        items.forEach((other) => other !== d && close(other));
+        wasOpen ? close(d) : open(d);
+      });
+    });
+  });
+</script>

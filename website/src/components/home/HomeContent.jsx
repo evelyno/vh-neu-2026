@@ -291,24 +291,27 @@ const FAQS = [
   ['Sind Sie für Asbestsanierung zertifiziert?', 'Ja, Sanierungen führen wir fachgerecht nach TRGS 519 durch — sicher für Ihre Mitarbeiter, die Umgebung und den weiteren Betrieb.'],
   ['In welcher Region sind Sie tätig?', 'Schwerpunkt ist die Region Aachen / Städteregion und das angrenzende Rheinland (Düsseldorf, Köln). Für größere Projekte sind wir überregional im Einsatz.'],
 ];
-function FaqItem({ q, a }) {
-  const [open, setOpen] = useState(false);
+function FaqItem({ q, a, isOpen, onToggle }) {
   return (
-    <motion.div className={`faq-item${open ? ' open' : ''}`} variants={fadeUp}>
-      <button className="faq-q" onClick={() => setOpen((o) => !o)}>
+    <motion.div className={`faq-item${isOpen ? ' is-open' : ''}`} variants={fadeUp}>
+      <button className="faq-q" onClick={onToggle}>
         <span className="faq-num" aria-hidden="true"></span>
         <span className="faq-qt">{q}</span>
         <span className="pm" aria-hidden="true"></span>
       </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div className="faq-a"
-            initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 0.61, 0.36, 1] }}>
-            <p>{a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className="faq-a"><div className="faq-a-inner"><p>{a}</p></div></div>
+    </motion.div>
+  );
+}
+
+function FaqList({ items }) {
+  const [openIdx, setOpenIdx] = useState(null);
+  return (
+    <motion.div className="faq" style={{ marginTop: 'clamp(40px,5vw,64px)' }} variants={stagger} {...inView}>
+      {items.map(([q, a], i) => (
+        <FaqItem key={q} q={q} a={a} isOpen={openIdx === i}
+          onToggle={() => setOpenIdx((cur) => (cur === i ? null : i))} />
+      ))}
     </motion.div>
   );
 }
@@ -509,9 +512,7 @@ export default function HomeContent() {
           <Reveal className="section-head" style={{ marginInline: 'auto', textAlign: 'center' }}>
             <TwoTone as="h2" lead="Häufige" tail="Fragen." />
           </Reveal>
-          <motion.div className="faq" style={{ marginTop: 'clamp(40px,5vw,64px)' }} variants={stagger} {...inView}>
-            {FAQS.map(([q, a]) => <FaqItem key={q} q={q} a={a} />)}
-          </motion.div>
+          <FaqList items={FAQS} />
         </div>
       </section>
 
