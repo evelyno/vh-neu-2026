@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValueEvent,
 } from 'framer-motion';
-import { heroVariant } from '../../data/site';
+import { heroVariant, heroMotion } from '../../data/site';
 
 /* ---------- shared easing / variants ---------- */
 const EASE = [0.16, 1, 0.3, 1];
@@ -77,9 +77,10 @@ function WordReveal({ text, className, style }) {
 
 /* ============================ HERO ============================ */
 const FRAME_COUNT = 193;
-function Hero({ variant = 'v1' }) {
+function Hero({ variant = 'v1', motionMode = 'frames' }) {
   const heroRef = useRef(null);
   const canvasRef = useRef(null);
+  const videoRef = useRef(null);
   const st = useRef({ frames: [], ctx: null, W: 0, H: 0, first: false });
   const [progress, setProgress] = useState(0);
 
@@ -105,9 +106,52 @@ function Hero({ variant = 'v1' }) {
     const w = img.naturalWidth * s, h = img.naturalHeight * s;
     ctx.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
   }
-  useMotionValueEvent(smooth, 'change', draw);
 
+  // Video variant: map scroll progress onto the clip's playback time.
+  function seekVideo(p) {
+    const v = videoRef.current;
+    const d = v && v.duration;
+    if (!d || !isFinite(d)) return;
+    const t = Math.min(d - 0.05, Math.max(0, p * d));
+    if (Math.abs(v.currentTime - t) > 0.01) {
+      try { v.currentTime = t; } catch { /* seeking not ready yet */ }
+    }
+  }
+
+  useMotionValueEvent(smooth, 'change', (p) => {
+    if (motionMode === 'video') seekVideo(p);
+    else draw(p);
+  });
+
+  // --- Video motion source (scroll-scrubbed build.mp4) ---
   useEffect(() => {
+    if (motionMode !== 'video') return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.pause();
+    const onMeta = () => { setProgress(100); seekVideo(smooth.get()); };
+    const onProgress = () => {
+      try {
+        if (v.duration && v.buffered.length) {
+          const end = v.buffered.end(v.buffered.length - 1);
+          setProgress(Math.min(100, Math.round((end / v.duration) * 100)));
+        }
+      } catch { /* buffered not accessible yet */ }
+    };
+    if (v.readyState >= 1) onMeta();
+    v.addEventListener('loadedmetadata', onMeta);
+    v.addEventListener('progress', onProgress);
+    v.addEventListener('canplaythrough', onMeta);
+    return () => {
+      v.removeEventListener('loadedmetadata', onMeta);
+      v.removeEventListener('progress', onProgress);
+      v.removeEventListener('canplaythrough', onMeta);
+    };
+  }, [motionMode]);
+
+  // --- Frame-sequence motion source (193 WebP images on canvas) ---
+  useEffect(() => {
+    if (motionMode !== 'frames') return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     st.current.ctx = ctx;
@@ -146,7 +190,12 @@ function Hero({ variant = 'v1' }) {
   return (
     <section className={`hero${variant === 'v2' ? ' hero--v2' : ''}`} ref={heroRef} id="hero">
       <div className="hero-stage">
-        <canvas id="buildCanvas" ref={canvasRef}></canvas>
+        {motionMode === 'video' ? (
+          <video id="buildVideo" ref={videoRef} src="/build.mp4"
+            muted playsInline preload="auto" tabIndex={-1} aria-hidden="true"></video>
+        ) : (
+          <canvas id="buildCanvas" ref={canvasRef}></canvas>
+        )}
         <div className="hero-grad"></div>
         <motion.div className="hero-dim" style={{ opacity: dimOpacity }}></motion.div>
 
@@ -365,9 +414,15 @@ function ContactForm() {
 
 /* ============================ HOME CONTENT ============================ */
 export default function HomeContent() {
+  // Default from config; allow ?hero=video / ?hero=frames to override for A/B comparison.
+  const [motionMode, setMotionMode] = useState(heroMotion);
+  useEffect(() => {
+    const p = new URLSearchParams(location.search).get('hero');
+    if (p === 'video' || p === 'frames') setMotionMode(p);
+  }, []);
   return (
     <>
-      <Hero variant={heroVariant} />
+      <Hero variant={heroVariant} motionMode={motionMode} />
 
       {/* WARUM */}
       <section className="section" id="warum">

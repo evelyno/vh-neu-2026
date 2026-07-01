@@ -37,6 +37,14 @@ export const company = {
  */
 export const heroVariant: 'v1' | 'v2' = 'v2';
 
+/**
+ * Hero-Motion: Quelle der Bau-Animation im Hero.
+ *  'frames' = 193 WebP-Einzelbilder, per Scroll auf Canvas gescrubbt (aktuell/Standard)
+ *  'video'  = build.mp4, dessen Abspielzeit per Scroll gescrubbt wird (ältere Video-Variante)
+ * Zum Vergleichen ohne Rebuild: ?hero=video bzw. ?hero=frames an die URL anhängen.
+ */
+export const heroMotion: 'frames' | 'video' = 'frames';
+
 export type NavChild = { label: string; href: string; img?: string; desc?: string };
 export type NavItem = { label: string; href: string; children?: NavChild[] };
 

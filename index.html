@@ -274,9 +274,18 @@ h3{font-size:clamp(1.3rem,2.2vw,1.8rem);letter-spacing:-.02em;line-height:1.05}
 .svc-row:hover .ttl{transform:translateX(8px)}
 .svc-row:hover .desc{color:rgba(255,255,255,.85)}
 @media(max-width:820px){
-  .svc-row{grid-template-columns:1fr;gap:1rem;align-items:start}
-  .svc-row .desc{justify-self:start;text-align:left}
-  .svc-row .thumb{width:64px;height:64px}
+  .svc-row{
+    grid-template-columns:auto auto 1fr;
+    grid-template-areas:"num thumb ttl" "desc desc desc";
+    column-gap:1rem;row-gap:.7rem;align-items:center;
+  }
+  .svc-row .num{position:static;grid-area:num;align-self:center}
+  .svc-row .thumb{grid-area:thumb;width:56px;height:56px}
+  .svc-row .ttl{grid-area:ttl;font-size:clamp(1.6rem,6.5vw,2.4rem)}
+  .svc-row .desc{grid-area:desc;justify-self:start;text-align:left;max-width:none}
+  /* number now sits in the flow, so no hover-shift overlap */
+  .svc-row:hover{padding-left:0}
+  .svc-row:hover .ttl{transform:none}
 }
 
 /* ============================================================
