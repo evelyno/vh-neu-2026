@@ -68,13 +68,13 @@ export const nav: NavItem[] = [
       {
         label: 'Sanierung',
         href: '/leistungen/sanierung',
-        img: '/img/sanierung.webp',
+        img: '/img/sanierung-hero.webp',
         desc: 'Schadstoff- & Rückbau nach TRGS 519, energetisch revitalisiert.',
       },
       {
         label: 'Privatbau',
         href: '/leistungen/privatbau',
-        img: '/img/umbau.webp',
+        img: '/img/privatbau-efh.webp',
         desc: 'Wohnungsbau & Bauen im Bestand — vom Eigenheim bis zum Umbau.',
       },
     ],
